@@ -17,7 +17,7 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 2 — Detection Engine
 
 ---
 
@@ -81,5 +81,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-25
-**Last action:** Phase 1 complete — all 4 plans executed and human-verified on live LinkedIn
-**Next action:** Plan Phase 2 — run `/gsd-discuss-phase 2` then `/gsd-plan-phase 2`
+**Last action:** Phase 2 context gathered — all implementation decisions captured in `02-CONTEXT.md`, discussion log in `02-DISCUSSION-LOG.md`
+**Next action:** Plan Phase 2 — run `/gsd-plan-phase 2`
