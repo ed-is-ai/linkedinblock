@@ -1,0 +1,25 @@
+{
+  "name": "linkedin-blocker",
+  "version": "0.1.0",
+  "description": "Chrome MV3 extension that hides AI-generated posts on LinkedIn.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "preact": "^10.0.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.0",
+    "@types/chrome": "^0.1.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-web-extension": "^4.5.1"
+  }
+}
