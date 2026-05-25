@@ -3,13 +3,15 @@ import preact from '@preact/preset-vite';
 import webExtension from 'vite-plugin-web-extension';
 
 export default defineConfig({
+  root: 'src',
   plugins: [
     preact(),
     webExtension({
-      manifest: 'src/manifest.json',
+      manifest: 'manifest.json',
     }),
   ],
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
+    emptyOutDir: true,
   },
 });
