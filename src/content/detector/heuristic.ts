@@ -16,6 +16,7 @@ import { checkBuzzwords } from './signals/buzzwords';
 import { checkEmDash } from './signals/em-dash';
 import { checkCta } from './signals/cta';
 import { checkGenericComments } from './signals/comments';
+import { checkAiVocab } from './signals/ai-vocab';
 
 /** Constructor options for HeuristicDetector. */
 export interface HeuristicDetectorOptions {
@@ -102,6 +103,15 @@ export class HeuristicDetector implements Detector {
     if (emDashScore > 0) {
       breakdown['em-dash'] = emDashScore;
       score += emDashScore;
+    }
+
+    // Step 3b: AI-vocabulary density + negative parallelisms (Wikipedia: Signs of AI Writing).
+    // Detects LLM-characteristic words (delve, meticulous, tapestry, etc.) and
+    // "not just X, but also Y" constructions. Weight: up to 12 pts.
+    const aiVocabScore = checkAiVocab(post.postText);
+    if (aiVocabScore > 0) {
+      breakdown['ai-vocab'] = aiVocabScore;
+      score += aiVocabScore;
     }
 
     // Step 4: Engagement signal — gated behind content score > 20 (D-02, DETECT-07).
