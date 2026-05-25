@@ -70,6 +70,9 @@ Detection starts as rule-based heuristics. The architecture must allow plugging 
 - [ ] User can dismiss false positives from popup
 - [ ] Detection thresholds are configurable
 - [ ] Detection engine is pluggable (heuristic → LLM swap)
+- [ ] Dedicated dashboard page showing % of posts flagged over a rolling time window
+- [ ] Dashboard breaks down flagged content by signal type: AI-written language vs bot-like behaviour
+- [ ] Dashboard time window is user-selectable (e.g. 7 days, 30 days)
 
 ### Out of Scope (v1)
 
