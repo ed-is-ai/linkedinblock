@@ -91,3 +91,63 @@ export const SPONSORED_MARKER = '[aria-label*="Promoted"], [aria-label*="Sponsor
  * Use with authorProfileUrl.includes(COMPANY_PAGE_MARKER) in content script logic.
  */
 export const COMPANY_PAGE_MARKER = '/company/';
+
+// ---------------------------------------------------------------------------
+// Phase 2 additions
+// All constants below are tagged [ASSUMED] — requires live LinkedIn DevTools
+// verification before code depending on these selectors is shipped.
+// ---------------------------------------------------------------------------
+
+/**
+ * Post body text container selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * The commentary container typically carries a data-test-id attribute containing "commentary".
+ */
+export const POST_BODY_TEXT = '[data-test-id*="commentary"]';
+
+/**
+ * Author profile link anchor selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * LinkedIn uses data-anonymize="person-name" on the anchor wrapping the author name in the post header.
+ * The href of this anchor contains the profile slug (e.g. /in/username/).
+ */
+export const POST_AUTHOR_LINK = 'a[data-anonymize="person-name"]';
+
+/**
+ * Reshare inner card selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * When a post is a reshare, LinkedIn renders an inner card element with a data-urn starting with
+ * "urn:li:share:" nested inside the outer activity card (urn:li:activity:*).
+ * Per D-10: the original author's text and profile are extracted from this inner card;
+ * the outer activity URN remains the dedup key (Pitfall 6).
+ */
+export const RESHARE_INDICATOR = '[data-urn^="urn:li:share:"]';
+
+/**
+ * Comment section expand button selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * Matches the clickable button used to expand the comments section on a post.
+ * Read-only action (does not submit, like, or follow) — safe to click programmatically per D-02.
+ */
+export const COMMENT_EXPAND_BUTTON =
+  '[aria-label*="comment"], [data-control-name*="comment"]';
+
+/**
+ * Open to Work avatar banner selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * LinkedIn renders an aria-label containing "Open to work" on the profile photo overlay or badge
+ * for users who have enabled the Open to Work feature.
+ * Per D-12: Open to Work authors are NOT hard-excluded; instead the effective hide threshold is
+ * raised by 20 points (requires 80/100 to auto-hide) to reduce false positives for job seekers.
+ */
+export const OPEN_TO_WORK_MARKER =
+  '[aria-label*="Open to work"], [aria-label*="open to work"]';
+
+/**
+ * Comment text body element selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * Matches the body of an individual comment within the expanded comment section.
+ * Used by the engagement signal (DETECT-07) to extract comment text for near-duplicate detection.
+ */
+export const COMMENT_TEXT =
+  '[data-test-id*="comment-body"], [data-id*="comment"] span';
