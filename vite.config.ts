@@ -4,6 +4,7 @@ import webExtension from 'vite-plugin-web-extension';
 
 export default defineConfig({
   root: 'src',
+  base: './',
   plugins: [
     preact(),
     webExtension({
