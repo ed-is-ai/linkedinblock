@@ -82,13 +82,32 @@
 
 ## Traceability
 
-| REQ-ID | Phase |
-|--------|-------|
-| INFRA-01 – INFRA-05 | Phase 1: Foundation |
-| DETECT-01 – DETECT-07 | Phase 2: Detection Engine |
-| FEED-01 – FEED-03 | Phase 2: Detection Engine |
-| QUEUE-01 – QUEUE-02 | Phase 3: Storage & Queue |
-| POPUP-01 – POPUP-03 | Phase 4: Popup UI |
-| ACTION-01 – ACTION-02 | Phase 5: User Decisions |
-| CONFIG-01 – CONFIG-02 | Phase 2 (interface) + Phase 6 (UI) |
-| DASH-01 – DASH-03 | Phase 6: Settings & Dashboard |
+| REQ-ID | Phase | Status |
+|--------|-------|--------|
+| INFRA-01 | Phase 1: Foundation | Pending |
+| INFRA-02 | Phase 1: Foundation | Pending |
+| INFRA-03 | Phase 1: Foundation | Pending |
+| INFRA-04 | Phase 1: Foundation | Pending |
+| INFRA-05 | Phase 1: Foundation | Pending |
+| DETECT-01 | Phase 2: Detection Engine | Pending |
+| DETECT-02 | Phase 2: Detection Engine | Pending |
+| DETECT-03 | Phase 2: Detection Engine | Pending |
+| DETECT-04 | Phase 2: Detection Engine | Pending |
+| DETECT-05 | Phase 2: Detection Engine | Pending |
+| DETECT-06 | Phase 2: Detection Engine | Pending |
+| DETECT-07 | Phase 2: Detection Engine | Pending |
+| FEED-01 | Phase 2: Detection Engine | Pending |
+| FEED-02 | Phase 2: Detection Engine | Pending |
+| FEED-03 | Phase 2: Detection Engine | Pending |
+| CONFIG-02 | Phase 2: Detection Engine | Pending |
+| QUEUE-01 | Phase 3: Storage & Queue | Pending |
+| QUEUE-02 | Phase 3: Storage & Queue | Pending |
+| POPUP-01 | Phase 4: Popup UI | Pending |
+| POPUP-02 | Phase 4: Popup UI | Pending |
+| POPUP-03 | Phase 4: Popup UI | Pending |
+| ACTION-01 | Phase 5: User Decisions | Pending |
+| ACTION-02 | Phase 5: User Decisions | Pending |
+| CONFIG-01 | Phase 6: Settings & Dashboard | Pending |
+| DASH-01 | Phase 6: Settings & Dashboard | Pending |
+| DASH-02 | Phase 6: Settings & Dashboard | Pending |
+| DASH-03 | Phase 6: Settings & Dashboard | Pending |
