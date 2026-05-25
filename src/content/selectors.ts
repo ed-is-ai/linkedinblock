@@ -50,9 +50,14 @@ export const POST_CARD =
 /**
  * The attribute name that holds the post URN on the post card element.
  * Used with element.getAttribute(POST_URN_ATTR).
- * Fallback: data-id (checked in code after data-urn fails).
  */
 export const POST_URN_ATTR = 'data-urn';
+
+/**
+ * Fallback URN attribute name used when data-urn is absent.
+ * Both data-urn and data-id were observed on live LinkedIn post cards (DOM-INSPECTION.md).
+ */
+export const POST_URN_ATTR_FALLBACK = 'data-id';
 
 // ---------------------------------------------------------------------------
 // Author

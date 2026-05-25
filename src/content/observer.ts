@@ -19,6 +19,7 @@ import {
   FEED_CONTAINER_FALLBACK,
   POST_CARD,
   POST_URN_ATTR,
+  POST_URN_ATTR_FALLBACK,
   POST_AUTHOR_NAME,
   SELECTORS_VERSION,
 } from './selectors';
@@ -81,7 +82,7 @@ function attachObserver(
           let urn = card.getAttribute(POST_URN_ATTR);
           // Fallback: try data-id when data-urn is absent
           if (!urn) {
-            urn = card.getAttribute('data-id');
+            urn = card.getAttribute(POST_URN_ATTR_FALLBACK);
           }
           if (!urn || processedPosts.has(urn)) continue;
           processedPosts.add(urn);
