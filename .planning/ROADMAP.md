@@ -20,16 +20,11 @@
 
 ## Phase Details
 
-### Phase 1: Foundation
-**Goal**: The extension reliably observes the LinkedIn feed DOM across SPA navigation and page reloads without losing the observer
-**Depends on**: Nothing (first phase)
-**Requirements**: INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
-**Success Criteria** (what must be TRUE):
-  1. Extension loads on linkedin.com without console errors and appears active in chrome://extensions
-  2. Console logs show a post URN and author name for every post card that enters the feed as the user scrolls
-  3. Navigating from the feed to a profile page and back does not stop the observer from logging new posts
-  4. Selector registry exists as a single file — updating one selector value immediately fixes any breakage site-wide
-**Plans**: TBD
+**Plans:** 4 plans
+  - [ ] 01-01-PLAN.md — Project scaffold (Vite + vite-plugin-web-extension + MV3 manifest + D-04 layout) — INFRA-01
+  - [ ] 01-02-PLAN.md — Live LinkedIn DOM inspection prerequisite — captures verified selectors
+  - [ ] 01-03-PLAN.md — Selector registry + shared types + typed chrome.storage.local wrapper — INFRA-03, INFRA-04
+  - [ ] 01-04-PLAN.md — MutationObserver + SPA navigation handler + content script wiring — INFRA-02, INFRA-05
 
 ### Phase 2: Detection Engine
 **Goal**: Posts are automatically scored and hidden in the feed when they exceed the bot-probability threshold, with per-signal scores stored
@@ -94,7 +89,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/? | Not started | - |
+| 1. Foundation | 0/4 | Not started | - |
 | 2. Detection Engine | 0/? | Not started | - |
 | 3. Storage & Queue | 0/? | Not started | - |
 | 4. Popup UI | 0/? | Not started | - |
