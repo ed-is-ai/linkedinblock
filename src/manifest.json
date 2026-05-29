@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Hides AI-generated posts on LinkedIn.",
   "permissions": ["storage", "activeTab"],
-  "host_permissions": ["https://www.linkedin.com/*"],
+  "host_permissions": ["https://www.linkedin.com/*", "https://api.anthropic.com/*"],
   "background": {
     "service_worker": "background/index.ts",
     "type": "module"

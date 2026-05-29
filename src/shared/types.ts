@@ -132,4 +132,6 @@ export interface StorageSchema {
    * Phase 2 writes FlaggedAccountStub entries; Phase 3 expands the type further.
    */
   flaggedAccounts?: Record<string, FlaggedAccountStub>;
+  /** Anthropic API key — set once via DevTools: chrome.storage.local.set({anthropicApiKey:'sk-ant-...'}) */
+  anthropicApiKey?: string;
 }

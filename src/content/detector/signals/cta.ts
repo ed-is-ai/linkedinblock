@@ -26,6 +26,11 @@ const CTA_CLOSERS: readonly RegExp[] = [
   /\bsave this (for later)?\b/i,
   /\bshare (this|your thoughts)\b/i,
   /\blet me know (in the comments|below)\b/i,
+  /\blet'?s connect\b/i,
+  /\bDM me\b/i,
+  /\bsounds interesting\b/i,
+  /\bwhich (one |camp |side )?(are you|do you)\b/i,
+  /\bagree\?/i,
 ];
 
 /**

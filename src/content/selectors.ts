@@ -17,7 +17,7 @@
  */
 
 /** Version of the selector registry. Increment when a verified change is made. */
-export const SELECTORS_VERSION = '1.0.0';
+export const SELECTORS_VERSION = '1.2.0';
 
 // ---------------------------------------------------------------------------
 // Feed container
@@ -25,13 +25,13 @@ export const SELECTORS_VERSION = '1.0.0';
 
 /**
  * Primary feed container selector.
- * Verified: div[data-finite-scroll-hotkey-context="FEED"] wraps the infinite-scroll feed.
+ * Verified 2026-05-29: LinkedIn replaced data-finite-scroll-hotkey-context with
+ * data-component-type="LazyColumn" on the feed container element.
  */
-export const FEED_CONTAINER = 'div[data-finite-scroll-hotkey-context="FEED"]';
+export const FEED_CONTAINER = '[data-component-type="LazyColumn"]';
 
 /**
  * Fallback feed container selector.
- * The <main> element is a stable semantic fallback when the primary attribute is absent.
  */
 export const FEED_CONTAINER_FALLBACK = 'main';
 
@@ -41,23 +41,22 @@ export const FEED_CONTAINER_FALLBACK = 'main';
 
 /**
  * Post card root element selector.
- * Verified: post cards carry data-urn or data-id starting with "urn:li:activity:".
- * The selector matches both attribute variants to maximise compatibility.
+ * Verified 2026-05-29: LinkedIn replaced data-urn/data-id with a componentkey attribute.
+ * Top-level div[componentkey] elements within the LazyColumn are the post card roots.
+ * The componentkey value is an opaque UUID used as the post dedup key.
  */
-export const POST_CARD =
-  'div[data-urn^="urn:li:activity:"], div[data-id^="urn:li:activity:"]';
+export const POST_CARD = 'div[componentkey]';
 
 /**
- * The attribute name that holds the post URN on the post card element.
- * Used with element.getAttribute(POST_URN_ATTR).
+ * The attribute name that holds the post ID on the post card element.
+ * Verified 2026-05-29: componentkey replaces the former data-urn (urn:li:activity:*).
  */
-export const POST_URN_ATTR = 'data-urn';
+export const POST_URN_ATTR = 'componentkey';
 
 /**
- * Fallback URN attribute name used when data-urn is absent.
- * Both data-urn and data-id were observed on live LinkedIn post cards (DOM-INSPECTION.md).
+ * Fallback post ID attribute — same as primary since componentkey is the only stable attr.
  */
-export const POST_URN_ATTR_FALLBACK = 'data-id';
+export const POST_URN_ATTR_FALLBACK = 'componentkey';
 
 // ---------------------------------------------------------------------------
 // Author
@@ -65,11 +64,10 @@ export const POST_URN_ATTR_FALLBACK = 'data-id';
 
 /**
  * Author display name element selector.
- * Verified: LinkedIn uses data-anonymize="person-name" on the author name span.
- * Extract text content from the inner span with dir="ltr" to avoid duplicate
- * visually-hidden text from screen reader siblings.
+ * Verified 2026-05-29: Author name is in a strong inside the profile anchor. The :has(strong)
+ * filter excludes avatar links (plain <a href="/in/..."> with no text children).
  */
-export const POST_AUTHOR_NAME = 'span[data-anonymize="person-name"]';
+export const POST_AUTHOR_NAME = 'a[href*="/in/"]:has(strong) strong';
 
 // ---------------------------------------------------------------------------
 // Exclusion markers
@@ -94,24 +92,26 @@ export const COMPANY_PAGE_MARKER = '/company/';
 
 // ---------------------------------------------------------------------------
 // Phase 2 additions
-// All constants below are tagged [ASSUMED] — requires live LinkedIn DevTools
-// verification before code depending on these selectors is shipped.
+// POST_BODY_TEXT, POST_AUTHOR_LINK, POST_AUTHOR_NAME: verified 2026-05-29 against live feed.
+// FEED_CONTAINER, POST_CARD, POST_URN_ATTR: verified 2026-05-29 — LinkedIn replaced data-* attrs
+// with componentkey attribute and data-component-type="LazyColumn" container.
+// RESHARE_INDICATOR, COMMENT_EXPAND_BUTTON, OPEN_TO_WORK_MARKER, COMMENT_TEXT: [ASSUMED] — still
+// requires live LinkedIn DevTools verification before code depending on these selectors is shipped.
 // ---------------------------------------------------------------------------
 
 /**
  * Post body text container selector.
- * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
- * The commentary container typically carries a data-test-id attribute containing "commentary".
+ * Verified 2026-05-29: Post body is in a span with data-testid="expandable-text-box".
+ * LinkedIn removed div[dir="ltr"] as the commentary container.
  */
-export const POST_BODY_TEXT = '[data-test-id*="commentary"]';
+export const POST_BODY_TEXT = 'span[data-testid="expandable-text-box"]';
 
 /**
  * Author profile link anchor selector.
- * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
- * LinkedIn uses data-anonymize="person-name" on the anchor wrapping the author name in the post header.
- * The href of this anchor contains the profile slug (e.g. /in/username/).
+ * Verified 2026-05-29: The profile anchor no longer carries data-test-app-aware-link or
+ * aria-label. :has(strong) filters out avatar-only anchors that share the /in/ href pattern.
  */
-export const POST_AUTHOR_LINK = 'a[data-anonymize="person-name"]';
+export const POST_AUTHOR_LINK = 'a[href*="/in/"]';
 
 /**
  * Reshare inner card selector.

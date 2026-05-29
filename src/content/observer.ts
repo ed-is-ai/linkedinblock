@@ -3,27 +3,17 @@
  *
  * Exports a single entry point: startObserving(onPost).
  *
- * Internals:
- *   - waitForFeedContainer(): exponential-backoff retry for the feed container
- *   - extractPostData(): pure helper to extract full ObservedPost from a card element
- *   - attachObserver(): MutationObserver wired to the feed container
- *   - installSpaNavigationHandler(): pushState monkey-patch + popstate listener
- *   - reinit(): disconnect + clear + reattach on route change
+ * Strategy: trigger on span[data-testid="expandable-text-box"] appearing in the DOM.
+ * That span only exists when a post's text is ready, so no text-readiness gate is needed.
+ * From the span we walk up to find the outermost div[componentkey] post card.
  *
  * INFRA-04: All selector strings are imported from ./selectors.
- * This file must never contain 'data-urn', 'data-finite-scroll-hotkey-context',
- * 'data-anonymize', or any other LinkedIn selector string as raw string literals.
- * Phase 2 additions: POST_BODY_TEXT and POST_AUTHOR_LINK are imported for full
- * PostData extraction; RESHARE_INDICATOR is imported for reshare-aware author/body
- * extraction per D-10.
  */
 
 import {
   FEED_CONTAINER,
   FEED_CONTAINER_FALLBACK,
-  POST_CARD,
   POST_URN_ATTR,
-  POST_URN_ATTR_FALLBACK,
   POST_AUTHOR_NAME,
   POST_BODY_TEXT,
   POST_AUTHOR_LINK,
@@ -73,49 +63,76 @@ async function waitForFeedContainer(): Promise<Element | null> {
 // extractPostData
 // ---------------------------------------------------------------------------
 
-/**
- * Pure helper: extracts a full ObservedPost from a post card element and its outer URN.
- *
- * Reshare handling (D-10 + Pitfall 6):
- *   - When RESHARE_INDICATOR is present as an inner card, the original author's name,
- *     profile link, and post body are read from that inner card.
- *   - The outer `card` element is always returned as `postNode` — it is what receives
- *     `.llb-hidden` and has the tombstone injected before it.
- *   - The outer activity URN is the dedup key; the inner share URN is never added to
- *     processedPosts (Pitfall 6 invariant preserved in attachObserver).
- *
- * Security (T-02-01): postText is read via `.innerText` (not `.innerHTML`) to avoid
- * any XSS risk from LinkedIn-controlled post content entering the content script as HTML.
- */
 function extractPostData(card: Element, urn: string): ObservedPost {
-  // Reshare detection: if an inner card with urn:li:share:* is present, read author
-  // and body from it (original post); otherwise read from the outer card itself.
   const innerCard = card.querySelector(RESHARE_INDICATOR);
   const sourceEl = innerCard ?? card;
 
-  // Author name — fall back to '<unknown>' per D-09 (tombstone copy depends on it)
-  const authorName =
-    sourceEl.querySelector(POST_AUTHOR_NAME)?.textContent?.trim() ?? '<unknown>';
-
-  // Author profile URL from the anchor href — browser-parsed, not innerHTML (T-02-01)
-  const authorAnchor = sourceEl.querySelector(POST_AUTHOR_LINK) as HTMLAnchorElement | null;
+  const authorAnchor = ([...sourceEl.querySelectorAll(POST_AUTHOR_LINK)] as HTMLAnchorElement[])
+    .find(a => (a.textContent ?? '').trim().length > 0) ?? null;
   const authorProfileUrl = authorAnchor?.href ?? '';
+  const authorName = (
+    authorAnchor?.querySelector('strong')?.textContent?.trim() ||
+    authorAnchor?.querySelector('span')?.textContent?.trim() ||
+    authorAnchor?.textContent?.trim() ||
+    '<unknown>'
+  );
 
-  // Derive authorId from the /in/<slug>/ portion of the profile URL.
-  // Company pages (/company/) and profiles without a slug produce '' and will be
-  // filtered later by the company-page exclusion in content/exclusions.ts.
-  // ReDoS safety (T-02-04): bounded character class [^/?#]+ with no nested quantifiers.
   const slugMatch = /\/in\/([^/?#]+)/.exec(authorProfileUrl);
   const authorId = slugMatch?.[1] ?? '';
 
-  // Post body text — use innerText (not textContent or innerHTML) per Pitfall 1 so
-  // that "See more" expanded content is captured and HTML tags are not included.
-  const bodyEl = sourceEl.querySelector(POST_BODY_TEXT) as HTMLElement | null;
-  const postText = bodyEl?.innerText?.trimEnd() ?? '';
+  const postText = (sourceEl.querySelector(POST_BODY_TEXT)?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
-  // postNode is always the OUTER card — it is the element that gets hidden and has
-  // the tombstone inserted before it.
   return { urn, authorId, authorName, authorProfileUrl, postText, postNode: card };
+}
+
+// ---------------------------------------------------------------------------
+// dispatchFromBox
+//
+// Called when a span[data-testid="expandable-text-box"] appears in the DOM.
+// Walks up from the span to find the outermost div[componentkey] post card,
+// then dispatches it through the pipeline.
+// ---------------------------------------------------------------------------
+
+function dispatchFromBox(box: Element, onPost: (post: ObservedPost) => void): void {
+  const text = (box.textContent ?? '').replace(/\s+/g, ' ').trim();
+  if (!text) return;
+
+  // Walk up collecting div[componentkey] ancestors; the last one found (outermost)
+  // is the post card. Skip known container-level keys.
+  let outermost: Element | null = null;
+  let cursor: Element | null = box.parentElement;
+  while (cursor && cursor.tagName !== 'BODY') {
+    if (cursor.matches('div[componentkey]')) {
+      const key = cursor.getAttribute('componentkey') ?? '';
+      if (!key.startsWith('container-')) {
+        outermost = cursor; // keep updating — last one found before BODY is outermost
+      }
+    }
+    cursor = cursor.parentElement;
+  }
+
+  if (!outermost) return;
+
+  const urn = outermost.getAttribute(POST_URN_ATTR) ?? '';
+  if (!urn || processedPosts.has(urn)) return;
+
+  processedPosts.add(urn);
+  onPost(extractPostData(outermost, urn));
+}
+
+// ---------------------------------------------------------------------------
+// processElement
+// ---------------------------------------------------------------------------
+
+function processElement(el: Element, onPost: (post: ObservedPost) => void): void {
+  // Dispatch from any text-box spans in this element or its descendants.
+  if (el.matches(POST_BODY_TEXT)) {
+    dispatchFromBox(el, onPost);
+  } else {
+    for (const box of el.querySelectorAll(POST_BODY_TEXT)) {
+      dispatchFromBox(box, onPost);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -131,28 +148,20 @@ function attachObserver(
       if (mutation.type !== 'childList') continue;
       for (const node of mutation.addedNodes) {
         if (node.nodeType !== Node.ELEMENT_NODE) continue;
-        const el = node as Element;
-        const postCards: Element[] = el.matches(POST_CARD)
-          ? [el]
-          : Array.from(el.querySelectorAll(POST_CARD));
-        for (const card of postCards) {
-          let urn = card.getAttribute(POST_URN_ATTR);
-          // Fallback: try data-id when data-urn is absent
-          if (!urn) {
-            urn = card.getAttribute(POST_URN_ATTR_FALLBACK);
-          }
-          if (!urn || processedPosts.has(urn)) continue;
-          // Only the OUTER activity URN is added to processedPosts.
-          // The inner share URN (urn:li:share:*) is NOT added — Pitfall 6 invariant.
-          processedPosts.add(urn);
-          const observed = extractPostData(card, urn);
-          onPost(observed);
-        }
+        processElement(node as Element, onPost);
       }
     }
   });
 
-  observer.observe(container, { childList: true, subtree: true });
+  // Observe document.body so LinkedIn's virtual scrolling (which replaces the
+  // LazyColumn rather than appending to it) does not detach the observer.
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Initial scan: dispatch any posts already in the DOM.
+  for (const box of container.querySelectorAll(POST_BODY_TEXT)) {
+    dispatchFromBox(box, onPost);
+  }
+
   return observer;
 }
 
@@ -161,7 +170,6 @@ function attachObserver(
 // ---------------------------------------------------------------------------
 
 function installSpaNavigationHandler(reinit: () => void): void {
-  // Catch back / forward navigation
   window.addEventListener('popstate', () => {
     if (location.href !== lastUrl) {
       lastUrl = location.href;
@@ -169,7 +177,6 @@ function installSpaNavigationHandler(reinit: () => void): void {
     }
   });
 
-  // Catch programmatic pushState navigation (LinkedIn's primary nav method)
   const originalPushState = history.pushState.bind(history);
   history.pushState = function (...args: Parameters<typeof history.pushState>) {
     originalPushState(...args);

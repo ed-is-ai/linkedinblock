@@ -10,7 +10,7 @@
 ## Phases
 
 - [x] **Phase 1: Foundation** — MutationObserver, selector registry, SPA navigation handling, MV3 scaffolding *(completed 2026-05-25)*
-- [ ] **Phase 2: Detection Engine** — Heuristic scoring, post exclusions, CSS hiding, pluggable detector interface
+- [x] **Phase 2: Detection Engine** — Heuristic scoring, post exclusions, CSS hiding, pluggable detector interface *(completed 2026-05-29)*
 - [ ] **Phase 3: Storage & Queue** — Persist flagged accounts with rolling scores across sessions
 - [ ] **Phase 4: Popup UI** — Preact read-only list of flagged accounts with signal breakdown
 - [ ] **Phase 5: User Decisions** — Block deep link, dismiss false positives, service worker badge relay
@@ -42,16 +42,16 @@
 
 **Wave 1**
 
-  - [ ] 02-01-PLAN.md — Foundations: extend selector registry, expand shared types (signalBreakdown, FlaggedAccountStub, ObservedPost), upgrade observer to extract full PostData incl. reshare-aware postText — DETECT-05, DETECT-06 (interface), FEED-03, CONFIG-02
-  - [ ] 02-02-PLAN.md — Pure signal functions (listicle, buzzwords, em-dash, CTA, generic comments) + non-English exclusion + fast-levenshtein install — DETECT-01, DETECT-04, DETECT-07
+  - [x] 02-01-PLAN.md — Foundations: extend selector registry, expand shared types (signalBreakdown, FlaggedAccountStub, ObservedPost), upgrade observer to extract full PostData incl. reshare-aware postText — DETECT-05, DETECT-06 (interface), FEED-03, CONFIG-02
+  - [x] 02-02-PLAN.md — Pure signal functions (listicle, buzzwords, em-dash, CTA, generic comments) + non-English exclusion + fast-levenshtein install — DETECT-01, DETECT-04, DETECT-07
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-  - [ ] 02-03-PLAN.md — HeuristicDetector class, exclusions guard, tombstone + comment-expand DOM utilities — DETECT-02, DETECT-03, DETECT-05, DETECT-06, DETECT-07, CONFIG-02, FEED-01
+  - [x] 02-03-PLAN.md — HeuristicDetector class, exclusions guard, tombstone + comment-expand DOM utilities — DETECT-02, DETECT-03, DETECT-05, DETECT-06, DETECT-07, CONFIG-02, FEED-01
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-  - [ ] 02-04-PLAN.md — Content script pipeline wiring + SW badge handler + live LinkedIn verification — FEED-01, FEED-02, FEED-03, DETECT-05, CONFIG-02
+  - [x] 02-04-PLAN.md — Content script pipeline wiring + SW badge handler + live LinkedIn verification — FEED-01, FEED-02, FEED-03, DETECT-05, CONFIG-02
 
 **UI hint**: yes
 
@@ -118,7 +118,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete | 2026-05-25 |
-| 2. Detection Engine | 0/? | Not started | - |
+| 2. Detection Engine | 4/4 | Complete | 2026-05-29 |
 | 3. Storage & Queue | 0/? | Not started | - |
 | 4. Popup UI | 0/? | Not started | - |
 | 5. User Decisions | 0/? | Not started | - |
