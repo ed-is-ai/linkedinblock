@@ -131,6 +131,7 @@ This document evolves at phase transitions and milestone boundaries.
 | v1.0 | Core detection, popup queue, block/dismiss, settings & dashboard | Complete 2026-05-30 |
 | v1.1 | Post storage, signal detail view, export, date-based cleanse | Complete 2026-05-30 |
 | v1.2 | Profile bot-rate stat, posts CSV export | Complete 2026-05-30 |
+| v2.0 | Chrome Web Store release — icons, privacy policy, store listing, packaging | Active |
 
 ---
-*Last updated: 2026-05-30 — v1.2 milestone complete*
+*Last updated: 2026-05-30 — v2.0 milestone started (Chrome Web Store release)*

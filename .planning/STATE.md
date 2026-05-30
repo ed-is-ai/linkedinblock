@@ -1,14 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: feed-insights-export
-status: complete
-last_updated: "2026-05-30T14:30:00.000Z"
+milestone: v2.0
+milestone_name: cws-release
+status: in-progress
+last_updated: "2026-05-30T21:00:00.000Z"
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 2
-  completed_plans: 4
+  total_phases: 3
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
   percent: 0
 ---
 
@@ -17,7 +17,7 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v1.2 — profile bot-rate stat on dashboard, posts CSV export
+**Current focus:** v2.0 — Chrome Web Store release (icons, privacy policy, store listing, packaging)
 
 ---
 
@@ -25,17 +25,16 @@ progress:
 
 Milestone v1.0: COMPLETE ✓  
 Milestone v1.1: COMPLETE ✓  
-Milestone v1.2: COMPLETE ✓
+Milestone v1.2: COMPLETE ✓  
+Milestone v2.0: IN PROGRESS
 
 ```
-v1.0: [ Phase 1 ] [ Phase 2 ] [ Phase 3 ] [ Phase 4 ] [ Phase 5 ] [ Phase 6 ]
-        DONE✓      DONE✓       DONE✓       DONE✓       DONE✓       DONE✓
+v1.0: [ Phase 1–6 ] DONE✓
+v1.1: [ Phase 7–9 ] DONE✓
+v1.2: [ Phase 10–11 ] DONE✓
 
-v1.1: [ Phase 7 ] [ Phase 8 ] [ Phase 9 ]
-        DONE✓       DONE✓       DONE✓
-
-v1.2: [ Phase 10 ] [ Phase 11 ]
-        DONE✓        DONE✓
+v2.0: [ Phase 12 ] [ Phase 13 ] [ Phase 14 ]
+        TODO         TODO         TODO
 ```
 
 ---
@@ -44,10 +43,10 @@ v1.2: [ Phase 10 ] [ Phase 11 ]
 
 | Metric | Value |
 |--------|-------|
-| Milestone | v1.2 (feed-insights-export) |
-| v1.2 phases total | 2 |
-| v1.2 phases complete | 0 |
-| v1.2 requirements | 3 (INSIGHT-01–02, EXPORT-03) |
+| Milestone | v2.0 (cws-release) |
+| v2.0 phases total | 3 |
+| v2.0 phases complete | 0 |
+| v2.0 requirements | 6 (CWS-01–06) |
 
 ---
 
@@ -67,22 +66,22 @@ v1.2: [ Phase 10 ] [ Phase 11 ]
 | Popup framework | Preact 10 + JSX; stateless on every open | Phase 4 |
 | Post text storage | Stored on hide (user opt-in, v1.1); 200-post cap, 1000-char truncation | Phase 7 |
 
-### v1.2 Design Decisions
+### v2.0 Design Decisions
 
 | Decision | Outcome |
 |----------|---------|
-| Profile deduplication strategy | Option B: `seenProfileIds: string[]` embedded in each `DailyStats` entry. Content script adds authorId to today's array if not already present. |
-| Profile bot-rate denominator | Union Set of all seenProfileIds across window days → truly unique profiles seen in that window |
-| Bot count for rate | accounts.filter(a => unionSet.has(a.authorId)).length — flagged accounts whose ID appears in the union |
-| Non-flagged profiles | IDs stored in DailyStats but no detail record created — no popup/UI exposure |
-| Storage growth | 30 days × ~100 IDs × ~20 bytes ≈ 60KB max — well within chrome.storage limits |
-| Posts CSV format | One row per stored post; columns authorId, authorName, urn, score, text, hiddenAt; RFC 4180 escaped |
-| Posts CSV button location | "Data management" card on dashboard, alongside existing Export JSON / Export CSV |
+| Privacy policy hosting | GitHub raw file (`PRIVACY.md` in repo root) — no separate hosting needed |
+| Icon approach | PNG at 16/48/128px generated from SVG source in `public/icons/` |
+| Version bump | `manifest.json` version → `1.2.0` to match milestone history |
+| Packaging | `npm run package` script: `vite build` + zip `dist/` → `dist/linkedin-blocker-v1.2.0.zip` |
+| CWS developer account | User registers manually (no programmatic submission) |
+| UI redesign | None — layout unchanged, feature additions only |
 
 ### Todos
 
-- [x] Execute Phase 10 (Profile Insights) — complete 2026-05-30
-- [x] Execute Phase 11 (Posts CSV Export) — complete 2026-05-30
+- [ ] Plan Phase 12 (Manifest & Icons)
+- [ ] Plan Phase 13 (Store Assets)
+- [ ] Plan Phase 14 (Package & Submit)
 
 ### Blockers
 
@@ -93,5 +92,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v1.2 milestone archived — audit passed, planning artifacts updated, ready to commit and tag
-**Next action:** `/gsd-new-milestone` to define v2 (LLM detection is the natural next increment)
+**Last action:** v2.0 milestone defined — REQUIREMENTS.md + ROADMAP.md + PROJECT.md + STATE.md updated
+**Next action:** Run `/gsd-plan-phase 12` to plan Phase 12 (Manifest & Icons)

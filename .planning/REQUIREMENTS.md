@@ -94,7 +94,26 @@ See [milestones/v1.2-REQUIREMENTS.md](milestones/v1.2-REQUIREMENTS.md) for full 
 
 ---
 
-## v2 Requirements (Deferred)
+## v2.0 Requirements — Chrome Web Store Release
+
+### Manifest & Icons
+
+- [ ] **CWS-01**: `manifest.json` has all CWS-required fields: `icons` (16/48/128), `action.default_icon`, `homepage_url`, and version bumped to `1.2.0`
+- [ ] **CWS-02**: PNG icon files exist at `public/icons/icon-16.png`, `public/icons/icon-48.png`, `public/icons/icon-128.png` with a consistent branded design; all referenced in manifest and present in build output
+
+### Store Content
+
+- [ ] **CWS-03**: `PRIVACY.md` in repo root describes data collected (flagged accounts, stored post text), storage location (local only, `chrome.storage.local`), no third-party sharing, and optional LLM API key handling — accessible as a raw GitHub URL
+- [ ] **CWS-04**: `store/LISTING.md` contains: name (≤45 chars), short description (≤132 chars), detailed description (≥300 words), category, keywords, and screenshot guidance checklist for the 5 required store screenshots
+
+### Packaging & Submission
+
+- [ ] **CWS-05**: `npm run package` script builds the extension and zips the `dist/` output to `dist/linkedin-blocker-v1.2.0.zip`; the ZIP loads correctly as an unpacked extension in Chrome
+- [ ] **CWS-06**: `store/SUBMISSION_GUIDE.md` covers: developer account registration ($5 fee + URL), dashboard upload steps, privacy policy URL format, screenshot requirements, category selection, and expected review timeline
+
+---
+
+## Deferred (post-v2)
 
 - LLM-based detection API integration (pluggable engine stub is built in v1)
 - Posting time regularity signal (excluded — too many false positives from scheduling tools)

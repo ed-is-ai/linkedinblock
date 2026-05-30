@@ -1,7 +1,7 @@
 # Roadmap — LinkedIn Blocker
 
 **Project:** LinkedIn Blocker (Chrome MV3)
-**Milestone:** v1 — Clean Feed
+**Milestone:** v1 — Clean Feed, v1.1 — UX & Data, v1.2 — Feed Insights & Export, v2 — CWS Release
 **Granularity:** Coarse
 **Created:** 2026-05-25
 
@@ -217,6 +217,53 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 
 ---
 
+## Milestone v2.0 — Chrome Web Store Release
+
+### Phase 12: Manifest Compliance & Icons
+
+**Goal**: Extension passes CWS technical requirements — correct manifest fields, version, and branded icons at all required sizes
+**Depends on**: Phase 11
+**Requirements**: CWS-01, CWS-02
+**Success Criteria** (what must be TRUE):
+
+  1. `manifest.json` has `icons`, `action.default_icon`, `homepage_url`, and version bumped to `1.2.0`
+  2. `public/icons/icon-16.png`, `icon-48.png`, `icon-128.png` exist with a consistent branded design
+  3. `npx vite build` succeeds and icon files appear in `dist/`
+  4. The `api.anthropic.com` host permission is documented with a justification comment or moved to an optional feature flag note
+
+**Plans**: TBD
+**UI hint**: no
+
+### Phase 13: Store Assets
+
+**Goal**: All Chrome Web Store listing materials are ready — privacy policy, listing copy, and screenshot guidance
+**Depends on**: Phase 12
+**Requirements**: CWS-03, CWS-04
+**Success Criteria** (what must be TRUE):
+
+  1. `PRIVACY.md` in repo root covers: data collected, storage location (local only), no third-party sharing, optional LLM API key handling — accessible as a raw GitHub URL
+  2. `store/LISTING.md` contains: name (≤45 chars), short description (≤132 chars), detailed description (≥300 words), category, keywords, and screenshot guidance checklist
+  3. Both files are committed and the raw GitHub URLs are valid
+
+**Plans**: TBD
+**UI hint**: no
+
+### Phase 14: Package & Submission Guide
+
+**Goal**: Extension is packaged as a CWS-ready .zip and the user has a complete step-by-step submission guide
+**Depends on**: Phase 13
+**Requirements**: CWS-05, CWS-06
+**Success Criteria** (what must be TRUE):
+
+  1. `npm run package` builds and zips the extension to `dist/linkedin-blocker-v1.2.0.zip`
+  2. `store/SUBMISSION_GUIDE.md` covers: developer account registration ($5 fee), dashboard URL, ZIP upload, privacy policy URL, screenshot upload, category selection, and expected review timeline
+  3. The produced `.zip` can be loaded as an unpacked extension in Chrome to confirm correctness before submission
+
+**Plans**: TBD
+**UI hint**: no
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -232,3 +279,6 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 | 9. Export & Cleanse | 2/2 | Complete | 2026-05-30 |
 | 10. Profile Insights | 2/2 | Complete | 2026-05-30 |
 | 11. Posts Export | 2/2 | Complete | 2026-05-30 |
+| 12. Manifest & Icons | 0/TBD | Not started | - |
+| 13. Store Assets | 0/TBD | Not started | - |
+| 14. Package & Submit | 0/TBD | Not started | - |
