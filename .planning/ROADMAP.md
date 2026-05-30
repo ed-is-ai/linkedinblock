@@ -254,7 +254,13 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
   2. `store/LISTING.md` contains: name (≤45 chars), short description (≤132 chars), detailed description (≥300 words), category, keywords, and screenshot guidance checklist
   3. Both files are committed and the raw GitHub URLs are valid
 
-**Plans**: TBD
+**Plans**: 2
+
+**Wave 1** *(parallel — different files)*
+
+  - [x] 13-01-PLAN.md — `PRIVACY.md` in repo root: data inventory, local-only storage, opt-in LLM disclosure, deletion instructions — CWS-03
+  - [x] 13-02-PLAN.md — `store/LISTING.md`: name, short desc ≤132 chars, detailed description ≥300 words, category, permissions justification, 5-screenshot checklist — CWS-04
+
 **UI hint**: no
 
 ### Phase 14: Package & Submission Guide
@@ -289,5 +295,5 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 | 10. Profile Insights | 2/2 | Complete | 2026-05-30 |
 | 11. Posts Export | 2/2 | Complete | 2026-05-30 |
 | 12. Manifest & Icons | 2/2 | Complete | 2026-05-30 |
-| 13. Store Assets | 0/TBD | Not started | - |
+| 13. Store Assets | 2/2 | Complete | 2026-05-31 |
 | 14. Package & Submit | 0/TBD | Not started | - |

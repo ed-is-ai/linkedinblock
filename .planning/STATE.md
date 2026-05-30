@@ -80,7 +80,7 @@ v2.0: [ Phase 12 ] [ Phase 13 ] [ Phase 14 ]
 ### Todos
 
 - [x] Execute Phase 12 (Manifest & Icons) — complete 2026-05-30
-- [ ] Plan Phase 13 (Store Assets)
+- [x] Execute Phase 13 (Store Assets) — complete 2026-05-31
 - [ ] Plan Phase 14 (Package & Submit)
 
 ### Blockers
@@ -92,5 +92,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** Phase 12 executed — icons at 16/48/128px, manifest v1.2.0 with icons/homepage_url, build verified
-**Next action:** Run `/gsd-plan-phase 13` to plan Phase 13 (Store Assets)
+**Last action:** Phase 13 executed — PRIVACY.md + store/LISTING.md written
+**Next action:** Run `/gsd-plan-phase 14` to plan Phase 14 (Package & Submission Guide)
