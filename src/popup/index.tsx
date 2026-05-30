@@ -1,7 +1,7 @@
 import { render } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import type { JSX } from 'preact';
-import type { FlaggedAccount, DailyStats } from '../shared/types';
+import type { FlaggedAccount, DailyStats, StoredPost } from '../shared/types';
 import AccountRow from './AccountRow';
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
   const [saved, setSaved] = useState(false);
   const [hasKey, setHasKey] = useState(false);
   const [accounts, setAccounts] = useState<FlaggedAccount[]>([]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [storedPosts, setStoredPosts] = useState<StoredPost[]>([]);
   const [threshold, setThreshold] = useState(60);
   const [feedPct, setFeedPct] = useState<string | null>(null);
 
@@ -25,7 +27,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    chrome.storage.local.get(['flaggedAccounts', 'dailyStats']).then((result) => {
+    chrome.storage.local.get(['flaggedAccounts', 'dailyStats', 'storedPosts']).then((result) => {
       const raw = (result.flaggedAccounts ?? {}) as Record<string, FlaggedAccount>;
       setAccounts(Object.values(raw));
       const daily = (result.dailyStats ?? []) as DailyStats[];
@@ -36,6 +38,7 @@ function App() {
       const seen = w.reduce((s, d) => s + d.seen, 0);
       const hidden = w.reduce((s, d) => s + d.hidden, 0);
       setFeedPct(seen > 0 ? `${((hidden / seen) * 100).toFixed(1)}%` : null);
+      setStoredPosts((result.storedPosts ?? []) as StoredPost[]);
     });
 
     const listener = (
@@ -136,6 +139,13 @@ function App() {
               account={account}
               onBlock={() => handleBlock(account)}
               onDismiss={() => handleDismiss(account)}
+              isExpanded={expandedId === account.authorId}
+              onToggle={() =>
+                setExpandedId(prev => prev === account.authorId ? null : account.authorId)
+              }
+              posts={storedPosts
+                .filter(p => p.authorId === account.authorId)
+                .slice(0, 3)}
             />
           ))
         )}

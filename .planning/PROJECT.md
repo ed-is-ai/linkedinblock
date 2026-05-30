@@ -74,6 +74,31 @@ Detection starts as rule-based heuristics. The architecture must allow plugging 
 - [ ] Dashboard breaks down flagged content by signal type: AI-written language vs bot-like behaviour
 - [ ] Dashboard time window is user-selectable (e.g. 7 days, 30 days)
 
+### Validated (v1.0 complete)
+
+- Extension detects AI-pattern posts using content heuristics ✓
+- Suspicious posts are hidden automatically in the LinkedIn feed ✓
+- Flagged accounts are queued for review ✓
+- Extension popup displays the review queue with signals ✓
+- User can confirm block from popup ✓
+- User can dismiss false positives from popup ✓
+- Detection thresholds are configurable ✓
+- Detection engine is pluggable (heuristic → LLM swap) ✓
+- Dedicated dashboard page with % flagged, signal categories, 7/30-day window ✓
+
+### Validated (v1.1 complete)
+
+- Post text and metadata are stored locally when a post is hidden ✓
+- Popup account rows are expandable (signal score table + post snippets) ✓
+- Stored posts viewable per account in popup ✓
+- Export JSON (accounts + posts) and Export CSV (accounts) ✓
+- Date-based cleanse with preview and confirm ✓
+
+### Validated (v1.2 complete)
+
+- Dashboard shows "profile bot rate": % of unique profiles seen in the time window that are flagged accounts ✓
+- Posts CSV export: download stored hidden posts with their text as a CSV file ✓
+
 ### Out of Scope (v1)
 
 - Firefox support — ship Chrome first
@@ -99,5 +124,13 @@ This document evolves at phase transitions and milestone boundaries.
 3. Audit Out of Scope — reasons still valid?
 4. Update Context with current state
 
+## Milestone History
+
+| Milestone | Goal | Status |
+|-----------|------|--------|
+| v1.0 | Core detection, popup queue, block/dismiss, settings & dashboard | Complete 2026-05-30 |
+| v1.1 | Post storage, signal detail view, export, date-based cleanse | Complete 2026-05-30 |
+| v1.2 | Profile bot-rate stat, posts CSV export | Complete 2026-05-30 |
+
 ---
-*Last updated: 2026-05-25 after initialization*
+*Last updated: 2026-05-30 — v1.2 milestone complete*

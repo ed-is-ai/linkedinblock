@@ -58,6 +58,42 @@
 
 ---
 
+## v1.1 Requirements
+
+### Post Storage
+
+- [ ] **STORE-01**: When a post is hidden, its text, author, score, and timestamp are saved to `chrome.storage.local` (deliberate user opt-in — overrides v1.0 "never store post text" guideline)
+- [ ] **STORE-02**: Stored posts are capped at 200 entries (oldest evicted when cap hit) to prevent unbounded storage growth
+- [ ] **STORE-03**: Stored post text is truncated at 1000 characters if longer (full text rarely needed for review)
+
+### Popup UX
+
+- [ ] **UX-01**: Account rows in the popup are expandable — clicking the row body reveals the full per-signal score breakdown (signal name + pts for each signal that fired)
+- [ ] **UX-02**: The expanded account view shows up to 3 stored post snippets from that account with their scores
+- [ ] **UX-03**: Expanded rows collapse when another row is expanded (accordion behaviour — one open at a time)
+
+### Export
+
+- [ ] **EXPORT-01**: User can export all flagged accounts (and their stored posts) as a JSON file from the dashboard or popup
+- [ ] **EXPORT-02**: User can export as CSV (accounts only, no post text — flattened row per account)
+
+### Cleanse
+
+- [ ] **CLEANSE-01**: User can clear all data (flagged accounts, stored posts, daily stats, dismissed/blocked lists) before a user-selected date
+- [ ] **CLEANSE-02**: Cleanse shows a confirmation step with a count of records that will be deleted before executing
+
+---
+
+## v1.2 Requirements *(archived — shipped 2026-05-30)*
+
+See [milestones/v1.2-REQUIREMENTS.md](milestones/v1.2-REQUIREMENTS.md) for full record.
+
+- [x] **INSIGHT-01**: Unique author profiles tracked per day in `dailyStats.seenProfileIds`
+- [x] **INSIGHT-02**: Dashboard "Profile bot rate" stat with time-window union
+- [x] **EXPORT-03**: Posts CSV export (`linkedin-blocker-posts-YYYY-MM-DD.csv`)
+
+---
+
 ## v2 Requirements (Deferred)
 
 - LLM-based detection API integration (pluggable engine stub is built in v1)
@@ -110,4 +146,17 @@
 | CONFIG-01 | Phase 6: Settings & Dashboard | Pending |
 | DASH-01 | Phase 6: Settings & Dashboard | Pending |
 | DASH-02 | Phase 6: Settings & Dashboard | Pending |
-| DASH-03 | Phase 6: Settings & Dashboard | Pending |
+| DASH-03 | Phase 6: Settings & Dashboard | Complete |
+| STORE-01 | Phase 7: Post Storage | Pending |
+| STORE-02 | Phase 7: Post Storage | Pending |
+| STORE-03 | Phase 7: Post Storage | Pending |
+| UX-01 | Phase 8: Popup Detail View | Pending |
+| UX-02 | Phase 8: Popup Detail View | Pending |
+| UX-03 | Phase 8: Popup Detail View | Pending |
+| EXPORT-01 | Phase 9: Export & Cleanse | Complete |
+| EXPORT-02 | Phase 9: Export & Cleanse | Complete |
+| CLEANSE-01 | Phase 9: Export & Cleanse | Complete |
+| CLEANSE-02 | Phase 9: Export & Cleanse | Complete |
+| INSIGHT-01 | Phase 10: Profile Insights | Pending |
+| INSIGHT-02 | Phase 10: Profile Insights | Pending |
+| EXPORT-03 | Phase 11: Posts Export | Pending |

@@ -12,9 +12,10 @@
  * Represents a single LinkedIn post as extracted from the DOM by the content script.
  * Passed from the content script to detectors (Phase 2+).
  *
- * Security note (T-03-04): PostData passes through memory only and is NEVER persisted
- * to chrome.storage.local. Storing post text would constitute a privacy risk.
- * See STATE.md decision: "never store post text".
+ * Security note (T-03-04): PostData passes through memory only during detection.
+ * As of v1.1, post text IS persisted to chrome.storage.local via persistStoredPost()
+ * when a post is hidden — the user explicitly opted in to post storage.
+ * See PROJECT.md v1.1 requirements and CONTEXT.md §D-10.
  */
 export interface PostData {
   /** LinkedIn post URN, e.g. "urn:li:activity:7123456789012345678" */
@@ -25,7 +26,7 @@ export interface PostData {
   authorName: string;
   /** Full author profile URL, e.g. "https://www.linkedin.com/in/username/" */
   authorProfileUrl: string;
-  /** Full text content of the post (memory only — never persisted) */
+  /** Post text content. In v1.1, persisted to chrome.storage.local via persistStoredPost() when hidden (user opt-in). Truncated at 1000 chars on storage. */
   postText: string;
 }
 
@@ -127,7 +128,7 @@ export interface ObservedPost {
   authorName: string;
   /** Full author profile URL, e.g. "https://www.linkedin.com/in/username/" */
   authorProfileUrl: string;
-  /** Full text content of the post (memory only — never persisted) */
+  /** Post text content. In v1.1, persisted to chrome.storage.local via persistStoredPost() when hidden (user opt-in). Truncated at 1000 chars on storage. */
   postText: string;
   /** Reference to the outer post card DOM element — used for CSS hiding and tombstone injection */
   postNode: Element;
@@ -147,6 +148,34 @@ export interface DailyStats {
   seen: number;
   /** Posts hidden (score >= effectiveHideThreshold) */
   hidden: number;
+  /** Posts with score >= FLAG_THRESHOLD that had AI language signals */
+  aiSignals?: number;
+  /** Posts with score >= FLAG_THRESHOLD that had bot behaviour signals */
+  botSignals?: number;
+  /** Unique author profile IDs seen on this day (INSIGHT-01). Deduped — one entry per author regardless of post count. */
+  seenProfileIds?: string[];
+}
+
+/**
+ * A hidden post saved to chrome.storage.local for later review (v1.1 post storage).
+ * Stored in StorageSchema.storedPosts as a newest-first array, capped at 200 entries.
+ *
+ * User opt-in: storing post text was explicitly requested and overrides the v1.0
+ * "never store post text" constraint. See PROJECT.md v1.1 requirements.
+ */
+export interface StoredPost {
+  /** LinkedIn post URN — dedup key; matches FlaggedAccount.hiddenPostUrns entries */
+  urn: string;
+  /** Author profile slug — FK to FlaggedAccount; Phase 8 filters by this */
+  authorId: string;
+  /** Author display name at time of hiding */
+  authorName: string;
+  /** Composite detection score at time of hiding (0–100) */
+  score: number;
+  /** Post text truncated at POST_TEXT_MAX_CHARS (1000 chars) */
+  text: string;
+  /** Unix timestamp (ms) when this post was hidden */
+  hiddenAt: number;
 }
 
 /**
@@ -175,4 +204,6 @@ export interface StorageSchema {
   settings?: Settings;
   /** Rolling 30-day stats log. Content script writes; dashboard reads. */
   dailyStats?: DailyStats[];
+  /** Newest-first array of hidden posts saved for review. Capped at 200 entries; content script writes, popup Phase 8 reads. */
+  storedPosts?: StoredPost[];
 }

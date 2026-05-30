@@ -206,8 +206,14 @@
   2. Clicking "Export CSV" downloads a `.csv` file with one row per flagged account (accounts only — no post text)
   3. A "Cleanse data before date" control (date picker) in the dashboard shows a count of records that will be removed; confirming deletes them from all storage keys
 
-**Plans**: TBD
+**Plans**: 2
 **UI hint**: yes
+
+---
+
+## Milestone v1.2 — Feed Insights & Export Completeness *(archived)*
+
+Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2026-05-30. → [v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 
 ---
 
@@ -223,4 +229,6 @@
 | 6. Settings & Dashboard | 3/3 | Complete | 2026-05-30 |
 | 7. Post Storage | 2/2 | Complete | 2026-05-30 |
 | 8. Popup Signal Detail | 2/2 | Complete | 2026-05-30 |
-| 9. Export & Cleanse | 0/2 | Not started | - |
+| 9. Export & Cleanse | 2/2 | Complete | 2026-05-30 |
+| 10. Profile Insights | 2/2 | Complete | 2026-05-30 |
+| 11. Posts Export | 2/2 | Complete | 2026-05-30 |

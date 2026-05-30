@@ -8,6 +8,8 @@ import { expandComments, resetExpansionBudget } from './detector/comment-expand'
 import { extractProfileSignals } from './detector/signals/profile';
 import { storageGet, storageSet } from '../shared/storage';
 import { persistFlaggedAccount } from '../shared/queue';
+import { persistStoredPost } from '../shared/postStore';
+import { AI_LANGUAGE_SIGNALS } from '../shared/signals';
 import type { Detector, PostData, ObservedPost, DailyStats } from '../shared/types';
 
 // ---------------------------------------------------------------------------
@@ -62,6 +64,9 @@ function calcProfileScore(signals: Record<string, number>): number {
 // ---------------------------------------------------------------------------
 let seenToday = 0;
 let hiddenToday = 0;
+let aiSignalsToday = 0;
+let botSignalsToday = 0;
+const seenProfileIdsToday = new Set<string>();
 
 // ---------------------------------------------------------------------------
 // CSS injection — runs once at script startup
@@ -155,9 +160,11 @@ async function writeDailyStats(): Promise<void> {
   const filtered = (dailyStats as DailyStats[]).filter(d => d.date >= cutoffStr);
   const idx = filtered.findIndex(d => d.date === today);
   if (idx >= 0) {
-    filtered[idx] = { date: today, seen: seenToday, hidden: hiddenToday };
+    const existing = filtered[idx]!.seenProfileIds ?? [];
+    const merged = Array.from(new Set([...existing, ...seenProfileIdsToday]));
+    filtered[idx] = { date: today, seen: seenToday, hidden: hiddenToday, seenProfileIds: merged };
   } else {
-    filtered.push({ date: today, seen: seenToday, hidden: hiddenToday });
+    filtered.push({ date: today, seen: seenToday, hidden: hiddenToday, seenProfileIds: Array.from(seenProfileIdsToday) });
   }
   await storageSet({ dailyStats: filtered });
 }
@@ -200,6 +207,9 @@ async function init(): Promise<void> {
     hiddenPostNodes.clear();
     seenToday = 0;
     hiddenToday = 0;
+    aiSignalsToday = 0;
+    botSignalsToday = 0;
+    seenProfileIdsToday.clear();
   });
   const _originalPushState = history.pushState.bind(history);
   history.pushState = function (...args: Parameters<typeof history.pushState>) {
@@ -209,6 +219,7 @@ async function init(): Promise<void> {
     hiddenPostNodes.clear();
     seenToday = 0;
     hiddenToday = 0;
+    seenProfileIdsToday.clear();
   };
 
   startObserving((observed: ObservedPost) => {
@@ -231,6 +242,7 @@ async function init(): Promise<void> {
     if (exclusion.excluded) return;
 
     seenToday++;
+    seenProfileIdsToday.add(authorId);
 
     const effectiveHideThreshold = exclusion.openToWork
       ? autoHideThreshold + OPEN_TO_WORK_PENALTY
@@ -279,6 +291,13 @@ async function init(): Promise<void> {
           postNode,
         ]);
         chrome.runtime.sendMessage({ type: 'POST_HIDDEN' }).catch(() => {});
+        persistStoredPost({
+          urn,
+          authorId: authorId || urn,
+          authorName,
+          score: mergedScore,
+          text: postText,
+        }).catch(() => {});
       }
     }).catch((err) => {
       console.warn('[LLB] detector failure', err);
