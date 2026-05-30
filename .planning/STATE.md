@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: complete
-last_updated: "2026-05-30T00:00:00.000Z"
+milestone: v1.1
+milestone_name: ux-and-data
+status: planning
+last_updated: "2026-05-30T12:39:43.694Z"
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 18
-  completed_plans: 18
-  percent: 100
+  total_phases: 3
+  completed_phases: 2
+  total_plans: 4
+  completed_plans: 4
+  percent: 67
 ---
 
 # State — LinkedIn Blocker
@@ -17,17 +17,20 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v1.0 complete — post-launch improvements and bug fixes
+**Current focus:** v1.1 — post storage, signal detail view, export, date-based cleanse
 
 ---
 
 ## Current Position
 
-Phase: 06 (settings-dashboard) — COMPLETE ✓ ALL PHASES DONE
+Milestone v1.0: COMPLETE ✓
 
 ```
-Progress: [ Phase 1 ] [ Phase 2 ] [ Phase 3 ] [ Phase 4 ] [ Phase 5 ] [ Phase 6 ]
-            DONE✓      DONE✓       DONE✓       DONE✓       DONE✓       DONE✓
+v1.0: [ Phase 1 ] [ Phase 2 ] [ Phase 3 ] [ Phase 4 ] [ Phase 5 ] [ Phase 6 ]
+        DONE✓      DONE✓       DONE✓       DONE✓       DONE✓       DONE✓
+
+v1.1: [ Phase 7 ] [ Phase 8 ] [ Phase 9 ]
+        DONE✓       DONE✓       NEXT
 ```
 
 ---
@@ -36,11 +39,11 @@ Progress: [ Phase 1 ] [ Phase 2 ] [ Phase 3 ] [ Phase 4 ] [ Phase 5 ] [ Phase 6 
 
 | Metric | Value |
 |--------|-------|
-| Phases total | 6 |
-| Phases complete | 6 |
-| Plans complete | 18/18 (all phases) |
-| Requirements mapped | 26/26 |
-| Requirements complete | 26/26 |
+| Milestone | v1.1 (ux-and-data) |
+| v1.0 phases | 6/6 complete |
+| v1.1 phases total | 3 |
+| v1.1 phases complete | 0 |
+| v1.1 requirements | 11 (STORE-01–03, UX-01–03, EXPORT-01–02, CLEANSE-01–02) |
 
 ---
 
@@ -79,5 +82,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** Phase 6 executed — configurable threshold slider, daily stats tracking, dashboard page (% flagged + signal category bars + 7/30d toggle). All 6 phases complete.
-**Next action:** v1.0 milestone complete — run `/gsd-verify-work` or package for Chrome Web Store
+**Last action:** Phase 9 context gathered — Export & Cleanse decisions locked (JSON shape, CSV columns, cleanse logic, dashboard layout)
+**Next action:** Plan Phase 9 — run `/gsd-plan-phase 9`
