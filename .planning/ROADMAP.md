@@ -11,10 +11,10 @@
 
 - [x] **Phase 1: Foundation** — MutationObserver, selector registry, SPA navigation handling, MV3 scaffolding *(completed 2026-05-25)*
 - [x] **Phase 2: Detection Engine** — Heuristic scoring, post exclusions, CSS hiding, pluggable detector interface *(completed 2026-05-29)*
-- [ ] **Phase 3: Storage & Queue** — Persist flagged accounts with rolling scores across sessions
-- [ ] **Phase 4: Popup UI** — Preact read-only list of flagged accounts with signal breakdown
-- [ ] **Phase 5: User Decisions** — Block deep link, dismiss false positives, service worker badge relay
-- [ ] **Phase 6: Settings & Dashboard** — Configurable threshold, 7/30-day rolling stats by signal category
+- [x] **Phase 3: Storage & Queue** — Persist flagged accounts with rolling scores across sessions *(completed 2026-05-29)*
+- [x] **Phase 4: Popup UI** — Preact read-only list of flagged accounts with signal breakdown
+- [x] **Phase 5: User Decisions** — Block deep link, dismiss false positives, service worker badge relay
+- [x] **Phase 6: Settings & Dashboard** — Configurable threshold, 7/30-day rolling stats by signal category
 
 ---
 
@@ -66,7 +66,16 @@
   2. Each flagged account entry in storage contains: account ID, display name, profile URL, post count seen, signals that fired, composite score, and first-seen timestamp
   3. Accounts accumulate a rolling score across sessions — a second high-scoring post from the same account increases their stored score
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+**Wave 1** *(parallel — no cross-plan file conflicts)*
+
+  - [x] 03-01-PLAN.md — Type expansions: FlaggedAccountStub → FlaggedAccount (add postCount + peakScore), StorageSchema adds dismissedAccounts — QUEUE-01, QUEUE-02
+  - [x] 03-02-PLAN.md — Profile signal functions + selectors: AUTHOR_HEADLINE + CONNECTION_DEGREE in selectors.ts, profile.ts with checkHeadlineFormula + checkConnectionDegree + extractProfileSignals — DETECT-06
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+  - [x] 03-03-PLAN.md — Queue rewrite (EMA rolling score, peakScore, postCount, 500-cap eviction) + content/index.ts wiring (dismissedSet guard, profile signal cache + merge, SPA reset) — QUEUE-01, QUEUE-02, DETECT-06
 
 ### Phase 4: Popup UI
 
@@ -79,7 +88,16 @@
   2. Each account row displays the account name, the signals that fired, the composite score, and the number of posts seen
   3. When a new account is flagged while the popup is open, it appears in the list without the user needing to close and reopen the popup
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+**Wave 1**
+
+  - [x] 04-01-PLAN.md — AccountRow presentational component: author link, peakScore, compositeScore (avg), postCount, signal chips (max 4 + overflow) — POPUP-02
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+  - [x] 04-02-PLAN.md — App rewrite: flaggedAccounts state, storage read on mount, chrome.storage.onChanged live updates, pending filter + sort by peakScore DESC, empty state, details/summary API key wrapper — POPUP-01, POPUP-02, POPUP-03
+
 **UI hint**: yes
 
 ### Phase 5: User Decisions
@@ -93,7 +111,13 @@
   2. Clicking Dismiss removes the account from the popup list and prevents it from being re-flagged in future sessions
   3. After a dismiss action, the badge count decrements and previously hidden posts from that account become visible in the feed again
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+**Wave 1** *(parallel — no cross-plan file conflicts)*
+
+  - [x] 05-01-PLAN.md — Popup: AccountRow Block+Dismiss buttons + App handlers (window.open deep link + storage dismiss write) — ACTION-01, ACTION-02
+  - [x] 05-02-PLAN.md — Content script: hiddenPostNodes tracking + dismissedAccounts onChanged unhide; SW: storage-driven badge replacing sessionHiddenCount — ACTION-02, FEED-02
+
 **UI hint**: yes
 
 ### Phase 6: Settings & Dashboard
@@ -108,7 +132,17 @@
   3. The dashboard splits flagged post counts into two categories: AI-written language signals vs bot-like behaviour signals
   4. Switching between the 7-day and 30-day time windows updates the dashboard figures without a page reload
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+**Wave 1**
+
+  - [x] 06-01-PLAN.md — Foundation: Settings + DailyStats types; content script reads threshold from storage + tracks daily stats; manifest options_ui — CONFIG-01, DASH-01
+
+**Wave 2** *(parallel — different files)*
+
+  - [x] 06-02-PLAN.md — Popup: threshold slider (35–90) + "📊 View Dashboard" link in ⚙ Settings — CONFIG-01
+  - [x] 06-03-PLAN.md — Dashboard page (src/dashboard/): % flagged + AI-language vs bot-behaviour signal bars + 7/30-day toggle — DASH-01, DASH-02, DASH-03
+
 **UI hint**: yes
 
 ---
@@ -119,7 +153,7 @@
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete | 2026-05-25 |
 | 2. Detection Engine | 4/4 | Complete | 2026-05-29 |
-| 3. Storage & Queue | 0/? | Not started | - |
-| 4. Popup UI | 0/? | Not started | - |
-| 5. User Decisions | 0/? | Not started | - |
-| 6. Settings & Dashboard | 0/? | Not started | - |
+| 3. Storage & Queue | 3/3 | Complete | 2026-05-29 |
+| 4. Popup UI | 2/2 | Complete | 2026-05-29 |
+| 5. User Decisions | 2/2 | Complete | 2026-05-29 |
+| 6. Settings & Dashboard | 3/3 | Complete | 2026-05-30 |

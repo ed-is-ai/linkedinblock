@@ -65,24 +65,39 @@ export interface Detector {
 }
 
 /**
- * Phase 2 write shape for a flagged LinkedIn account stored in chrome.storage.local.
+ * Full account record for a flagged LinkedIn account stored in chrome.storage.local.
  *
- * Phase 3 will expand the `status` union to `'pending' | 'blocked' | 'dismissed'`
- * and add `postCount` and `peakScore` fields without breaking the Phase 2 writer —
- * the Phase 2 writer always sets `status: 'pending'` and Phase 3 readers handle the
- * expanded union gracefully.
+ * Phase 3 promotes the Phase 2 stub shape to the full account record, adding
+ * `postCount` and `peakScore` fields to support the EMA rolling score strategy.
+ *
+ * Phase 5 will expand the `status` union to `'pending' | 'blocked' | 'dismissed'`.
+ * Phase 3 only ever writes `status: 'pending'`.
  *
  * Keyed by `authorId` in StorageSchema.flaggedAccounts.
  */
-export interface FlaggedAccountStub {
+export interface FlaggedAccount {
   /** LinkedIn profile slug (e.g. "some-user" from /in/some-user/) */
   authorId: string;
   /** Author display name as shown in the feed */
   authorName: string;
   /** Full author profile URL, e.g. "https://www.linkedin.com/in/username/" */
   authorProfileUrl: string;
-  /** Highest composite detection score seen for this account (0–100) */
+  /**
+   * EMA rolling average composite score (0–100). Updated each time a new post from
+   * this account is persisted: score = score × (1 - EMA_ALPHA) + newScore × EMA_ALPHA.
+   * Phase 2 set this to peak; Phase 3 changes the semantics to EMA.
+   */
   compositeScore: number;
+  /**
+   * Number of posts from this account that scored >= 35 and were persisted.
+   * Used as context for the EMA rolling score.
+   */
+  postCount: number;
+  /**
+   * Highest single-post composite score ever recorded for this account (0–100).
+   * Popup Phase 4 may sort by this rather than the EMA compositeScore.
+   */
+  peakScore: number;
   /** Per-signal numeric scores — signal name to individual score */
   signals: Record<string, number>;
   /** URNs of posts from this account that have been hidden */
@@ -91,8 +106,8 @@ export interface FlaggedAccountStub {
   firstSeenAt: number;
   /** Unix timestamp (ms) when this account was most recently flagged */
   lastSeenAt: number;
-  /** Review status — Phase 3 expands this union to include 'blocked' | 'dismissed' */
-  status: 'pending';
+  /** Review status — 'blocked' set by popup Block action; 'dismissed' set by popup Dismiss action */
+  status: 'pending' | 'blocked' | 'dismissed';
 }
 
 /**
@@ -118,10 +133,26 @@ export interface ObservedPost {
   postNode: Element;
 }
 
+/** User-configurable detection settings stored in chrome.storage.local. */
+export interface Settings {
+  /** Score threshold (35–90) above which posts are auto-hidden. Default: 60. */
+  autoHideThreshold: number;
+}
+
+/** One calendar day of detection stats (UTC date). Rolling 30-day log. */
+export interface DailyStats {
+  /** UTC date string 'YYYY-MM-DD' */
+  date: string;
+  /** Posts entering the scoring pipeline (after hard exclusions) */
+  seen: number;
+  /** Posts hidden (score >= effectiveHideThreshold) */
+  hidden: number;
+}
+
 /**
  * Typed schema for chrome.storage.local.
  *
- * Phase 1 stub — Phase 3 expands this with dismissedAccounts and settings.
+ * Phase 3 expands this with dismissedAccounts. Phase 6 adds settings and dailyStats.
  *
  * This interface exists in Phase 1 so that storage.ts is generic over a real type
  * rather than `any`, satisfying INFRA-03 and enabling strict-mode compilation.
@@ -129,9 +160,19 @@ export interface ObservedPost {
 export interface StorageSchema {
   /**
    * Map of LinkedIn author IDs to flagged account data.
-   * Phase 2 writes FlaggedAccountStub entries; Phase 3 expands the type further.
+   * Phase 3 uses FlaggedAccount (with postCount + peakScore) in place of the Phase 2 stub.
    */
-  flaggedAccounts?: Record<string, FlaggedAccountStub>;
+  flaggedAccounts?: Record<string, FlaggedAccount>;
+  /**
+   * Array of authorId strings that have been dismissed as false positives (Phase 5 writes).
+   * Phase 3 declares the key with an empty-array default; content script loads it as a
+   * Set<string> for O(1) lookup.
+   */
+  dismissedAccounts?: string[];
   /** Anthropic API key — set once via DevTools: chrome.storage.local.set({anthropicApiKey:'sk-ant-...'}) */
   anthropicApiKey?: string;
+  /** User settings — threshold configurable in popup Settings section. */
+  settings?: Settings;
+  /** Rolling 30-day stats log. Content script writes; dashboard reads. */
+  dailyStats?: DailyStats[];
 }

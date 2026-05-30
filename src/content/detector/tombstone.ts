@@ -63,3 +63,33 @@ export function injectTombstone(
   // the DOM between scoring and tombstone injection; the optional chain handles this safely.
   postNode.parentNode?.insertBefore(tombstone, postNode);
 }
+
+/**
+ * Injects a "blocked account" tombstone as a sibling before postNode.
+ * Unlike the regular tombstone, this one has no click-to-reveal — the account
+ * was explicitly blocked by the user.
+ *
+ * @param postScore - Peak composite score that triggered the block (0–100).
+ * @param profileScore - Sum of profile signal scores (headline-formula + degree-3).
+ */
+export function injectBlockedTombstone(
+  postNode: Element,
+  authorName: string,
+  postScore: number,
+  profileScore: number,
+): void {
+  const tombstone = document.createElement('div');
+  tombstone.className = 'llb-tombstone llb-tombstone--blocked';
+  tombstone.setAttribute('role', 'status');
+
+  const line1 = document.createElement('div');
+  line1.textContent = `🚫 Blocked: ${authorName}`;
+
+  const line2 = document.createElement('div');
+  line2.style.cssText = 'font-size:11px;margin-top:2px;opacity:0.8';
+  line2.textContent = `Post score: ${postScore} | Profile score: ${profileScore}`;
+
+  tombstone.appendChild(line1);
+  tombstone.appendChild(line2);
+  postNode.parentNode?.insertBefore(tombstone, postNode);
+}

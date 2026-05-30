@@ -2,10 +2,21 @@ console.log('[LLB] service worker started');
 
 import type { DetectionResult } from '../shared/types';
 
-let sessionHiddenCount = 0;
-
 chrome.runtime.onInstalled.addListener(() => {
   console.log('[LLB] extension installed');
+  chrome.action.setBadgeBackgroundColor({ color: '#0077B5' });
+});
+
+// ---------------------------------------------------------------------------
+// Storage-driven badge — counts pending flagged accounts (D-09, D-10, D-11)
+// Badge reflects live queue size; decrements automatically on dismiss.
+// ---------------------------------------------------------------------------
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local' || !changes['flaggedAccounts']) return;
+  const accounts = (changes['flaggedAccounts'].newValue ?? {}) as Record<string, { status: string }>;
+  const pendingCount = Object.values(accounts).filter(a => a.status === 'pending').length;
+  chrome.action.setBadgeText({ text: pendingCount > 0 ? String(pendingCount) : '' });
   chrome.action.setBadgeBackgroundColor({ color: '#0077B5' });
 });
 
@@ -80,9 +91,7 @@ async function scorePost(postText: string): Promise<DetectionResult> {
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type === 'POST_HIDDEN') {
-    sessionHiddenCount++;
-    chrome.action.setBadgeText({ text: String(sessionHiddenCount) });
-    chrome.action.setBadgeBackgroundColor({ color: '#0077B5' });
+    // Badge is now updated via chrome.storage.onChanged on flaggedAccounts — see above
     return false;
   }
 

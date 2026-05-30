@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(gsd-new-project)",
+      "Skill(gsd-new-project:*)",
+      "Bash(chub --version)",
+      "Bash(chub --help)",
+      "Bash(npx skills *)",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const s = require\\('fs'\\).readFileSync\\('src/content/exclusions.ts','utf8'\\); const needs = ['SPONSORED_MARKER','COMPANY_PAGE_MARKER','OPEN_TO_WORK_MARKER','isNonEnglish','interface ExclusionResult']; const miss = needs.filter\\(n => !s.includes\\(n\\)\\); if \\(miss.length\\) { console.error\\('missing:', miss\\); process.exit\\(1\\); } console.log\\('ok'\\);\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(npx vitest *)",
+      "Bash(node -e \"const s = require\\('fs'\\).readFileSync\\('src/content/detector/tombstone.ts','utf8'\\); if \\(!/textContent/.test\\(s\\) || /innerHTML/.test\\(s\\)\\) { console.error\\('tombstone DOM safety drift'\\); process.exit\\(1\\); } if \\(!/insertBefore/.test\\(s\\)\\) { console.error\\('tombstone not sibling-injected'\\); process.exit\\(1\\); } const c = require\\('fs'\\).readFileSync\\('src/content/detector/comment-expand.ts','utf8'\\); if \\(!/MAX_EXPANSIONS_PER_PAGE/.test\\(c\\)\\) { console.error\\('expansion cap missing'\\); process.exit\\(1\\); } if \\(!/COMMENT_EXPAND_BUTTON/.test\\(c\\) || !/COMMENT_TEXT/.test\\(c\\)\\) { console.error\\('selector import missing'\\); process.exit\\(1\\); } console.log\\('ok'\\);\")",
+      "Bash(node -e \"const s = require\\('fs'\\).readFileSync\\('src/content/detector/tombstone.ts','utf8'\\); const codeLines = s.split\\('\\\\n'\\).filter\\(l => !l.trim\\(\\).startsWith\\('*'\\) && !l.trim\\(\\).startsWith\\('//'\\)\\); const bad = codeLines.filter\\(l => l.includes\\('innerHTML'\\)\\); console.log\\('innerHTML in code lines:', bad.length, bad\\);\")",
+      "Bash(gsd-sdk query *)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(git commit *)",
+      "Bash(node -e \"const s = require\\('fs'\\).readFileSync\\('src/background/index.ts','utf8'\\); const needs = ['let sessionHiddenCount = 0','POST_HIDDEN','setBadgeText','#0077B5','return false']; const miss = needs.filter\\(n => !s.includes\\(n\\)\\); if \\(miss.length\\) { console.error\\('missing:', miss\\); process.exit\\(1\\); } if \\(/chrome\\\\\\\\.storage/.test\\(s\\)\\) { console.error\\('SW must NOT touch chrome.storage for badge \\(D-11\\)'\\); process.exit\\(1\\); } console.log\\('bg ok'\\);\")",
+      "Bash(npm run *)",
+      "Read(//c/Users/EdYau/Downloads/**)",
+      "Bash(node -e ' *)",
+      "Skill(gsd-plan-phase)",
+      "Skill(gsd-plan-phase:*)",
+      "Skill(gsd-execute-phase)",
+      "Skill(gsd-execute-phase:*)"
+    ]
+  }
+}

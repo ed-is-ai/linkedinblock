@@ -17,7 +17,7 @@
  */
 
 /** Version of the selector registry. Increment when a verified change is made. */
-export const SELECTORS_VERSION = '1.2.0';
+export const SELECTORS_VERSION = '1.3.0';
 
 // ---------------------------------------------------------------------------
 // Feed container
@@ -151,3 +151,35 @@ export const OPEN_TO_WORK_MARKER =
  */
 export const COMMENT_TEXT =
   '[data-test-id*="comment-body"], [data-id*="comment"] span';
+
+// ---------------------------------------------------------------------------
+// Phase 3 additions
+// AUTHOR_HEADLINE, CONNECTION_DEGREE: [ASSUMED] — still requires live LinkedIn
+// DevTools verification before code depending on these selectors is shipped.
+// ---------------------------------------------------------------------------
+
+/**
+ * Author headline/subtitle element selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * Matches the job title / headline text displayed below the author name in the post card header.
+ * In LinkedIn's post card structure the author header row contains the name anchor followed by a
+ * subtitle span carrying the job title and company. Assumed selector targets the first span
+ * adjacent to the profile anchor in the post header.
+ *
+ * If this selector is too broad (matches non-headline spans), add a more specific qualifier
+ * after live inspection (e.g. a data-* attribute or aria-label refinement).
+ */
+export const AUTHOR_HEADLINE = 'a[href*="/in/"] ~ span';
+
+/**
+ * Connection degree indicator element selector.
+ * [ASSUMED] -- requires live LinkedIn DevTools verification before code depending on this selector is shipped.
+ * Matches the "1st", "2nd", or "3rd+" degree indicator shown near the author name in the post
+ * attribution. LinkedIn typically renders this with either an aria-label containing "degree" or
+ * a span with a data-anonymize attribute set to "degree".
+ *
+ * The exact attribute or class structure needs DevTools confirmation — if neither variant
+ * is present, the element may carry the degree text in a different stable attribute.
+ */
+export const CONNECTION_DEGREE =
+  '[aria-label*="degree"], span[data-anonymize="degree"]';

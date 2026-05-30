@@ -3,10 +3,12 @@ import { startObserving } from './observer';
 import { HeuristicDetector } from './detector/heuristic';
 import { LLMDetector } from './detector/llm';
 import { checkExclusions } from './exclusions';
-import { injectTombstone } from './detector/tombstone';
+import { injectTombstone, injectBlockedTombstone } from './detector/tombstone';
 import { expandComments, resetExpansionBudget } from './detector/comment-expand';
+import { extractProfileSignals } from './detector/signals/profile';
 import { storageGet, storageSet } from '../shared/storage';
-import type { Detector, PostData, ObservedPost, FlaggedAccountStub } from '../shared/types';
+import { persistFlaggedAccount } from '../shared/queue';
+import type { Detector, PostData, ObservedPost, DailyStats } from '../shared/types';
 
 // ---------------------------------------------------------------------------
 // Debug flag — set to true locally to log per-post extraction details
@@ -18,9 +20,48 @@ const DEBUG = true;
 // Threshold constants (D-04)
 // ---------------------------------------------------------------------------
 
-const AUTO_HIDE_THRESHOLD = 60;
 const FLAG_THRESHOLD = 35;
 const OPEN_TO_WORK_PENALTY = 20;
+
+// ---------------------------------------------------------------------------
+// Profile signal cache — module scope so it persists across SPA navigations
+// until explicitly cleared (D-10, 03-CONTEXT.md)
+// ---------------------------------------------------------------------------
+
+const profileSignalCache = new Map<string, Record<string, number>>();
+
+// ---------------------------------------------------------------------------
+// Hidden post nodes — tracks DOM nodes hidden per author so they can be
+// unhidden when that author is dismissed (D-07, 05-CONTEXT.md)
+// ---------------------------------------------------------------------------
+
+const hiddenPostNodes = new Map<string, Element[]>();
+
+// ---------------------------------------------------------------------------
+// Dismissed set — hoisted to module scope so the chrome.storage.onChanged
+// listener (registered at module top level) shares the same Set reference
+// ---------------------------------------------------------------------------
+
+const dismissedSet = new Set<string>();
+
+// ---------------------------------------------------------------------------
+// Blocked authors — populated at init and updated via onChanged
+// ---------------------------------------------------------------------------
+
+const blockedAuthors = new Map<string, { postScore: number; profileScore: number }>();
+
+const PROFILE_SIGNAL_KEYS = new Set(['headline-formula', 'degree-3']);
+function calcProfileScore(signals: Record<string, number>): number {
+  return Object.entries(signals)
+    .filter(([k]) => PROFILE_SIGNAL_KEYS.has(k))
+    .reduce((sum, [, v]) => sum + v, 0);
+}
+
+// ---------------------------------------------------------------------------
+// Daily stats counters — reset on SPA navigation; flushed on hide events
+// ---------------------------------------------------------------------------
+let seenToday = 0;
+let hiddenToday = 0;
 
 // ---------------------------------------------------------------------------
 // CSS injection — runs once at script startup
@@ -42,6 +83,12 @@ if (!document.getElementById('llb-styles')) {
     '  margin: 4px 0;',
     '}',
     '.llb-tombstone:hover { background: #e8e8e8; }',
+    '.llb-tombstone--blocked {',
+    '  background: #fff1f2;',
+    '  border-color: #fca5a5;',
+    '  color: #b91c1c;',
+    '  cursor: default;',
+    '}',
   ].join('\n');
   document.head.appendChild(style);
 }
@@ -49,58 +96,89 @@ if (!document.getElementById('llb-styles')) {
 console.log('[LLB] content script starting on', location.href, 'selectors v', SELECTORS_VERSION);
 
 // ---------------------------------------------------------------------------
-// persistFlaggedAccount helper
+// Storage change listener — registered at module top level so it catches
+// changes regardless of when init() resolves (D-06, 05-CONTEXT.md)
 // ---------------------------------------------------------------------------
 
-async function persistFlaggedAccount(opts: {
-  authorId: string;
-  authorName: string;
-  authorProfileUrl: string;
-  compositeScore: number;
-  signals: Record<string, number>;
-  hiddenPostUrn: string | null;
-}): Promise<void> {
-  const { authorId, authorName, authorProfileUrl, compositeScore, signals, hiddenPostUrn } = opts;
-  const { flaggedAccounts = {} } = await storageGet(['flaggedAccounts']);
-  const existing = flaggedAccounts[authorId];
-  const now = Date.now();
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local') return;
 
-  if (existing) {
-    existing.compositeScore = Math.max(existing.compositeScore, compositeScore);
-    existing.lastSeenAt = now;
-    existing.authorName = authorName;
-    existing.authorProfileUrl = authorProfileUrl;
-    for (const [key, val] of Object.entries(signals)) {
-      existing.signals[key] = Math.max(existing.signals[key] ?? 0, val);
+  // Handle dismissals — unhide tracked nodes for newly dismissed authors
+  if (changes['dismissedAccounts']) {
+    const newIds: string[] = (changes['dismissedAccounts'].newValue as string[]) ?? [];
+    const oldIds: string[] = (changes['dismissedAccounts'].oldValue as string[]) ?? [];
+    const freshlyDismissed = newIds.filter(id => !oldIds.includes(id));
+    for (const id of freshlyDismissed) {
+      dismissedSet.add(id);
+      const nodes = hiddenPostNodes.get(id) ?? [];
+      for (const node of nodes) {
+        node.classList.remove('llb-hidden');
+      }
+      hiddenPostNodes.delete(id);
     }
-    if (hiddenPostUrn !== null && !existing.hiddenPostUrns.includes(hiddenPostUrn)) {
-      existing.hiddenPostUrns.push(hiddenPostUrn);
-    }
-    flaggedAccounts[authorId] = existing;
-  } else {
-    const stub: FlaggedAccountStub = {
-      authorId,
-      authorName,
-      authorProfileUrl,
-      compositeScore,
-      signals: { ...signals },
-      hiddenPostUrns: hiddenPostUrn !== null ? [hiddenPostUrn] : [],
-      firstSeenAt: now,
-      lastSeenAt: now,
-      status: 'pending',
-    };
-    flaggedAccounts[authorId] = stub;
   }
 
-  await storageSet({ flaggedAccounts });
+  // Handle blocks — apply blocked tombstone to tracked nodes for newly blocked authors
+  if (changes['flaggedAccounts']) {
+    const newAccounts = (changes['flaggedAccounts'].newValue ?? {}) as Record<string, { status: string; authorName?: string; peakScore?: number; signals?: Record<string, number> }>;
+    const oldAccounts = (changes['flaggedAccounts'].oldValue ?? {}) as Record<string, { status: string }>;
+    for (const [id, entry] of Object.entries(newAccounts)) {
+      if (entry.status === 'blocked' && oldAccounts[id]?.status !== 'blocked') {
+        const scores = {
+          postScore: entry.peakScore ?? 0,
+          profileScore: calcProfileScore(entry.signals ?? {}),
+        };
+        blockedAuthors.set(id, scores);
+        const nodes = hiddenPostNodes.get(id) ?? [];
+        for (const node of nodes) {
+          node.classList.remove('llb-hidden');
+          node.classList.add('llb-hidden'); // keep hidden
+          const oldTombstone = node.previousElementSibling;
+          if (oldTombstone?.classList.contains('llb-tombstone')) oldTombstone.remove();
+          injectBlockedTombstone(node, entry.authorName ?? id, scores.postScore, scores.profileScore);
+        }
+      }
+    }
+  }
+});
+
+// ---------------------------------------------------------------------------
+// writeDailyStats — flush today's counters to storage; prune entries > 30 days
+// ---------------------------------------------------------------------------
+
+async function writeDailyStats(): Promise<void> {
+  const today = new Date().toISOString().slice(0, 10);
+  const { dailyStats = [] } = await storageGet(['dailyStats']);
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 30);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+  const filtered = (dailyStats as DailyStats[]).filter(d => d.date >= cutoffStr);
+  const idx = filtered.findIndex(d => d.date === today);
+  if (idx >= 0) {
+    filtered[idx] = { date: today, seen: seenToday, hidden: hiddenToday };
+  } else {
+    filtered.push({ date: today, seen: seenToday, hidden: hiddenToday });
+  }
+  await storageSet({ dailyStats: filtered });
 }
 
 // ---------------------------------------------------------------------------
-// Async init — reads API key, picks detector, starts observation
+// Async init — reads API key + dismissedAccounts, picks detector, starts observation
 // ---------------------------------------------------------------------------
 
 async function init(): Promise<void> {
-  const { anthropicApiKey } = await storageGet(['anthropicApiKey']);
+  const { anthropicApiKey, dismissedAccounts = [], flaggedAccounts = {}, settings } =
+    await storageGet(['anthropicApiKey', 'dismissedAccounts', 'flaggedAccounts', 'settings']);
+  const autoHideThreshold = settings?.autoHideThreshold ?? 60;
+  for (const id of dismissedAccounts) dismissedSet.add(id);
+  for (const [id, entry] of Object.entries(flaggedAccounts)) {
+    if (entry.status === 'blocked') {
+      blockedAuthors.set(id, {
+        postScore: entry.peakScore,
+        profileScore: calcProfileScore(entry.signals),
+      });
+    }
+  }
 
   let currentPostNode: Element | null = null;
 
@@ -115,12 +193,22 @@ async function init(): Promise<void> {
 
   console.log('[LLB] detector:', detector.name, anthropicApiKey ? '(LLM mode)' : '(heuristic mode)');
 
-  // SPA navigation reset for comment-expansion budget
-  globalThis.addEventListener('popstate', () => resetExpansionBudget());
+  // SPA navigation reset — clears comment-expansion budget, profile signal cache, and hidden post nodes (D-08)
+  globalThis.addEventListener('popstate', () => {
+    resetExpansionBudget();
+    profileSignalCache.clear();
+    hiddenPostNodes.clear();
+    seenToday = 0;
+    hiddenToday = 0;
+  });
   const _originalPushState = history.pushState.bind(history);
   history.pushState = function (...args: Parameters<typeof history.pushState>) {
     _originalPushState(...args);
     resetExpansionBudget();
+    profileSignalCache.clear();
+    hiddenPostNodes.clear();
+    seenToday = 0;
+    hiddenToday = 0;
   };
 
   startObserving((observed: ObservedPost) => {
@@ -129,35 +217,67 @@ async function init(): Promise<void> {
 
     const postData: PostData = { urn, authorId, authorName, authorProfileUrl, postText };
 
+    // Already-blocked authors: hide immediately, no scoring needed
+    const trackKey = authorId || urn;
+    if (blockedAuthors.has(trackKey)) {
+      const scores = blockedAuthors.get(trackKey)!;
+      postNode.classList.add('llb-hidden');
+      injectBlockedTombstone(postNode, authorName, scores.postScore, scores.profileScore);
+      hiddenPostNodes.set(trackKey, [...(hiddenPostNodes.get(trackKey) ?? []), postNode]);
+      return;
+    }
+
     const exclusion = checkExclusions(postData, postNode);
     if (exclusion.excluded) return;
 
+    seenToday++;
+
     const effectiveHideThreshold = exclusion.openToWork
-      ? AUTO_HIDE_THRESHOLD + OPEN_TO_WORK_PENALTY
-      : AUTO_HIDE_THRESHOLD;
+      ? autoHideThreshold + OPEN_TO_WORK_PENALTY
+      : autoHideThreshold;
+
+    // Extract profile signals once per author per session (D-10)
+    if (profileSignalCache.has(authorId) === false) {
+      profileSignalCache.set(authorId, extractProfileSignals(postNode));
+    }
+    const profileSignals = profileSignalCache.get(authorId)!;
 
     detector.detect(postData).then(async (result) => {
+      // Merge profile signals into score and breakdown before all threshold checks
+      const profileScore = Object.values(profileSignals).reduce((sum, v) => sum + v, 0);
+      const mergedScore = result.score + profileScore;
+      const mergedBreakdown = { ...result.signalBreakdown, ...profileSignals };
+
       if (DEBUG) {
-        const signals = Object.entries(result.signalBreakdown).map(([k, v]) => `${k}:${v}`).join(' ') || '—';
-        console.log(`[LLB] ${result.score.toString().padStart(3)} | ${result.engineUsed} | ${authorName || '<unknown>'} | ${signals}\n${postText}`);
+        const signals = Object.entries(mergedBreakdown).map(([k, v]) => `${k}:${v}`).join(' ') || '—';
+        console.log(`[LLB] ${mergedScore.toString().padStart(3)} | ${result.engineUsed} | ${authorName || '<unknown>'} | ${signals}\n${postText}`);
       }
 
-      if (result.score < FLAG_THRESHOLD) return;
+      if (mergedScore < FLAG_THRESHOLD) return;
 
-      const hide = result.score >= effectiveHideThreshold;
+      // Skip dismissed authors (Phase 5 writes dismissedAccounts; Phase 3 reads defensively)
+      if (dismissedSet.has(authorId)) return;
+
+      const hide = mergedScore >= effectiveHideThreshold;
 
       await persistFlaggedAccount({
         authorId: authorId || urn,
         authorName,
         authorProfileUrl,
-        compositeScore: result.score,
-        signals: result.signalBreakdown,
+        compositeScore: mergedScore,
+        signals: mergedBreakdown,
         hiddenPostUrn: hide ? urn : null,
       });
 
       if (hide) {
+        hiddenToday++;
+        writeDailyStats().catch(() => {});
         postNode.classList.add('llb-hidden');
-        injectTombstone(postNode, authorName, result.score);
+        injectTombstone(postNode, authorName, mergedScore);
+        hiddenPostNodes.set(trackKey, [
+          ...(hiddenPostNodes.get(trackKey) ?? []),
+          postNode,
+        ]);
         chrome.runtime.sendMessage({ type: 'POST_HIDDEN' }).catch(() => {});
       }
     }).catch((err) => {

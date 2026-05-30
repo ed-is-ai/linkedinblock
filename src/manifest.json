@@ -20,5 +20,9 @@
   "action": {
     "default_popup": "popup/index.html",
     "default_title": "LinkedIn Blocker"
+  },
+  "options_ui": {
+    "page": "dashboard/index.html",
+    "open_in_tab": true
   }
 }
