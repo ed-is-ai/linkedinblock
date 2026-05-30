@@ -147,6 +147,70 @@
 
 ---
 
+## Milestone v1.1 — UX & Data
+
+### Phase 7: Post Storage
+
+**Goal**: Posts hidden by the extension are preserved locally so users can review what was hidden without returning to LinkedIn
+**Depends on**: Phase 6
+**Requirements**: STORE-01, STORE-02, STORE-03
+**Success Criteria** (what must be TRUE):
+
+  1. When a post is hidden, its text (truncated at 1000 chars), author, score, and timestamp are saved in `chrome.storage.local` under a `storedPosts` key
+  2. Only the 200 most recent posts are kept — oldest are evicted when the cap is hit
+  3. Posts are retrievable by `authorId` so the popup can show them per-account
+
+**Plans**: 2 plans
+
+**Wave 1**
+
+  - [x] 07-01-PLAN.md — StoredPost type + StorageSchema.storedPosts + src/shared/postStore.ts (persistStoredPost: 200-cap, 1000-char truncation, URN dedup) — STORE-02, STORE-03
+
+**Wave 2** *(blocked on Wave 1)*
+
+  - [x] 07-02-PLAN.md — Content script wiring: import + call persistStoredPost in the hide path — STORE-01
+
+**UI hint**: no
+
+### Phase 8: Popup Signal Detail & Post Preview
+
+**Goal**: Users can expand any flagged account row to see exactly which signals fired and what the hidden post said
+**Depends on**: Phase 7
+**Requirements**: UX-01, UX-02, UX-03
+**Success Criteria** (what must be TRUE):
+
+  1. Clicking an account row in the popup expands it to show a per-signal score table (signal name | pts for each signal with value > 0)
+  2. The expanded row shows up to 3 stored post snippets from that account, each with its score
+  3. Only one row is expanded at a time (accordion — opening one closes the previous)
+
+**Plans**: 2 plans
+
+**Wave 1**
+
+  - [x] 08-01-PLAN.md — AccountRow: optional isExpanded/onToggle/posts props, clickable summary section, chevron indicator, detail panel (signal score table + post snippets) — UX-01, UX-02, UX-03
+
+**Wave 2** *(blocked on Wave 1)*
+
+  - [x] 08-02-PLAN.md — App wiring: expandedId accordion state, storedPosts read from storage, AccountRow props passed — UX-01, UX-02, UX-03
+
+**UI hint**: yes
+
+### Phase 9: Export & Cleanse
+
+**Goal**: Users can export their data for backup and remove old entries to keep storage lean
+**Depends on**: Phase 7
+**Requirements**: EXPORT-01, EXPORT-02, CLEANSE-01, CLEANSE-02
+**Success Criteria** (what must be TRUE):
+
+  1. Clicking "Export JSON" in the dashboard downloads a `.json` file containing all flagged accounts with their signals and stored posts
+  2. Clicking "Export CSV" downloads a `.csv` file with one row per flagged account (accounts only — no post text)
+  3. A "Cleanse data before date" control (date picker) in the dashboard shows a count of records that will be removed; confirming deletes them from all storage keys
+
+**Plans**: TBD
+**UI hint**: yes
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -157,3 +221,6 @@
 | 4. Popup UI | 2/2 | Complete | 2026-05-29 |
 | 5. User Decisions | 2/2 | Complete | 2026-05-29 |
 | 6. Settings & Dashboard | 3/3 | Complete | 2026-05-30 |
+| 7. Post Storage | 2/2 | Complete | 2026-05-30 |
+| 8. Popup Signal Detail | 2/2 | Complete | 2026-05-30 |
+| 9. Export & Cleanse | 0/2 | Not started | - |
