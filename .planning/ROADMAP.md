@@ -274,7 +274,13 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
   2. `store/SUBMISSION_GUIDE.md` covers: developer account registration ($5 fee), dashboard URL, ZIP upload, privacy policy URL, screenshot upload, category selection, and expected review timeline
   3. The produced `.zip` can be loaded as an unpacked extension in Chrome to confirm correctness before submission
 
-**Plans**: TBD
+**Plans**: 2
+
+**Wave 1** *(parallel — different files)*
+
+  - [x] 14-01-PLAN.md — `scripts/package-zip.js` + `archiver` devDep + `npm run package` script that produces `dist/linkedin-blocker-v1.2.0.zip` — CWS-05
+  - [x] 14-02-PLAN.md — `store/SUBMISSION_GUIDE.md`: 6-step first-time CWS submission walkthrough — CWS-06
+
 **UI hint**: no
 
 ---
@@ -296,4 +302,4 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 | 11. Posts Export | 2/2 | Complete | 2026-05-30 |
 | 12. Manifest & Icons | 2/2 | Complete | 2026-05-30 |
 | 13. Store Assets | 2/2 | Complete | 2026-05-31 |
-| 14. Package & Submit | 0/TBD | Not started | - |
+| 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
