@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background: LinkedIn blue rounded square -->
+  <rect width="128" height="128" rx="22" fill="#0a66c2"/>
+  <!-- Shield body: white -->
+  <path d="M64 18 L100 36 L100 70 C100 91 84 108 64 116 C44 108 28 91 28 70 L28 36 Z" fill="white"/>
+  <!-- Diagonal slash: LinkedIn blue (block/filter symbol) -->
+  <line x1="46" y1="50" x2="82" y2="90" stroke="#0a66c2" stroke-width="10" stroke-linecap="round"/>
+</svg>

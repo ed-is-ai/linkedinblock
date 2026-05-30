@@ -79,7 +79,7 @@ v2.0: [ Phase 12 ] [ Phase 13 ] [ Phase 14 ]
 
 ### Todos
 
-- [ ] Plan Phase 12 (Manifest & Icons)
+- [x] Execute Phase 12 (Manifest & Icons) — complete 2026-05-30
 - [ ] Plan Phase 13 (Store Assets)
 - [ ] Plan Phase 14 (Package & Submit)
 
@@ -92,5 +92,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v2.0 milestone defined — REQUIREMENTS.md + ROADMAP.md + PROJECT.md + STATE.md updated
-**Next action:** Run `/gsd-plan-phase 12` to plan Phase 12 (Manifest & Icons)
+**Last action:** Phase 12 executed — icons at 16/48/128px, manifest v1.2.0 with icons/homepage_url, build verified
+**Next action:** Run `/gsd-plan-phase 13` to plan Phase 13 (Store Assets)

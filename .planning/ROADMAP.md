@@ -231,7 +231,16 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
   3. `npx vite build` succeeds and icon files appear in `dist/`
   4. The `api.anthropic.com` host permission is documented with a justification comment or moved to an optional feature flag note
 
-**Plans**: TBD
+**Plans**: 2
+
+**Wave 1**
+
+  - [x] 12-01-PLAN.md — SVG icon design + sharp-based PNG generation at 16/48/128px — CWS-02
+
+**Wave 2** *(blocked on Wave 1)*
+
+  - [x] 12-02-PLAN.md — manifest.json: version 1.2.0, icons, action.default_icon, homepage_url; package.json version bump; build verification — CWS-01
+
 **UI hint**: no
 
 ### Phase 13: Store Assets
@@ -279,6 +288,6 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 | 9. Export & Cleanse | 2/2 | Complete | 2026-05-30 |
 | 10. Profile Insights | 2/2 | Complete | 2026-05-30 |
 | 11. Posts Export | 2/2 | Complete | 2026-05-30 |
-| 12. Manifest & Icons | 0/TBD | Not started | - |
+| 12. Manifest & Icons | 2/2 | Complete | 2026-05-30 |
 | 13. Store Assets | 0/TBD | Not started | - |
 | 14. Package & Submit | 0/TBD | Not started | - |

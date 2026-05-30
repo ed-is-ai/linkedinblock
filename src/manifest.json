@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "LinkedIn Blocker",
-  "version": "0.1.0",
-  "description": "Hides AI-generated posts on LinkedIn.",
+  "version": "1.2.0",
+  "description": "Automatically hides AI-generated posts on LinkedIn using heuristic scoring. Flags suspicious accounts for review, with optional Claude AI-powered detection.",
+  "homepage_url": "https://github.com/ed-is-ai/linkedinblock",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://www.linkedin.com/*", "https://api.anthropic.com/*"],
   "background": {
@@ -19,7 +25,11 @@
   ],
   "action": {
     "default_popup": "popup/index.html",
-    "default_title": "LinkedIn Blocker"
+    "default_title": "LinkedIn Blocker",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png"
+    }
   },
   "options_ui": {
     "page": "dashboard/index.html",
