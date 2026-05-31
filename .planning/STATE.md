@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v4.0
 milestone_name: prompt-caching
-status: in-progress
+status: complete
 last_updated: "2026-05-31T00:00:00.000Z"
 progress:
   total_phases: 1
@@ -28,7 +28,7 @@ Milestone v1.1: COMPLETE ✓
 Milestone v1.2: COMPLETE ✓  
 Milestone v2.0: COMPLETE ✓
 Milestone v3.0: COMPLETE ✓
-Milestone v4.0: IN PROGRESS
+Milestone v4.0: COMPLETE ✓
 
 ```
 v1.0–v3.0: [ Phases 1–15 ] ALL DONE✓
@@ -89,5 +89,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** Phase 16 executed — SYSTEM_PROMPT 856 words, prompt caching header + cache_control added
-**Next action:** Run `/gsd-complete-milestone` to archive v4.0 and tag it
+**Last action:** v4.0 archived and tagged — prompt caching complete
+**Next action:** `/gsd-new-milestone` to define v5, or submit to CWS via store/SUBMISSION_GUIDE.md

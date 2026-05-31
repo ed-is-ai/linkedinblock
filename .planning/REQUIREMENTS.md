@@ -115,12 +115,11 @@ See [milestones/v3.0-REQUIREMENTS.md](milestones/v3.0-REQUIREMENTS.md) for full 
 
 ---
 
-## v4.0 Requirements — Prompt Caching
+## v4.0 Requirements — Prompt Caching *(archived — shipped 2026-05-31)*
 
-- [ ] **CACHE-01**: `scorePost` in `src/background/index.ts` adds `'anthropic-beta': 'prompt-caching-2024-07-31'` to the API request headers
-- [ ] **CACHE-02**: The `system` field changes from a plain string to `[{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }]`
-- [ ] **CACHE-03**: `SYSTEM_PROMPT` is extended to ≥1024 tokens (Anthropic's minimum cacheable length for Sonnet models) with additional signal definitions and scoring examples
-- [ ] **CACHE-04**: `npx tsc --noEmit` exits 0 with the updated request shape
+See [milestones/v4.0-REQUIREMENTS.md](milestones/v4.0-REQUIREMENTS.md) for full record.
+
+- [x] **CACHE-01–04**: Prompt caching header + cache_control block; SYSTEM_PROMPT 856 words; tsc clean
 
 ---
 
