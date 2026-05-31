@@ -1,8 +1,8 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.0
-milestone_name: repo-rename
-status: complete
+milestone: v4.0
+milestone_name: prompt-caching
+status: in-progress
 last_updated: "2026-05-31T00:00:00.000Z"
 progress:
   total_phases: 1
@@ -17,7 +17,7 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v3.0 — Repo rename cleanup (linkedinblock → linkedinaivoiceblock)
+**Current focus:** v4.0 — Prompt caching (reduce LLM API cost ~90% on cache hits)
 
 ---
 
@@ -28,15 +28,13 @@ Milestone v1.1: COMPLETE ✓
 Milestone v1.2: COMPLETE ✓  
 Milestone v2.0: COMPLETE ✓
 Milestone v3.0: COMPLETE ✓
+Milestone v4.0: IN PROGRESS
 
 ```
-v1.0: [ Phase 1–6 ] DONE✓
-v1.1: [ Phase 7–9 ] DONE✓
-v1.2: [ Phase 10–11 ] DONE✓
-v2.0: [ Phase 12–14 ] DONE✓
+v1.0–v3.0: [ Phases 1–15 ] ALL DONE✓
 
-v3.0: [ Phase 15 ]
-        DONE✓
+v4.0: [ Phase 16 ]
+        TODO
 ```
 
 ---
@@ -45,10 +43,10 @@ v3.0: [ Phase 15 ]
 
 | Metric | Value |
 |--------|-------|
-| Milestone | v2.0 (cws-release) |
-| v2.0 phases total | 3 |
-| v2.0 phases complete | 0 |
-| v2.0 requirements | 6 (CWS-01–06) |
+| Milestone | v4.0 (prompt-caching) |
+| v4.0 phases total | 1 |
+| v4.0 phases complete | 0 |
+| v4.0 requirements | 4 (CACHE-01–04) |
 
 ---
 
@@ -68,22 +66,20 @@ v3.0: [ Phase 15 ]
 | Popup framework | Preact 10 + JSX; stateless on every open | Phase 4 |
 | Post text storage | Stored on hide (user opt-in, v1.1); 200-post cap, 1000-char truncation | Phase 7 |
 
-### v2.0 Design Decisions
+### v4.0 Design Decisions
 
 | Decision | Outcome |
 |----------|---------|
-| Privacy policy hosting | GitHub raw file (`PRIVACY.md` in repo root) — no separate hosting needed |
-| Icon approach | PNG at 16/48/128px generated from SVG source in `public/icons/` |
-| Version bump | `manifest.json` version → `1.2.0` to match milestone history |
-| Packaging | `npm run package` script: `vite build` + zip `dist/` → `dist/linkedin-blocker-v1.2.0.zip` |
-| CWS developer account | User registers manually (no programmatic submission) |
-| UI redesign | None — layout unchanged, feature additions only |
+| Cache scope | System prompt only (`SYSTEM_PROMPT` constant) — user message (post text) is always unique |
+| Cache TTL | 5 minutes (Anthropic ephemeral cache default) |
+| Minimum tokens | Sonnet models require ≥1024 tokens; SYSTEM_PROMPT will be expanded to meet this |
+| Beta header | `anthropic-beta: prompt-caching-2024-07-31` included for compatibility |
+| system field shape | Changes from plain string to `[{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }]` |
 
 ### Todos
 
-- [x] Execute Phase 12 (Manifest & Icons) — complete 2026-05-30
-- [x] Execute Phase 13 (Store Assets) — complete 2026-05-31
-- [x] Execute Phase 14 (Package & Submit) — complete 2026-05-31
+- [ ] Plan Phase 16 (Prompt Caching)
+- [ ] Execute Phase 16 (Prompt Caching)
 
 ### Blockers
 
@@ -94,5 +90,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v3.0 milestone archived — all rename references updated, tagged v3.0.0
-**Next action:** Ready for CWS submission — follow store/SUBMISSION_GUIDE.md
+**Last action:** v4.0 milestone defined — REQUIREMENTS.md + ROADMAP.md + PROJECT.md + STATE.md updated
+**Next action:** Run `/gsd-plan-phase 16` to plan Phase 16 (Prompt Caching)

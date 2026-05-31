@@ -115,10 +115,18 @@ See [milestones/v3.0-REQUIREMENTS.md](milestones/v3.0-REQUIREMENTS.md) for full 
 
 ---
 
-## Deferred (post-v3)
+## v4.0 Requirements — Prompt Caching
 
-- LLM cost controls — heuristic pre-filter + per-session rate limiting (LLM fully implemented; cost optimisation deferred)
-- Prompt caching — Anthropic prompt caching on system prompt (~90% cost reduction)
+- [ ] **CACHE-01**: `scorePost` in `src/background/index.ts` adds `'anthropic-beta': 'prompt-caching-2024-07-31'` to the API request headers
+- [ ] **CACHE-02**: The `system` field changes from a plain string to `[{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }]`
+- [ ] **CACHE-03**: `SYSTEM_PROMPT` is extended to ≥1024 tokens (Anthropic's minimum cacheable length for Sonnet models) with additional signal definitions and scoring examples
+- [ ] **CACHE-04**: `npx tsc --noEmit` exits 0 with the updated request shape
+
+---
+
+## Deferred (post-v4)
+
+- LLM cost controls — heuristic pre-filter + per-session rate limiting
 - Posting time regularity signal (excluded — too many false positives from scheduling tools)
 - Posting frequency signal (excluded by user preference)
 - Firefox support

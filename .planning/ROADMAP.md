@@ -229,6 +229,24 @@ Replace all `linkedinblock` → `linkedinaivoiceblock` refs (11 files + git remo
 
 ---
 
+## Milestone v4.0 — Prompt Caching
+
+### Phase 16: Prompt Caching
+
+**Goal**: LLM API calls use Anthropic prompt caching, reducing input token costs ~90% on cache hits
+**Depends on**: Phase 15
+**Requirements**: CACHE-01, CACHE-02, CACHE-03, CACHE-04
+**Success Criteria** (what must be TRUE):
+
+  1. The `scorePost` API request sends `anthropic-beta: prompt-caching-2024-07-31` and a `cache_control: { type: "ephemeral" }` block on the system message
+  2. `SYSTEM_PROMPT` is ≥1024 tokens so the cache_control is effective
+  3. `npx tsc --noEmit` exits 0
+
+**Plans**: TBD
+**UI hint**: no
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -249,3 +267,4 @@ Replace all `linkedinblock` → `linkedinaivoiceblock` refs (11 files + git remo
 | 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
 | 15. URL Reference Updates | 1/1 | Complete | 2026-05-31 |
+| 16. Prompt Caching | 0/TBD | Not started | - |
