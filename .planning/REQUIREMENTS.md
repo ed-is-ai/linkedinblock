@@ -107,13 +107,11 @@ See [milestones/v2.0-REQUIREMENTS.md](milestones/v2.0-REQUIREMENTS.md) for full 
 
 ---
 
-## v3.0 Requirements — Repo Rename Cleanup
+## v3.0 Requirements — Repo Rename Cleanup *(archived — shipped 2026-05-31)*
 
-- [ ] **RENAME-01**: `src/manifest.json` `homepage_url` updated to `https://github.com/ed-is-ai/linkedinaivoiceblock`
-- [ ] **RENAME-02**: `PRIVACY.md` GitHub Issues link updated to `https://github.com/ed-is-ai/linkedinaivoiceblock/issues`
-- [ ] **RENAME-03**: `store/LISTING.md` privacy policy URL updated to `https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md`
-- [ ] **RENAME-04**: `store/SUBMISSION_GUIDE.md` homepage URL and privacy policy URL updated
-- [ ] **RENAME-05**: Git remote URL updated to `https://github.com/ed-is-ai/linkedinaivoiceblock.git` and all archived planning docs updated
+See [milestones/v3.0-REQUIREMENTS.md](milestones/v3.0-REQUIREMENTS.md) for full record.
+
+- [x] **RENAME-01–05**: All `linkedinblock` → `linkedinaivoiceblock` URL references updated (11 files + git remote + ZIP)
 
 ---
 

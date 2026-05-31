@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: repo-rename
-status: in-progress
+status: complete
 last_updated: "2026-05-31T00:00:00.000Z"
 progress:
   total_phases: 1
@@ -27,7 +27,7 @@ Milestone v1.0: COMPLETE ✓
 Milestone v1.1: COMPLETE ✓  
 Milestone v1.2: COMPLETE ✓  
 Milestone v2.0: COMPLETE ✓
-Milestone v3.0: IN PROGRESS
+Milestone v3.0: COMPLETE ✓
 
 ```
 v1.0: [ Phase 1–6 ] DONE✓
@@ -94,5 +94,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** Phase 15 executed — 11 files updated, git remote → linkedinaivoiceblock, ZIP rebuilt (28 KB)
-**Next action:** Run `/gsd-complete-milestone` to archive v3.0 and tag it
+**Last action:** v3.0 milestone archived — all rename references updated, tagged v3.0.0
+**Next action:** Ready for CWS submission — follow store/SUBMISSION_GUIDE.md

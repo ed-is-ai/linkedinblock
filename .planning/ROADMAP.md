@@ -223,28 +223,9 @@ Icons, manifest compliance, privacy policy, store listing, packaging script, sub
 
 ---
 
-## Milestone v3.0 — Repo Rename Cleanup
+## Milestone v3.0 — Repo Rename Cleanup *(archived)*
 
-### Phase 15: URL Reference Updates
-
-**Goal**: All `linkedinblock` repo references replaced with `linkedinaivoiceblock` in live files and archived planning docs
-**Depends on**: Phase 14
-**Requirements**: RENAME-01, RENAME-02, RENAME-03, RENAME-04, RENAME-05
-**Success Criteria** (what must be TRUE):
-
-  1. `src/manifest.json` `homepage_url` points to `https://github.com/ed-is-ai/linkedinaivoiceblock`
-  2. `PRIVACY.md` GitHub Issues link and `store/LISTING.md` + `store/SUBMISSION_GUIDE.md` privacy policy URLs updated
-  3. Git remote URL updated locally to `https://github.com/ed-is-ai/linkedinaivoiceblock.git`
-  4. `npm run package` produces an updated ZIP with the corrected manifest
-  5. No remaining `linkedinblock` references in live source files
-
-**Plans**: 1
-
-**Wave 1**
-
-  - [x] 15-01-PLAN.md — Replace all `linkedinblock` URLs with `linkedinaivoiceblock` in live files + archived planning docs; update git remote; rebuild ZIP — RENAME-01–05
-
-**UI hint**: no
+Replace all `linkedinblock` → `linkedinaivoiceblock` refs (11 files + git remote + ZIP rebuild). Phase 15. Shipped 2026-05-31. → [v3.0-ROADMAP.md](milestones/v3.0-ROADMAP.md)
 
 ---
 
