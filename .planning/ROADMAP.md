@@ -248,7 +248,18 @@ Anthropic prompt caching on system prompt + expanded SYSTEM_PROMPT to 856 words.
   2. `HeuristicDetector` imports and scores all three
   3. A representative AI voice post (hook + motivational + impersonal, no listicle/buzzwords) scores ≥ 60 in a test
 
-**Plans**: TBD
+**Plans**: 4
+
+**Wave 1** *(parallel — different files)*
+
+  - [x] 17-01-PLAN.md — `hook-story.ts` + tests: first-person anecdote opener patterns — VOICE-01
+  - [x] 17-02-PLAN.md — `motivational.ts` + tests: "Most people X", "Stop X. Start Y." patterns — VOICE-02
+  - [x] 17-03-PLAN.md — `impersonal.ts` + tests: generic third-person authority claims — VOICE-03
+
+**Wave 2** *(blocked on Wave 1)*
+
+  - [x] 17-04-PLAN.md — Wire all three into `HeuristicDetector`; integration test: AI voice post ≥ 60 — VOICE-04, VOICE-05
+
 **UI hint**: no
 
 ---
@@ -274,4 +285,4 @@ Anthropic prompt caching on system prompt + expanded SYSTEM_PROMPT to 856 words.
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
 | 15. URL Reference Updates | 1/1 | Complete | 2026-05-31 |
 | 16. Prompt Caching | 1/1 | Complete | 2026-05-31 |
-| 17. Voice Signal Functions | 0/TBD | Not started | - |
+| 17. Voice Signal Functions | 4/4 | Complete | 2026-05-31 |

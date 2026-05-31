@@ -17,6 +17,9 @@ import { checkEmDash } from './signals/em-dash';
 import { checkCta } from './signals/cta';
 import { checkGenericComments } from './signals/comments';
 import { checkAiVocab } from './signals/ai-vocab';
+import { checkHookStory } from './signals/hook-story';
+import { checkMotivational } from './signals/motivational';
+import { checkImpersonalVoice } from './signals/impersonal';
 
 /** Constructor options for HeuristicDetector. */
 export interface HeuristicDetectorOptions {
@@ -112,6 +115,27 @@ export class HeuristicDetector implements Detector {
     if (aiVocabScore > 0) {
       breakdown['ai-vocab'] = aiVocabScore;
       score += aiVocabScore;
+    }
+
+    // Step 3c: Hook-story opener (up to 20 pts) — detects anecdote openers
+    const hookScore = checkHookStory(post.postText);
+    if (hookScore > 0) {
+      breakdown['hook-story'] = hookScore;
+      score += hookScore;
+    }
+
+    // Step 3d: Motivational rhythm (up to 20 pts) — "Most people X", "Stop X. Start Y."
+    const motivationalScore = checkMotivational(post.postText);
+    if (motivationalScore > 0) {
+      breakdown['motivational'] = motivationalScore;
+      score += motivationalScore;
+    }
+
+    // Step 3e: Impersonal framing (up to 15 pts) — "Successful leaders do...", "Many professionals..."
+    const impersonalScore = checkImpersonalVoice(post.postText);
+    if (impersonalScore > 0) {
+      breakdown['impersonal'] = impersonalScore;
+      score += impersonalScore;
     }
 
     // Step 4: Engagement signal — gated behind content score > 20 (D-02, DETECT-07).

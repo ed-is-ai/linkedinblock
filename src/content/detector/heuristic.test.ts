@@ -4,6 +4,7 @@
  */
 import { describe, it, expect, vi } from 'vitest';
 import { HeuristicDetector } from './heuristic';
+import type { PostData } from '../../shared/types';
 
 describe('HeuristicDetector', () => {
   it('has name === "heuristic"', () => {
@@ -193,5 +194,50 @@ describe('HeuristicDetector', () => {
       postText,
     });
     expect(result.signals).toEqual(Object.keys(result.signalBreakdown));
+  });
+});
+
+describe('HeuristicDetector — AI voice pattern (v5.0 regression)', () => {
+  it('AI voice post with hook+motivational+impersonal scores >= 60', async () => {
+    const detector = new HeuristicDetector();
+    const post: PostData = {
+      urn: 'urn:li:activity:voice001',
+      authorId: 'voice-test',
+      authorName: 'Voice Test',
+      authorProfileUrl: 'https://www.linkedin.com/in/voice-test/',
+      postText: [
+        'I was sitting with our CEO when he said something that changed how I think about leadership.',
+        '',
+        'My mentor once told me: "Most people want to be successful. But very few want to do what success actually requires."',
+        '',
+        'That hit me differently.',
+        '',
+        'Most people focus on the result. The top performers focus on the process.',
+        '',
+        'Stop chasing outcomes. Start building habits.',
+        '',
+        'What do you think? Drop a comment below.',
+      ].join('\n'),
+    };
+    const result = await detector.detect(post);
+    expect(result.score).toBeGreaterThanOrEqual(60);
+  });
+
+  it('genuine personal post scores <= 20', async () => {
+    const detector = new HeuristicDetector();
+    const post: PostData = {
+      urn: 'urn:li:activity:human001',
+      authorId: 'human-test',
+      authorName: 'Human Test',
+      authorProfileUrl: 'https://www.linkedin.com/in/human-test/',
+      postText: [
+        'Spent the morning debugging a weird race condition in our payment service.',
+        "Turned out to be a missing mutex around a shared cache write that only manifested under load.",
+        "Three hours I'll never get back, but at least I learned something new about our caching layer.",
+        'Now off to write a post-mortem before I forget the details.',
+      ].join('\n'),
+    };
+    const result = await detector.detect(post);
+    expect(result.score).toBeLessThanOrEqual(20);
   });
 });

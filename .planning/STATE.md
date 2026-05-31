@@ -90,5 +90,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v5.0 milestone defined — 3 new heuristic signals for AI voice patterns
-**Next action:** Run `/gsd-plan-phase 17` to plan Phase 17 (Voice Signal Functions)
+**Last action:** Phase 17 executed — 3 new voice signals + integration test (AI voice post scores 61)
+**Next action:** Run `/gsd-complete-milestone` to archive v5.0 and tag it
