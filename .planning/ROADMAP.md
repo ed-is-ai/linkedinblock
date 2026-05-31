@@ -242,7 +242,12 @@ Replace all `linkedinblock` → `linkedinaivoiceblock` refs (11 files + git remo
   2. `SYSTEM_PROMPT` is ≥1024 tokens so the cache_control is effective
   3. `npx tsc --noEmit` exits 0
 
-**Plans**: TBD
+**Plans**: 1
+
+**Wave 1**
+
+  - [x] 16-01-PLAN.md — Expand SYSTEM_PROMPT to ≥1024 tokens; add `anthropic-beta` header + `cache_control` block to API call — CACHE-01–04
+
 **UI hint**: no
 
 ---
@@ -267,4 +272,4 @@ Replace all `linkedinblock` → `linkedinaivoiceblock` refs (11 files + git remo
 | 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
 | 15. URL Reference Updates | 1/1 | Complete | 2026-05-31 |
-| 16. Prompt Caching | 0/TBD | Not started | - |
+| 16. Prompt Caching | 1/1 | Complete | 2026-05-31 |

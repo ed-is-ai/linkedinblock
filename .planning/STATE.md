@@ -78,8 +78,7 @@ v4.0: [ Phase 16 ]
 
 ### Todos
 
-- [ ] Plan Phase 16 (Prompt Caching)
-- [ ] Execute Phase 16 (Prompt Caching)
+- [x] Execute Phase 16 (Prompt Caching) — complete 2026-05-31
 
 ### Blockers
 
@@ -90,5 +89,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v4.0 milestone defined — REQUIREMENTS.md + ROADMAP.md + PROJECT.md + STATE.md updated
-**Next action:** Run `/gsd-plan-phase 16` to plan Phase 16 (Prompt Caching)
+**Last action:** Phase 16 executed — SYSTEM_PROMPT 856 words, prompt caching header + cache_control added
+**Next action:** Run `/gsd-complete-milestone` to archive v4.0 and tag it
