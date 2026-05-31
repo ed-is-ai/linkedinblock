@@ -98,6 +98,7 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v1.1 | Post storage, signal detail view, export, date-based cleanse | Complete 2026-05-30 |
 | v1.2 | Profile bot-rate stat, posts CSV export | Complete 2026-05-30 |
 | v2.0 | Chrome Web Store release — icons, privacy policy, store listing, packaging | Complete 2026-05-31 |
+| v3.0 | Repo rename cleanup — update all `linkedinblock` → `linkedinaivoiceblock` references | Active |
 
 ---
-*Last updated: 2026-05-31 — v2.0 milestone complete*
+*Last updated: 2026-05-31 — v3.0 milestone started (repo rename cleanup)*

@@ -223,6 +223,26 @@ Icons, manifest compliance, privacy policy, store listing, packaging script, sub
 
 ---
 
+## Milestone v3.0 — Repo Rename Cleanup
+
+### Phase 15: URL Reference Updates
+
+**Goal**: All `linkedinblock` repo references replaced with `linkedinaivoiceblock` in live files and archived planning docs
+**Depends on**: Phase 14
+**Requirements**: RENAME-01, RENAME-02, RENAME-03, RENAME-04, RENAME-05
+**Success Criteria** (what must be TRUE):
+
+  1. `src/manifest.json` `homepage_url` points to `https://github.com/ed-is-ai/linkedinaivoiceblock`
+  2. `PRIVACY.md` GitHub Issues link and `store/LISTING.md` + `store/SUBMISSION_GUIDE.md` privacy policy URLs updated
+  3. Git remote URL updated locally to `https://github.com/ed-is-ai/linkedinaivoiceblock.git`
+  4. `npm run package` produces an updated ZIP with the corrected manifest
+  5. No remaining `linkedinblock` references in live source files
+
+**Plans**: TBD
+**UI hint**: no
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -242,3 +262,4 @@ Icons, manifest compliance, privacy policy, store listing, packaging script, sub
 | 13. Store Assets | 2/2 | Complete | 2026-05-31 |
 | 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
+| 15. URL Reference Updates | 0/TBD | Not started | - |

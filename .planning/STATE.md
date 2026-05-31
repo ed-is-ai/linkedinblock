@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: cws-release
-status: complete
+milestone: v3.0
+milestone_name: repo-rename
+status: in-progress
 last_updated: "2026-05-31T00:00:00.000Z"
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_phases: 1
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State — LinkedIn Blocker
@@ -17,7 +17,7 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v2.0 — Chrome Web Store release (icons, privacy policy, store listing, packaging)
+**Current focus:** v3.0 — Repo rename cleanup (linkedinblock → linkedinaivoiceblock)
 
 ---
 
@@ -27,14 +27,16 @@ Milestone v1.0: COMPLETE ✓
 Milestone v1.1: COMPLETE ✓  
 Milestone v1.2: COMPLETE ✓  
 Milestone v2.0: COMPLETE ✓
+Milestone v3.0: IN PROGRESS
 
 ```
 v1.0: [ Phase 1–6 ] DONE✓
 v1.1: [ Phase 7–9 ] DONE✓
 v1.2: [ Phase 10–11 ] DONE✓
+v2.0: [ Phase 12–14 ] DONE✓
 
-v2.0: [ Phase 12 ] [ Phase 13 ] [ Phase 14 ]
-        DONE✓        DONE✓        DONE✓
+v3.0: [ Phase 15 ]
+        TODO
 ```
 
 ---
@@ -92,5 +94,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v2.0 milestone archived — planning artifacts updated, PROJECT.md restored, ready to tag
-**Next action:** `/gsd-new-milestone` to define v3 (LLM detection is the natural next increment)
+**Last action:** v3.0 milestone defined — REQUIREMENTS.md + ROADMAP.md + PROJECT.md + STATE.md updated
+**Next action:** Run `/gsd-plan-phase 15` to plan Phase 15 (URL Reference Updates)

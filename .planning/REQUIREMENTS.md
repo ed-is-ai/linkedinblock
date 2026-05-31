@@ -107,9 +107,20 @@ See [milestones/v2.0-REQUIREMENTS.md](milestones/v2.0-REQUIREMENTS.md) for full 
 
 ---
 
-## Deferred (post-v2)
+## v3.0 Requirements — Repo Rename Cleanup
 
-- LLM-based detection API integration (pluggable engine stub is built in v1)
+- [ ] **RENAME-01**: `src/manifest.json` `homepage_url` updated to `https://github.com/ed-is-ai/linkedinaivoiceblock`
+- [ ] **RENAME-02**: `PRIVACY.md` GitHub Issues link updated to `https://github.com/ed-is-ai/linkedinaivoiceblock/issues`
+- [ ] **RENAME-03**: `store/LISTING.md` privacy policy URL updated to `https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md`
+- [ ] **RENAME-04**: `store/SUBMISSION_GUIDE.md` homepage URL and privacy policy URL updated
+- [ ] **RENAME-05**: Git remote URL updated to `https://github.com/ed-is-ai/linkedinaivoiceblock.git` and all archived planning docs updated
+
+---
+
+## Deferred (post-v3)
+
+- LLM cost controls — heuristic pre-filter + per-session rate limiting (LLM fully implemented; cost optimisation deferred)
+- Prompt caching — Anthropic prompt caching on system prompt (~90% cost reduction)
 - Posting time regularity signal (excluded — too many false positives from scheduling tools)
 - Posting frequency signal (excluded by user preference)
 - Firefox support
