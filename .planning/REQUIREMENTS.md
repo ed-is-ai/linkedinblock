@@ -94,22 +94,16 @@ See [milestones/v1.2-REQUIREMENTS.md](milestones/v1.2-REQUIREMENTS.md) for full 
 
 ---
 
-## v2.0 Requirements — Chrome Web Store Release
+## v2.0 Requirements — Chrome Web Store Release *(archived — shipped 2026-05-31)*
 
-### Manifest & Icons
+See [milestones/v2.0-REQUIREMENTS.md](milestones/v2.0-REQUIREMENTS.md) for full record.
 
-- [ ] **CWS-01**: `manifest.json` has all CWS-required fields: `icons` (16/48/128), `action.default_icon`, `homepage_url`, and version bumped to `1.2.0`
-- [ ] **CWS-02**: PNG icon files exist at `public/icons/icon-16.png`, `public/icons/icon-48.png`, `public/icons/icon-128.png` with a consistent branded design; all referenced in manifest and present in build output
-
-### Store Content
-
-- [ ] **CWS-03**: `PRIVACY.md` in repo root describes data collected (flagged accounts, stored post text), storage location (local only, `chrome.storage.local`), no third-party sharing, and optional LLM API key handling — accessible as a raw GitHub URL
-- [ ] **CWS-04**: `store/LISTING.md` contains: name (≤45 chars), short description (≤132 chars), detailed description (≥300 words), category, keywords, and screenshot guidance checklist for the 5 required store screenshots
-
-### Packaging & Submission
-
-- [ ] **CWS-05**: `npm run package` script builds the extension and zips the `dist/` output to `dist/linkedin-blocker-v1.2.0.zip`; the ZIP loads correctly as an unpacked extension in Chrome
-- [ ] **CWS-06**: `store/SUBMISSION_GUIDE.md` covers: developer account registration ($5 fee + URL), dashboard upload steps, privacy policy URL format, screenshot requirements, category selection, and expected review timeline
+- [x] **CWS-01**: manifest.json v1.2.0 with icons, action.default_icon, homepage_url
+- [x] **CWS-02**: PNG icons at 16/48/128px in src/public/icons/; in dist/ after build
+- [x] **CWS-03**: PRIVACY.md — data inventory, local-only storage, opt-in LLM, deletion instructions
+- [x] **CWS-04**: store/LISTING.md — name, 132-char short desc, 340-word description, permissions justification, 5-screenshot checklist
+- [x] **CWS-05**: npm run package → dist/linkedin-blocker-v1.2.0.zip (27.6 KB)
+- [x] **CWS-06**: store/SUBMISSION_GUIDE.md — 6-step first-time CWS submission walkthrough
 
 ---
 

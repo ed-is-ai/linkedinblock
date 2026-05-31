@@ -217,71 +217,9 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 
 ---
 
-## Milestone v2.0 — Chrome Web Store Release
+## Milestone v2.0 — Chrome Web Store Release *(archived)*
 
-### Phase 12: Manifest Compliance & Icons
-
-**Goal**: Extension passes CWS technical requirements — correct manifest fields, version, and branded icons at all required sizes
-**Depends on**: Phase 11
-**Requirements**: CWS-01, CWS-02
-**Success Criteria** (what must be TRUE):
-
-  1. `manifest.json` has `icons`, `action.default_icon`, `homepage_url`, and version bumped to `1.2.0`
-  2. `public/icons/icon-16.png`, `icon-48.png`, `icon-128.png` exist with a consistent branded design
-  3. `npx vite build` succeeds and icon files appear in `dist/`
-  4. The `api.anthropic.com` host permission is documented with a justification comment or moved to an optional feature flag note
-
-**Plans**: 2
-
-**Wave 1**
-
-  - [x] 12-01-PLAN.md — SVG icon design + sharp-based PNG generation at 16/48/128px — CWS-02
-
-**Wave 2** *(blocked on Wave 1)*
-
-  - [x] 12-02-PLAN.md — manifest.json: version 1.2.0, icons, action.default_icon, homepage_url; package.json version bump; build verification — CWS-01
-
-**UI hint**: no
-
-### Phase 13: Store Assets
-
-**Goal**: All Chrome Web Store listing materials are ready — privacy policy, listing copy, and screenshot guidance
-**Depends on**: Phase 12
-**Requirements**: CWS-03, CWS-04
-**Success Criteria** (what must be TRUE):
-
-  1. `PRIVACY.md` in repo root covers: data collected, storage location (local only), no third-party sharing, optional LLM API key handling — accessible as a raw GitHub URL
-  2. `store/LISTING.md` contains: name (≤45 chars), short description (≤132 chars), detailed description (≥300 words), category, keywords, and screenshot guidance checklist
-  3. Both files are committed and the raw GitHub URLs are valid
-
-**Plans**: 2
-
-**Wave 1** *(parallel — different files)*
-
-  - [x] 13-01-PLAN.md — `PRIVACY.md` in repo root: data inventory, local-only storage, opt-in LLM disclosure, deletion instructions — CWS-03
-  - [x] 13-02-PLAN.md — `store/LISTING.md`: name, short desc ≤132 chars, detailed description ≥300 words, category, permissions justification, 5-screenshot checklist — CWS-04
-
-**UI hint**: no
-
-### Phase 14: Package & Submission Guide
-
-**Goal**: Extension is packaged as a CWS-ready .zip and the user has a complete step-by-step submission guide
-**Depends on**: Phase 13
-**Requirements**: CWS-05, CWS-06
-**Success Criteria** (what must be TRUE):
-
-  1. `npm run package` builds and zips the extension to `dist/linkedin-blocker-v1.2.0.zip`
-  2. `store/SUBMISSION_GUIDE.md` covers: developer account registration ($5 fee), dashboard URL, ZIP upload, privacy policy URL, screenshot upload, category selection, and expected review timeline
-  3. The produced `.zip` can be loaded as an unpacked extension in Chrome to confirm correctness before submission
-
-**Plans**: 2
-
-**Wave 1** *(parallel — different files)*
-
-  - [x] 14-01-PLAN.md — `scripts/package-zip.js` + `archiver` devDep + `npm run package` script that produces `dist/linkedin-blocker-v1.2.0.zip` — CWS-05
-  - [x] 14-02-PLAN.md — `store/SUBMISSION_GUIDE.md`: 6-step first-time CWS submission walkthrough — CWS-06
-
-**UI hint**: no
+Icons, manifest compliance, privacy policy, store listing, packaging script, submission guide. Phases 12–14. Shipped 2026-05-31. → [v2.0-ROADMAP.md](milestones/v2.0-ROADMAP.md)
 
 ---
 
@@ -303,3 +241,4 @@ Profile bot-rate stat on dashboard + Posts CSV export. Phases 10–11. Shipped 2
 | 12. Manifest & Icons | 2/2 | Complete | 2026-05-30 |
 | 13. Store Assets | 2/2 | Complete | 2026-05-31 |
 | 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
+| **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
