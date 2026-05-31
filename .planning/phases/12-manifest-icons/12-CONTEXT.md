@@ -30,7 +30,7 @@ Make the extension technically ready for Chrome Web Store submission: correct ma
 | Icon generation | SVG source at `src/icons/icon.svg` + `scripts/generate-icons.js` using `sharp` |
 | Icon design | LinkedIn blue (#0a66c2) rounded square, white shield, blue diagonal slash (content filter/block) |
 | `api.anthropic.com` | Keep in `host_permissions` — LLM feature is real; add justification in `store/LISTING.md` (Phase 13) |
-| `homepage_url` | `https://github.com/ed-is-ai/linkedinblock` |
+| `homepage_url` | `https://github.com/ed-is-ai/linkedinaivoiceblock` |
 | Version | `1.2.0` in both `manifest.json` and `package.json` |
 
 ## Files Touched

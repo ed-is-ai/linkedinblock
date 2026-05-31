@@ -27,7 +27,7 @@ Produce the two written artefacts needed before CWS submission:
 
 ## Privacy policy URL
 
-Raw GitHub URL: `https://raw.githubusercontent.com/ed-is-ai/linkedinblock/master/PRIVACY.md`
+Raw GitHub URL: `https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md`
 
 ## Store listing decisions
 

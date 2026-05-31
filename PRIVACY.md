@@ -74,4 +74,4 @@ If the data practices change in a future version, this file will be updated and 
 
 ## Contact
 
-This extension is open-source. Questions or concerns can be raised via [GitHub Issues](https://github.com/ed-is-ai/linkedinblock/issues).
+This extension is open-source. Questions or concerns can be raised via [GitHub Issues](https://github.com/ed-is-ai/linkedinaivoiceblock/issues).

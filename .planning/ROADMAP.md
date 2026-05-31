@@ -238,7 +238,12 @@ Icons, manifest compliance, privacy policy, store listing, packaging script, sub
   4. `npm run package` produces an updated ZIP with the corrected manifest
   5. No remaining `linkedinblock` references in live source files
 
-**Plans**: TBD
+**Plans**: 1
+
+**Wave 1**
+
+  - [x] 15-01-PLAN.md — Replace all `linkedinblock` URLs with `linkedinaivoiceblock` in live files + archived planning docs; update git remote; rebuild ZIP — RENAME-01–05
+
 **UI hint**: no
 
 ---
@@ -262,4 +267,4 @@ Icons, manifest compliance, privacy policy, store listing, packaging script, sub
 | 13. Store Assets | 2/2 | Complete | 2026-05-31 |
 | 14. Package & Submit | 2/2 | Complete | 2026-05-31 |
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
-| 15. URL Reference Updates | 0/TBD | Not started | - |
+| 15. URL Reference Updates | 1/1 | Complete | 2026-05-31 |

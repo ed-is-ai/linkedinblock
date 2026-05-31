@@ -66,7 +66,7 @@ Advanced users can enable Claude AI-powered detection by setting an Anthropic AP
 
 PRIVACY
 
-All data is stored locally using Chrome's built-in storage (chrome.storage.local). Nothing is transmitted to any server in the default configuration. Full privacy policy: https://raw.githubusercontent.com/ed-is-ai/linkedinblock/master/PRIVACY.md
+All data is stored locally using Chrome's built-in storage (chrome.storage.local). Nothing is transmitted to any server in the default configuration. Full privacy policy: https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md
 ```
 
 ---
@@ -131,5 +131,5 @@ Use `src/public/icons/icon-128.png` (128×128 PNG) as the store icon.
 ## Privacy policy URL
 
 ```
-https://raw.githubusercontent.com/ed-is-ai/linkedinblock/master/PRIVACY.md
+https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md
 ```

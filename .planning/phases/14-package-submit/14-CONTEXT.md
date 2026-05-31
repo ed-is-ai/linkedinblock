@@ -40,7 +40,7 @@ The zip must contain these files at the root level (not nested in a `dist/` fold
 | Developer account | https://chrome.google.com/webstore/devconsole/register — one-time $5 USD fee |
 | Upload ZIP | From the developer dashboard — "New Item" |
 | Store listing | Paste from `store/LISTING.md` |
-| Privacy policy URL | `https://raw.githubusercontent.com/ed-is-ai/linkedinblock/master/PRIVACY.md` |
+| Privacy policy URL | `https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md` |
 | Screenshots | 5 required (1280×800 or 640×400) — see checklist in `store/LISTING.md` |
 | Category | Productivity |
 | Review timeline | Typically 1–7 business days for new items; can be longer (2–3 weeks) if flagged |

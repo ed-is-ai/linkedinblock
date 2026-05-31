@@ -48,7 +48,7 @@ All copy-paste text is in `store/LISTING.md`.
 | **Language** | English |
 | **Store icon** | Upload `src/public/icons/icon-128.png` (128×128 PNG) |
 | **Screenshots** | Upload the 5 screenshots from your checklist |
-| **Homepage URL** | `https://github.com/ed-is-ai/linkedinblock` |
+| **Homepage URL** | `https://github.com/ed-is-ai/linkedinaivoiceblock` |
 
 ### Screenshots
 
@@ -63,7 +63,7 @@ You need **exactly 5** at 1280×800 or 640×400 pixels. See the checklist in `st
 1. Click the **"Privacy practices"** tab
 2. Under **"privacy policy"**, paste:
    ```
-   https://raw.githubusercontent.com/ed-is-ai/linkedinblock/master/PRIVACY.md
+   https://raw.githubusercontent.com/ed-is-ai/linkedinaivoiceblock/master/PRIVACY.md
    ```
 3. Under **"Single purpose"**, paste the statement from `store/LISTING.md` → "Single purpose statement":
    > LinkedIn Blocker has a single purpose: detecting and hiding AI-generated posts on LinkedIn using local heuristic scoring, with an optional AI-powered second-opinion mode.
