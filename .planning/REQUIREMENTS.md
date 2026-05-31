@@ -123,7 +123,17 @@ See [milestones/v4.0-REQUIREMENTS.md](milestones/v4.0-REQUIREMENTS.md) for full 
 
 ---
 
-## Deferred (post-v4)
+## v5.0 Requirements — Voice Pattern Detection
+
+- [ ] **VOICE-01**: `src/content/detector/signals/hook-story.ts` exports `checkHookStory(text: string): number` (0–20) — detects fictional or suspiciously neat first-person anecdote openers ("I was in a meeting when...", "A senior engineer told me...", "Last week, I learned...")
+- [ ] **VOICE-02**: `src/content/detector/signals/motivational.ts` exports `checkMotivational(text: string): number` (0–15) — detects short punchy paragraph rhythm with inspirational framing ("Most people...", "Successful people...", "The truth is...", "Stop doing X. Start doing Y.")
+- [ ] **VOICE-03**: `src/content/detector/signals/impersonal.ts` exports `checkImpersonalVoice(text: string): number` (0–12) — detects generic third-person framing without personal specifics ("Many professionals struggle with...", "The best leaders...", "Teams that succeed...")
+- [ ] **VOICE-04**: `HeuristicDetector` imports and scores all three new signals; `hook-story` up to 20 pts, `motivational` up to 15, `impersonal` up to 12
+- [ ] **VOICE-05**: A representative AI voice post (hook + motivational + impersonal, no listicle/buzzwords) scores ≥ 60 in unit tests
+
+---
+
+## Deferred (post-v5)
 
 - LLM cost controls — heuristic pre-filter + per-session rate limiting
 - Posting time regularity signal (excluded — too many false positives from scheduling tools)

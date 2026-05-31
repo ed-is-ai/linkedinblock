@@ -1,8 +1,8 @@
 ---
 gsd_state_version: 1.0
-milestone: v4.0
-milestone_name: prompt-caching
-status: complete
+milestone: v5.0
+milestone_name: voice-detection
+status: in-progress
 last_updated: "2026-05-31T00:00:00.000Z"
 progress:
   total_phases: 1
@@ -17,7 +17,7 @@ progress:
 ## Project Reference
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v4.0 — Prompt caching (reduce LLM API cost ~90% on cache hits)
+**Current focus:** v5.0 — Voice pattern detection (hook-story, motivational, impersonal framing heuristic signals)
 
 ---
 
@@ -29,11 +29,12 @@ Milestone v1.2: COMPLETE ✓
 Milestone v2.0: COMPLETE ✓
 Milestone v3.0: COMPLETE ✓
 Milestone v4.0: COMPLETE ✓
+Milestone v5.0: IN PROGRESS
 
 ```
-v1.0–v3.0: [ Phases 1–15 ] ALL DONE✓
+v1.0–v4.0: [ Phases 1–16 ] ALL DONE✓
 
-v4.0: [ Phase 16 ]
+v5.0: [ Phase 17 ]
         TODO
 ```
 
@@ -89,5 +90,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-05-30
-**Last action:** v4.0 archived and tagged — prompt caching complete
-**Next action:** `/gsd-new-milestone` to define v5, or submit to CWS via store/SUBMISSION_GUIDE.md
+**Last action:** v5.0 milestone defined — 3 new heuristic signals for AI voice patterns
+**Next action:** Run `/gsd-plan-phase 17` to plan Phase 17 (Voice Signal Functions)

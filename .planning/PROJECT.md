@@ -100,6 +100,7 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v2.0 | Chrome Web Store release — icons, privacy policy, store listing, packaging | Complete 2026-05-31 |
 | v3.0 | Repo rename cleanup — update all `linkedinblock` → `linkedinaivoiceblock` references | Complete 2026-05-31 |
 | v4.0 | Prompt caching — reduce LLM API cost ~90% on cache hits | Complete 2026-05-31 |
+| v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Active |
 
 ---
-*Last updated: 2026-05-31 — v4.0 milestone complete*
+*Last updated: 2026-05-31 — v5.0 milestone started (voice pattern detection)*

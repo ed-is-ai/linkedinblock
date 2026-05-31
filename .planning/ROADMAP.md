@@ -235,6 +235,24 @@ Anthropic prompt caching on system prompt + expanded SYSTEM_PROMPT to 856 words.
 
 ---
 
+## Milestone v5.0 — Voice Pattern Detection
+
+### Phase 17: Voice Signal Functions
+
+**Goal**: The heuristic detector catches AI voice-style posts — hook-story openers, motivational punch rhythm, impersonal framing — that currently score 0
+**Depends on**: Phase 16
+**Requirements**: VOICE-01, VOICE-02, VOICE-03, VOICE-04, VOICE-05
+**Success Criteria** (what must be TRUE):
+
+  1. Three new signal functions exist with unit tests: `checkHookStory`, `checkMotivational`, `checkImpersonalVoice`
+  2. `HeuristicDetector` imports and scores all three
+  3. A representative AI voice post (hook + motivational + impersonal, no listicle/buzzwords) scores ≥ 60 in a test
+
+**Plans**: TBD
+**UI hint**: no
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -256,3 +274,4 @@ Anthropic prompt caching on system prompt + expanded SYSTEM_PROMPT to 856 words.
 | **v2.0 total** | **6/6** | **Complete** | **2026-05-31** |
 | 15. URL Reference Updates | 1/1 | Complete | 2026-05-31 |
 | 16. Prompt Caching | 1/1 | Complete | 2026-05-31 |
+| 17. Voice Signal Functions | 0/TBD | Not started | - |
