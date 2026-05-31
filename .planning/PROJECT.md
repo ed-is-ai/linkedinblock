@@ -82,13 +82,21 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 - npm run package → CWS-ready ZIP (27.6 KB) ✓
 - store/SUBMISSION_GUIDE.md — 6-step first-time CWS submission walkthrough ✓
 
-### Out of Scope (deferred post-v2)
+### Validated (v5.0 complete)
+
+- `checkHookStory` signal (0–20 pts) — first-person anecdote opener detection ✓
+- `checkMotivational` signal (0–15 pts) — inspirational punch-rhythm detection ✓
+- `checkImpersonalVoice` signal (0–12 pts) — generic third-person authority framing detection ✓
+- All three wired into `HeuristicDetector`; AI voice post scores 61 (≥ 60 threshold) ✓
+
+### Out of Scope (deferred post-v5)
 
 - Firefox support — Chrome only; WebExtensions API differences deferred
-- LLM-based detection — heuristics only in v1/v2; pluggable interface prepared for v3
+- LLM-based detection — heuristics only; pluggable interface prepared for later
 - Cloud sync or shared blocklists — local only
 - Backend / user accounts — no server
 - Posting frequency signals — excluded (scheduling tools cause too many false positives)
+- LLM cost controls — heuristic pre-filter + per-session rate limiting
 
 ## Milestone History
 
@@ -100,7 +108,7 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v2.0 | Chrome Web Store release — icons, privacy policy, store listing, packaging | Complete 2026-05-31 |
 | v3.0 | Repo rename cleanup — update all `linkedinblock` → `linkedinaivoiceblock` references | Complete 2026-05-31 |
 | v4.0 | Prompt caching — reduce LLM API cost ~90% on cache hits | Complete 2026-05-31 |
-| v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Active |
+| v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Complete 2026-05-31 |
 
 ---
-*Last updated: 2026-05-31 — v5.0 milestone started (voice pattern detection)*
+*Last updated: 2026-05-31 after v5.0 milestone*
