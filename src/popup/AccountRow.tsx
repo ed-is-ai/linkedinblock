@@ -8,6 +8,7 @@ interface AccountRowProps {
   isExpanded?: boolean;
   onToggle?: () => void;
   posts?: StoredPost[];
+  isBlocked?: boolean;
 }
 
 const rowStyles: Record<string, JSX.CSSProperties> = {
@@ -122,11 +123,20 @@ const rowStyles: Record<string, JSX.CSSProperties> = {
     fontSize: 11,
     fontWeight: 500,
   },
+  blockedChip: {
+    background: '#f3f4f6',
+    color: '#9ca3af',
+    fontSize: 10,
+    padding: '2px 6px',
+    borderRadius: 10,
+    border: '1px solid #e5e7eb',
+  } as JSX.CSSProperties,
 };
 
 export default function AccountRow({
   account, onBlock, onDismiss,
   isExpanded = false, onToggle, posts = [],
+  isBlocked = false,
 }: Readonly<AccountRowProps>): JSX.Element {
   const activeSignals = Object.entries(account.signals)
     .filter(([, v]) => v > 0)
@@ -142,11 +152,12 @@ export default function AccountRow({
             href={account.authorProfileUrl}
             target="_blank"
             rel="noreferrer"
-            style={rowStyles.nameLink}
+            style={{ ...rowStyles.nameLink, ...(isBlocked ? { color: '#9ca3af' } : {}) }}
             onClick={(e) => e.stopPropagation()}
           >
             {account.authorName}
           </a>
+          {isBlocked && <span style={rowStyles.blockedChip}>Blocked</span>}
           <span style={rowStyles.peakScore}>
             Peak: {account.peakScore}{'  '}{isExpanded ? '▾' : '▸'}
           </span>
@@ -193,10 +204,12 @@ export default function AccountRow({
         </div>
       )}
 
-      <div style={rowStyles.actionRow}>
-        <button onClick={(e) => { e.stopPropagation(); onDismiss(); }} style={rowStyles.dismissBtn}>Dismiss</button>
-        <button onClick={(e) => { e.stopPropagation(); onBlock(); }} style={rowStyles.blockBtn}>Block</button>
-      </div>
+      {!isBlocked && (
+        <div style={rowStyles.actionRow}>
+          <button onClick={(e) => { e.stopPropagation(); onDismiss(); }} style={rowStyles.dismissBtn}>Dismiss</button>
+          <button onClick={(e) => { e.stopPropagation(); onBlock(); }} style={rowStyles.blockBtn}>Block</button>
+        </div>
+      )}
     </div>
   );
 }
