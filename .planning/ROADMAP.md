@@ -82,7 +82,7 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 **Milestone Goal:** Fix the popup interaction model, add a blocked accounts manager page, and fix the threshold-blocking bug so the extension correctly hides posts from accounts the user has already flagged above the detection threshold.
 
-- [ ] **Phase 18: Popup Interaction Fixes** - Bug fix (threshold hiding) + popup click wiring (account name, block button state)
+- [x] **Phase 18: Popup Interaction Fixes** - Bug fix (threshold hiding) + popup click wiring (account name, block button state) (completed 2026-06-05)
 - [ ] **Phase 19: Blocked Accounts Page** - New blocked.html extension page listing and managing locally-blocked accounts
 - [ ] **Phase 20: Batch Block** - "Block all above threshold" popup action with confirmation step
 
@@ -108,7 +108,7 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 18-03-PLAN.md — POPUP-03: collapsible Blocked section + AccountRow isBlocked variant
+- [x] 18-03-PLAN.md — POPUP-03: collapsible Blocked section + AccountRow isBlocked variant
 
 **UI hint**: yes
 
@@ -164,6 +164,6 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 | 15. URL Reference Updates | v3.0 | 1/1 | Complete | 2026-05-31 |
 | 16. Prompt Caching | v4.0 | 1/1 | Complete | 2026-05-31 |
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
-| 18. Popup Interaction Fixes | v6.0 | 2/3 | In Progress|  |
+| 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 19. Blocked Accounts Page | v6.0 | 0/? | Not started | - |
 | 20. Batch Block | v6.0 | 0/? | Not started | - |
