@@ -143,6 +143,7 @@ export default function AccountRow({
             target="_blank"
             rel="noreferrer"
             style={rowStyles.nameLink}
+            onClick={(e) => e.stopPropagation()}
           >
             {account.authorName}
           </a>

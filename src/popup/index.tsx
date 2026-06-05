@@ -63,9 +63,6 @@ function App() {
       flaggedAccounts[account.authorId] = { ...existing, status: 'blocked' as const };
       await chrome.storage.local.set({ flaggedAccounts });
     }
-    // Open profile page so user can complete the block in LinkedIn
-    const url = account.authorProfileUrl || `https://www.linkedin.com/in/${account.authorId}/`;
-    window.open(url, '_blank', 'noreferrer');
   }
 
   async function handleDismiss(account: FlaggedAccount) {
