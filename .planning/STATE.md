@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: ux-polish
 status: planning
-last_updated: "2026-06-05T12:24:38.007Z"
-last_activity: 2026-06-05
+last_updated: "2026-06-05T12:39:31.418Z"
+last_activity: "2026-06-05 — Roadmap created for v6.0 (3 phases: 18, 19, 20)"
 progress:
   total_phases: 3
   completed_phases: 0
@@ -34,6 +34,7 @@ Last activity: 2026-06-05 — Roadmap created for v6.0 (3 phases: 18, 19, 20)
 Progress: [░░░░░░░░░░] 0%
 
 **v6.0 Phases:**
+
 - [ ] Phase 18: Popup Interaction Fixes (BUG-01, POPUP-01, POPUP-02, POPUP-03)
 - [ ] Phase 19: Blocked Accounts Page (BLOCK-01, BLOCK-02, BLOCK-03)
 - [ ] Phase 20: Batch Block (BATCH-01, BATCH-02, BATCH-03)
