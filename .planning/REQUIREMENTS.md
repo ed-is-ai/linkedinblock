@@ -8,9 +8,9 @@
 
 ## Popup Interaction
 
-- [ ] **POPUP-01**: Clicking an account name opens their LinkedIn profile URL in a new tab
-- [ ] **POPUP-02**: Block button marks the account as blocked in local storage (does not navigate to LinkedIn)
-- [ ] **POPUP-03**: Block button is visually distinct (e.g. greyed out / labelled "Blocked") for accounts already in blocked storage
+- [x] **POPUP-01**: Clicking an account name opens their LinkedIn profile URL in a new tab
+- [x] **POPUP-02**: Block button marks the account as blocked in local storage (does not navigate to LinkedIn)
+- [x] **POPUP-03**: Block button is visually distinct (e.g. greyed out / labelled "Blocked") for accounts already in blocked storage
 
 ## Blocked Accounts Page
 
@@ -26,7 +26,7 @@
 
 ## Bug Fix
 
-- [ ] **BUG-01**: Posts from accounts whose stored score meets or exceeds the block threshold are hidden in the LinkedIn feed (content script applies hiding on page load and on new posts detected via MutationObserver)
+- [x] **BUG-01**: Posts from accounts whose stored score meets or exceeds the block threshold are hidden in the LinkedIn feed (content script applies hiding on page load and on new posts detected via MutationObserver)
 
 ---
 
@@ -46,10 +46,10 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| BUG-01 | 18 | Pending |
-| POPUP-01 | 18 | Pending |
-| POPUP-02 | 18 | Pending |
-| POPUP-03 | 18 | Pending |
+| BUG-01 | 18 | Satisfied |
+| POPUP-01 | 18 | Satisfied |
+| POPUP-02 | 18 | Satisfied |
+| POPUP-03 | 18 | Satisfied |
 | BLOCK-01 | 19 | Pending |
 | BLOCK-02 | 19 | Pending |
 | BLOCK-03 | 19 | Pending |
