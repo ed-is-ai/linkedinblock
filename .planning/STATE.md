@@ -6,7 +6,7 @@ status: planning
 last_updated: "2026-06-05T12:24:38.007Z"
 last_activity: 2026-06-05
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -26,10 +26,17 @@ See: .planning/PROJECT.md (updated 2026-06-05)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 18 of 20 (Popup Interaction Fixes) — Ready to plan
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-05 — Milestone v6.0 started
+Status: Ready to plan
+Last activity: 2026-06-05 — Roadmap created for v6.0 (3 phases: 18, 19, 20)
+
+Progress: [░░░░░░░░░░] 0%
+
+**v6.0 Phases:**
+- [ ] Phase 18: Popup Interaction Fixes (BUG-01, POPUP-01, POPUP-02, POPUP-03)
+- [ ] Phase 19: Blocked Accounts Page (BLOCK-01, BLOCK-02, BLOCK-03)
+- [ ] Phase 20: Batch Block (BATCH-01, BATCH-02, BATCH-03)
 
 ## Accumulated Context
 
@@ -63,5 +70,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-06-05
-**Last action:** v6.0 milestone started — requirements and roadmap in progress
+**Last action:** v6.0 roadmap created — 3 phases (18–20), 10 requirements mapped
 **Next action:** `/gsd-plan-phase 18`

@@ -44,15 +44,15 @@
 
 ## Traceability
 
-| REQ-ID | Phase |
-|--------|-------|
-| BUG-01 | 18 |
-| POPUP-01 | 18 |
-| POPUP-02 | 18 |
-| POPUP-03 | 18 |
-| BLOCK-01 | 19 |
-| BLOCK-02 | 19 |
-| BLOCK-03 | 19 |
-| BATCH-01 | 20 |
-| BATCH-02 | 20 |
-| BATCH-03 | 20 |
+| REQ-ID | Phase | Status |
+|--------|-------|--------|
+| BUG-01 | 18 | Pending |
+| POPUP-01 | 18 | Pending |
+| POPUP-02 | 18 | Pending |
+| POPUP-03 | 18 | Pending |
+| BLOCK-01 | 19 | Pending |
+| BLOCK-02 | 19 | Pending |
+| BLOCK-03 | 19 | Pending |
+| BATCH-01 | 20 | Pending |
+| BATCH-02 | 20 | Pending |
+| BATCH-03 | 20 | Pending |
