@@ -107,8 +107,14 @@ function App() {
     });
   }
 
+  const [blockedExpanded, setBlockedExpanded] = useState(false);
+
   const pending = accounts
     .filter(a => a.status === 'pending')
+    .sort((a, b) => b.peakScore - a.peakScore);
+
+  const blocked = accounts
+    .filter(a => a.status === 'blocked')
     .sort((a, b) => b.peakScore - a.peakScore);
 
   return (
@@ -147,6 +153,27 @@ function App() {
           ))
         )}
       </div>
+
+      {blocked.length > 0 && (
+        <div>
+          <div
+            style={styles.blockedSectionHeader}
+            onClick={() => setBlockedExpanded(prev => !prev)}
+          >
+            Blocked ({blocked.length}) {blockedExpanded ? '▾' : '▸'}
+          </div>
+          {blockedExpanded && blocked.map(account => (
+            <AccountRow
+              key={account.authorId}
+              account={account}
+              onBlock={() => {}}
+              onDismiss={() => {}}
+              isBlocked={true}
+              posts={storedPosts.filter(p => p.authorId === account.authorId).slice(0, 3)}
+            />
+          ))}
+        </div>
+      )}
 
       <details style={styles.details}>
         <summary style={styles.summary}>⚙ Settings</summary>
@@ -327,6 +354,14 @@ const styles: Record<string, preact.JSX.CSSProperties> = {
     margin: '8px 0',
   },
   feedHealth: { fontSize: 11, color: '#6b7280', margin: '0 0 8px' },
+  blockedSectionHeader: {
+    cursor: 'pointer',
+    fontSize: 11,
+    color: '#6b7280',
+    padding: '6px 0',
+    borderTop: '1px solid #e5e7eb',
+    userSelect: 'none' as const,
+  },
 };
 
 render(<App />, document.getElementById('root')!);
