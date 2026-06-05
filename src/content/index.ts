@@ -162,6 +162,21 @@ chrome.storage.onChanged.addListener((changes, area) => {
       }
     }
   }
+
+  // Handle settings change — rebuild thresholdAuthors against the new threshold so that
+  // moving the slider takes effect on the next scrolled-in post without a page reload
+  if (changes['settings']) {
+    const newThreshold = (changes['settings'].newValue as { autoHideThreshold?: number } | undefined)?.autoHideThreshold ?? 60;
+    currentThreshold = newThreshold;
+    storageGet(['flaggedAccounts']).then(({ flaggedAccounts = {} }) => {
+      thresholdAuthors.clear();
+      for (const [id, entry] of Object.entries(flaggedAccounts)) {
+        if (entry.status === 'pending' && entry.peakScore >= newThreshold) {
+          thresholdAuthors.set(id, entry.peakScore);
+        }
+      }
+    }).catch(() => {});
+  }
 });
 
 // ---------------------------------------------------------------------------
