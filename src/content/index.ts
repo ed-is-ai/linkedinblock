@@ -258,6 +258,20 @@ async function init(): Promise<void> {
       return;
     }
 
+    // Dismissed authors — must not be threshold-hidden even if stored peakScore is high
+    if (dismissedSet.has(trackKey)) return;
+
+    // Threshold authors — pending accounts whose stored peakScore already meets the
+    // auto-hide threshold from prior sessions; hide immediately with grey tombstone,
+    // no need to re-run the async detector (D-01: stored peakScore is authoritative)
+    if (thresholdAuthors.has(trackKey)) {
+      const peakScore = thresholdAuthors.get(trackKey)!;
+      postNode.classList.add('llb-hidden');
+      injectTombstone(postNode, authorName, peakScore);
+      hiddenPostNodes.set(trackKey, [...(hiddenPostNodes.get(trackKey) ?? []), postNode]);
+      return;
+    }
+
     const exclusion = checkExclusions(postData, postNode);
     if (exclusion.excluded) return;
 
