@@ -89,7 +89,20 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 - `checkImpersonalVoice` signal (0–12 pts) — generic third-person authority framing detection ✓
 - All three wired into `HeuristicDetector`; AI voice post scores 61 (≥ 60 threshold) ✓
 
-### Out of Scope (deferred post-v5)
+### Current Milestone: v6.0 UX Polish + Block Management
+
+**Goal:** Fix the popup interaction model, add a blocked accounts manager page, and fix the threshold-blocking bug.
+
+**Target features:**
+- Block button marks account blocked locally (no deep-link navigation)
+- Clicking an account name opens their LinkedIn profile
+- Blocked accounts page (`blocked.html`) — list, review, and unblock
+- Batch block: one action to mark all above-threshold flagged accounts as blocked
+- Bug fix: posts from accounts above the block threshold are not being hidden
+
+---
+
+## Out of Scope (deferred post-v5)
 
 - Firefox support — Chrome only; WebExtensions API differences deferred
 - LLM-based detection — heuristics only; pluggable interface prepared for later
@@ -109,6 +122,7 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v3.0 | Repo rename cleanup — update all `linkedinblock` → `linkedinaivoiceblock` references | Complete 2026-05-31 |
 | v4.0 | Prompt caching — reduce LLM API cost ~90% on cache hits | Complete 2026-05-31 |
 | v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Complete 2026-05-31 |
+| v6.0 | UX Polish + Block Management — popup interaction fixes, blocked accounts page, batch block, threshold-hiding bug | In progress |
 
 ---
-*Last updated: 2026-05-31 after v5.0 milestone*
+*Last updated: 2026-06-05 — v6.0 started*

@@ -1,43 +1,35 @@
 ---
 gsd_state_version: 1.0
-milestone: v5.0
-milestone_name: voice-detection
-status: complete
-last_updated: "2026-05-31T00:00:00.000Z"
+milestone: v6.0
+milestone_name: ux-polish
+status: planning
+last_updated: "2026-06-05T12:24:38.007Z"
+last_activity: 2026-06-05
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State — LinkedIn Blocker
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-05-31)
+See: .planning/PROJECT.md (updated 2026-06-05)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Planning next milestone
+**Current focus:** v6.0 — UX Polish + Block Management
 
 ---
 
 ## Current Position
 
-Milestone v1.0: COMPLETE ✓
-Milestone v1.1: COMPLETE ✓
-Milestone v1.2: COMPLETE ✓
-Milestone v2.0: COMPLETE ✓
-Milestone v3.0: COMPLETE ✓
-Milestone v4.0: COMPLETE ✓
-Milestone v5.0: COMPLETE ✓
-
-```
-v1.0–v5.0: [ Phases 1–17 ] ALL DONE ✓
-```
-
----
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-06-05 — Milestone v6.0 started
 
 ## Accumulated Context
 
@@ -60,7 +52,7 @@ v1.0–v5.0: [ Phases 1–17 ] ALL DONE ✓
 
 ### Todos
 
-- [ ] Run `/gsd-new-milestone` to start next milestone
+None.
 
 ### Blockers
 
@@ -70,6 +62,6 @@ None.
 
 ## Session Continuity
 
-**Last updated:** 2026-05-31
-**Last action:** v5.0 milestone archived — voice pattern detection shipped
-**Next action:** Run `/gsd-new-milestone` to plan next milestone
+**Last updated:** 2026-06-05
+**Last action:** v6.0 milestone started — requirements and roadmap in progress
+**Next action:** `/gsd-plan-phase 18`
