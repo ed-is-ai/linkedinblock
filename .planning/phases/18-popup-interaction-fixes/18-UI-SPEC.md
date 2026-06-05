@@ -60,13 +60,13 @@ Exceptions:
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
 | Body / default | 13px | 400 (regular) | 1.5 |
-| Label / meta / chips | 11px | 400 (regular) | 1.4 |
+| Label / meta / chips / blocked section header | 11px | 400 (regular) | 1.4 |
 | Small / hint | 10px | 400 (regular) | 1.4 |
 | Heading / name | 13px | 600 (semibold) | 1.2 |
 | Section title | 16px | 600 (semibold) | 1.2 |
 
 **New typography for Phase 18:**
-- Blocked section header: 12px, weight 400, color #6b7280 — matches existing `summary` style
+- Blocked section header: 11px, weight 400, color #6b7280 — merges into label/meta tier; muted color (#6b7280) differentiates it visually from other 11px uses
 - "Blocked" chip label: 10px, weight 400, color #9ca3af — matches existing `moreChips` style
 
 **Source:** Extracted from `src/popup/AccountRow.tsx` and `src/popup/index.tsx` inline styles (existing). Phase 18 additions follow the same scale.
@@ -146,7 +146,7 @@ border: 1px solid #e5e7eb
 **Blocked section header style:**
 ```
 cursor: pointer
-fontSize: 12px
+fontSize: 11px
 color: #6b7280
 padding: 6px 0
 borderTop: 1px solid #e5e7eb
