@@ -52,12 +52,29 @@ const dismissedSet = new Set<string>();
 
 const blockedAuthors = new Map<string, { postScore: number; profileScore: number }>();
 
+// ---------------------------------------------------------------------------
+// Threshold authors — pending accounts whose stored peakScore already meets
+// the auto-hide threshold from prior sessions. Populated at init() and rebuilt
+// by chrome.storage.onChanged when the settings threshold changes (BUG-01).
+// Only 'pending' accounts; blocked accounts are handled by blockedAuthors.
+// ---------------------------------------------------------------------------
+
+const thresholdAuthors = new Map<string, number>();
+
 const PROFILE_SIGNAL_KEYS = new Set(['headline-formula', 'degree-3']);
 function calcProfileScore(signals: Record<string, number>): number {
   return Object.entries(signals)
     .filter(([k]) => PROFILE_SIGNAL_KEYS.has(k))
     .reduce((sum, [, v]) => sum + v, 0);
 }
+
+// ---------------------------------------------------------------------------
+// Current threshold — module-scope mirror of settings.autoHideThreshold so the
+// onChanged rebuild branch (Task 3) can update it without re-reading storage.
+// Default matches settings?.autoHideThreshold ?? 60 used in init().
+// ---------------------------------------------------------------------------
+
+let currentThreshold = 60;
 
 // ---------------------------------------------------------------------------
 // Daily stats counters — reset on SPA navigation; flushed on hide events
@@ -177,6 +194,7 @@ async function init(): Promise<void> {
   const { anthropicApiKey, dismissedAccounts = [], flaggedAccounts = {}, settings } =
     await storageGet(['anthropicApiKey', 'dismissedAccounts', 'flaggedAccounts', 'settings']);
   const autoHideThreshold = settings?.autoHideThreshold ?? 60;
+  currentThreshold = autoHideThreshold;
   for (const id of dismissedAccounts) dismissedSet.add(id);
   for (const [id, entry] of Object.entries(flaggedAccounts)) {
     if (entry.status === 'blocked') {
@@ -184,6 +202,8 @@ async function init(): Promise<void> {
         postScore: entry.peakScore,
         profileScore: calcProfileScore(entry.signals),
       });
+    } else if (entry.status === 'pending' && entry.peakScore >= autoHideThreshold) {
+      thresholdAuthors.set(id, entry.peakScore);
     }
   }
 
