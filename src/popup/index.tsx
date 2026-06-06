@@ -141,6 +141,8 @@ function App() {
         )}
       </div>
 
+      <button onClick={openDashboard} style={styles.dashboardLink}>📊 View Dashboard</button>
+
       {feedPct !== null && (
         <p style={styles.feedHealth}>{feedPct} of posts flagged (7d)</p>
       )}
@@ -215,12 +217,6 @@ function App() {
               style={styles.slider}
             />
           </div>
-
-          <button onClick={openDashboard} style={styles.dashboardLink}>
-            📊 View Dashboard
-          </button>
-
-          <hr style={styles.divider} />
 
           <div style={styles.modeRow}>
             <span style={{ ...styles.dot, background: hasKey ? '#22c55e' : '#f59e0b' }} />
@@ -369,11 +365,6 @@ const styles: Record<string, preact.JSX.CSSProperties> = {
     fontSize: 12,
     marginBottom: 10,
     textAlign: 'center' as const,
-  },
-  divider: {
-    border: 'none',
-    borderTop: '1px solid #e5e7eb',
-    margin: '8px 0',
   },
   feedHealth: { fontSize: 11, color: '#6b7280', margin: '0 0 8px' },
   blockedSectionHeader: {
