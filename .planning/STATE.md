@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: ux-polish
-status: executing
-last_updated: "2026-06-06T17:53:05.702Z"
+status: milestone_complete
+last_updated: 2026-06-06T18:20:21.079Z
 last_activity: 2026-06-06 -- Phase 20 execution started
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 67
+stopped_at: Milestone complete (Phase 20 was final phase)
 ---
 
 # State — LinkedIn Blocker
@@ -20,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-05)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Phase 20 — batch-block
+**Current focus:** Milestone complete
 
 ---
 
 ## Current Position
 
-Phase: 20 (batch-block) — EXECUTING
-Plan: 1 of 1
-Status: Executing Phase 20
-Last activity: 2026-06-06 -- Phase 20 execution started
+Phase: 20
+Plan: Not started
+Status: Milestone complete
+Last activity: 2026-06-06
 
 Progress: [███░░░░░░░] 67%
 

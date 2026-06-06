@@ -164,4 +164,4 @@ Plans:
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
-| 20. Batch Block | v6.0 | 1/1 | Complete   | 2026-06-06 |
+| 20. Batch Block | v6.0 | 1/1 | Complete    | 2026-06-06 |

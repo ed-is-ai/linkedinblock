@@ -14,9 +14,9 @@
 
 ## Batch Block
 
-- [ ] **BATCH-01**: The popup has a "Block all above threshold" action
-- [ ] **BATCH-02**: The action marks all currently-flagged accounts whose peak score ≥ configured threshold as blocked in local storage
-- [ ] **BATCH-03**: A confirmation step displays the affected account count before executing
+- [x] **BATCH-01**: The popup has a "Block all above threshold" action
+- [x] **BATCH-02**: The action marks all currently-flagged accounts whose peak score ≥ configured threshold as blocked in local storage
+- [x] **BATCH-03**: A confirmation step displays the affected account count before executing
 
 ## Bug Fix
 
@@ -48,6 +48,6 @@
 | BLOCK-01 | - | Deferred |
 | BLOCK-02 | - | Deferred |
 | BLOCK-03 | - | Deferred |
-| BATCH-01 | 20 | Pending |
-| BATCH-02 | 20 | Pending |
-| BATCH-03 | 20 | Pending |
+| BATCH-01 | 20 | Complete |
+| BATCH-02 | 20 | Complete |
+| BATCH-03 | 20 | Complete |
