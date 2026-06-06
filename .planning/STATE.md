@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v6.1
 milestone_name: Popup UX Tidy-up
-status: executing
-last_updated: "2026-06-06T19:14:06.397Z"
+status: milestone_complete
+last_updated: 2026-06-06T19:32:41.687Z
 last_activity: 2026-06-06 -- Phase 21 execution started
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
   percent: 75
+stopped_at: Milestone complete (Phase 21 was final phase)
 ---
 
 # State — LinkedIn Blocker
@@ -20,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-06)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Phase 21 — dashboard-button-reposition
+**Current focus:** Milestone complete
 
 ---
 
 ## Current Position
 
-Phase: 21 (dashboard-button-reposition) — EXECUTING
-Plan: 1 of 1
-Status: Executing Phase 21
-Last activity: 2026-06-06 -- Phase 21 execution started
+Phase: 21
+Plan: Not started
+Status: Milestone complete
+Last activity: 2026-06-06
 
 Progress: 0/1 phases complete [░░░░░░░░░░] 0%
 

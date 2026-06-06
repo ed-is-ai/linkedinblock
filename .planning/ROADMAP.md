@@ -191,4 +191,4 @@ Plans:
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
 | 20. Batch Block | v6.0 | 1/1 | Complete    | 2026-06-06 |
-| 21. Dashboard Button Reposition | v6.1 | 1/1 | Complete   | 2026-06-06 |
+| 21. Dashboard Button Reposition | v6.1 | 1/1 | Complete    | 2026-06-06 |

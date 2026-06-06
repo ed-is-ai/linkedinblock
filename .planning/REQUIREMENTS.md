@@ -8,8 +8,8 @@
 
 ## Popup Layout
 
-- [ ] **POPUP-04**: The "View Dashboard" action appears at the top of the popup (in/near the title header, above the pending account list), so it is visible without opening Settings
-- [ ] **POPUP-05**: The "View Dashboard" button is removed from the ⚙ Settings disclosure (moved, not duplicated); Settings retains only the threshold slider and export/cleanse controls
+- [x] **POPUP-04**: The "View Dashboard" action appears at the top of the popup (in/near the title header, above the pending account list), so it is visible without opening Settings
+- [x] **POPUP-05**: The "View Dashboard" button is removed from the ⚙ Settings disclosure (moved, not duplicated); Settings retains only the threshold slider and export/cleanse controls
 
 ---
 
@@ -32,5 +32,5 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| POPUP-04 | Phase 21 | Pending |
-| POPUP-05 | Phase 21 | Pending |
+| POPUP-04 | Phase 21 | Complete |
+| POPUP-05 | Phase 21 | Complete |
