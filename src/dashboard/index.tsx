@@ -3,10 +3,63 @@ import { useState, useEffect } from 'preact/hooks';
 import type { FlaggedAccount, DailyStats, StoredPost } from '../shared/types';
 import { buildJsonExport, buildCsvExport, buildPostsCsvExport, deriveCleanseCount, filterCleansed } from './dataManagement';
 
-const AI_LANGUAGE_SIGNALS = new Set([
-  'listicle', 'cta', 'buzzwords', 'em-dash', 'ai-vocab',
-  'generic-comments', 'hook-story', 'motivational', 'template',
-]);
+
+function NetPostsChart({ stats, timeWindow }: { stats: DailyStats[], timeWindow: 7 | 30 }) {
+  const days: string[] = [];
+  for (let i = timeWindow - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(d.toISOString().slice(0, 10));
+  }
+
+  const byDate = new Map(stats.map(s => [s.date, s]));
+  const values = days.map(date => {
+    const s = byDate.get(date);
+    if (!s || s.seen === 0) return 0;
+    return Math.round(((s.seen - s.hidden) / s.seen) * 100);
+  });
+
+  const hasData = values.some(v => v > 0);
+  if (!hasData) return <div style={{ fontSize: 12, color: '#9ca3af', padding: '24px 0' }}>No feed data yet — browse LinkedIn to collect data.</div>;
+
+  const W = 500, H = 100;
+  const pL = 36, pR = 8, pT = 8, pB = 24;
+  const cW = W - pL - pR;
+  const cH = H - pT - pB;
+  const maxY = Math.max(...values, 1);
+  const n = days.length;
+
+  const xOf = (i: number) => pL + (n > 1 ? (i / (n - 1)) : 0.5) * cW;
+  const yOf = (v: number) => pT + (1 - v / maxY) * cH;
+
+  const pts = values.map((v, i) => [xOf(i), yOf(v)] as [number, number]);
+  const linePts = pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+  const areaPts = [`${pL},${pT + cH}`, ...pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`), `${xOf(n - 1).toFixed(1)},${pT + cH}`].join(' ');
+
+  const xLabels = timeWindow === 7
+    ? days.map((d, i) => ({ i, label: d.slice(5) }))
+    : [0, 7, 14, 21, n - 1].map(i => ({ i, label: days[i]?.slice(5) ?? '' }));
+
+  const yTicks = [0, Math.round(maxY / 2), maxY];
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: 'block' }}>
+      {yTicks.map(v => (
+        <g key={v}>
+          <line x1={pL} y1={yOf(v)} x2={pL + cW} y2={yOf(v)} stroke="#f3f4f6" strokeWidth={1} />
+          <text x={pL - 4} y={yOf(v) + 4} fontSize={9} fill="#9ca3af" textAnchor="end">{v}%</text>
+        </g>
+      ))}
+      <line x1={pL} y1={pT} x2={pL} y2={pT + cH} stroke="#e5e7eb" strokeWidth={1} />
+      <line x1={pL} y1={pT + cH} x2={pL + cW} y2={pT + cH} stroke="#e5e7eb" strokeWidth={1} />
+      <polygon points={areaPts} fill="#0a66c2" opacity={0.08} />
+      <polyline points={linePts} fill="none" stroke="#0a66c2" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+      {xLabels.map(({ i, label }) => (
+        <text key={i} x={xOf(i).toFixed(1)} y={H - 4} fontSize={9} fill="#9ca3af" textAnchor="middle">{label}</text>
+      ))}
+    </svg>
+  );
+}
 
 function cutoffDate(days: number): string {
   const d = new Date();
@@ -106,17 +159,6 @@ function App() {
     ? ((botProfileCount / seenUnion.size) * 100).toFixed(1)
     : null;
 
-  // Signal breakdown uses ALL accounts (full history) — independent of time window
-  let aiLanguageCount = 0;
-  let botBehaviourCount = 0;
-  for (const acct of accounts) {
-    const keys = Object.keys(acct.signals).filter(k => (acct.signals[k] ?? 0) > 0);
-    if (keys.some(k => AI_LANGUAGE_SIGNALS.has(k))) aiLanguageCount++;
-    if (keys.some(k => !AI_LANGUAGE_SIGNALS.has(k))) botBehaviourCount++;
-  }
-  const base = accounts.length || 1;
-  const aiPct = Math.round((aiLanguageCount / base) * 100);
-  const botPct = Math.round((botBehaviourCount / base) * 100);
 
   return (
     <div style={s.page}>
@@ -137,40 +179,41 @@ function App() {
         <div style={s.statLabel}>Posts hidden — all time</div>
         <div style={s.statValue}>{totalHiddenAllTime}</div>
         <div style={s.statSub}>across {accounts.length} flagged accounts</div>
-        {recentPct !== null && (
-          <div style={s.statSub}>
-            {recentPct}% of posts flagged in last {timeWindow} days ({recentHidden} of {recentSeen})
-          </div>
-        )}
-        {profileBotRate !== null ? (
-          <div style={s.statSub}>
-            Profile bot rate: {profileBotRate}% ({botProfileCount} of {seenUnion.size} unique profiles in last {timeWindow} days)
-          </div>
-        ) : (
-          <div style={s.statSub}>
-            Profile bot rate: — (browse LinkedIn to collect profile data)
-          </div>
-        )}
+
+        <div style={{ marginTop: 20 }}>
+          <div style={s.metricLabel}>Posts flagged — last {timeWindow} days</div>
+          {recentPct !== null ? (
+            <div style={s.barRow}>
+              <div style={s.barTrack}>
+                <div style={{ ...s.barFill, ...s.barAI, width: `${recentPct}%` }} />
+              </div>
+              <span style={s.barCount}>{recentPct}% ({recentHidden} of {recentSeen})</span>
+            </div>
+          ) : (
+            <div style={s.statSub}>No post data yet — browse LinkedIn to collect data.</div>
+          )}
+        </div>
+
+        <div style={{ marginTop: 12 }}>
+          <div style={s.metricLabel}>Bot profiles seen — last {timeWindow} days</div>
+          {profileBotRate !== null ? (
+            <div style={s.barRow}>
+              <div style={s.barTrack}>
+                <div style={{ ...s.barFill, ...s.barBot, width: `${profileBotRate}%` }} />
+              </div>
+              <span style={s.barCount}>{profileBotRate}% ({botProfileCount} of {seenUnion.size})</span>
+            </div>
+          ) : (
+            <div style={s.statSub}>Browse LinkedIn to collect profile data.</div>
+          )}
+        </div>
       </div>
 
       <div style={s.card}>
-        <div style={s.statLabel}>Signal categories — all time ({accounts.length} accounts)</div>
-        <div style={s.barRow}>
-          <span style={s.barLabel}>AI language</span>
-          <div style={s.barTrack}>
-            <div style={{ ...s.barFill, ...s.barAI, width: `${aiPct}%` }} />
-          </div>
-          <span style={s.barCount}>{aiLanguageCount} ({aiPct}%)</span>
-        </div>
-        <div style={s.barRow}>
-          <span style={s.barLabel}>Bot behaviour</span>
-          <div style={s.barTrack}>
-            <div style={{ ...s.barFill, ...s.barBot, width: `${botPct}%` }} />
-          </div>
-          <span style={s.barCount}>{botBehaviourCount} ({botPct}%)</span>
-        </div>
-        <div style={s.categoryNote}>
-          % of all {accounts.length} flagged accounts. Accounts may trigger both categories.
+        <div style={s.statLabel}>Net AI voice posts in feed — last {timeWindow} days</div>
+        <div style={s.categoryNote}>Posts seen minus posts hidden by detector</div>
+        <div style={{ marginTop: 12 }}>
+          <NetPostsChart stats={stats} timeWindow={timeWindow} />
         </div>
       </div>
 
@@ -242,18 +285,17 @@ const s: Record<string, import('preact').JSX.CSSProperties> = {
   statLabel: { fontSize: 13, color: '#6b7280', marginBottom: 6 },
   statValue: { fontSize: 40, fontWeight: 700, color: '#0a66c2', lineHeight: 1.1 },
   statSub: { fontSize: 12, color: '#9ca3af', marginTop: 4 },
+  metricLabel: { fontSize: 12, color: '#6b7280', marginBottom: 6 },
   barRow: {
     display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8,
   },
-  barLabel: { fontSize: 12, width: 100, flexShrink: 0 },
   barTrack: {
     flex: 1, height: 12, background: '#f3f4f6', borderRadius: 6, overflow: 'hidden',
   },
   barFill: { height: '100%', borderRadius: 6, transition: 'width 0.3s' },
   barAI: { background: '#0a66c2' },
   barBot: { background: '#f59e0b' },
-  barCount: { fontSize: 12, width: 100, textAlign: 'right' as const, flexShrink: 0 },
-  categoryNote: { fontSize: 11, color: '#9ca3af', marginTop: 4 },
+  barCount: { fontSize: 12, width: 140, textAlign: 'right' as const, flexShrink: 0 },
   cardHeading: { fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 12 },
   errorMsg: { fontSize: 12, color: '#dc2626', marginBottom: 8 },
   actionBtn: {
