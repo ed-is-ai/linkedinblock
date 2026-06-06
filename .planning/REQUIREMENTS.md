@@ -59,7 +59,23 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| SELECTOR-01..10 | Phase 22 | Pending |
-| ADAPT-01..10 | Phase 23 | Pending |
-
-*(Per-ID phase mapping is finalized by the roadmapper.)*
+| SELECTOR-01 | Phase 22 | Pending |
+| SELECTOR-02 | Phase 22 | Pending |
+| SELECTOR-03 | Phase 22 | Pending |
+| SELECTOR-04 | Phase 22 | Pending |
+| SELECTOR-05 | Phase 22 | Pending |
+| SELECTOR-06 | Phase 22 | Pending |
+| SELECTOR-07 | Phase 22 | Pending |
+| SELECTOR-08 | Phase 22 | Pending |
+| SELECTOR-09 | Phase 22 | Pending |
+| SELECTOR-10 | Phase 22 | Pending |
+| ADAPT-01 | Phase 23 | Pending |
+| ADAPT-02 | Phase 23 | Pending |
+| ADAPT-03 | Phase 23 | Pending |
+| ADAPT-04 | Phase 23 | Pending |
+| ADAPT-05 | Phase 23 | Pending |
+| ADAPT-06 | Phase 23 | Pending |
+| ADAPT-07 | Phase 23 | Pending |
+| ADAPT-08 | Phase 23 | Pending |
+| ADAPT-09 | Phase 23 | Pending |
+| ADAPT-10 | Phase 23 | Pending |

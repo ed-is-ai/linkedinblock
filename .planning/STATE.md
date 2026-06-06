@@ -6,7 +6,7 @@ status: planning
 last_updated: "2026-06-06T22:10:35.426Z"
 last_activity: 2026-06-06
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -20,22 +20,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-06)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Milestone complete
+**Current focus:** Milestone v7.0 — Adaptive DOM Scraper (Phase 22 next)
 
 ---
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 22 — Externalize Selectors to Storage
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-06 — Milestone v7.0 started
+Status: Roadmap created, awaiting plan
+Last activity: 2026-06-06 — v7.0 roadmap created (Phases 22–23, 20 requirements mapped)
 
 ## Accumulated Context
 
 ### Roadmap Evolution
 
 - Phase 18.1 inserted after Phase 18: Dashboard Data Display (URGENT)
+- Phases 22–23 added: v7.0 Adaptive DOM Scraper
 
 ### Key Decisions
 
@@ -54,6 +55,8 @@ Last activity: 2026-06-06 — Milestone v7.0 started
 | Voice signal placement | Inserted after ai-vocab block (Step 3b), before engagement gate (Step 4) | Phase 17 |
 | Hook-story regex | `I was \w+ing` form required (not "I was in a meeting") to avoid false positives | Phase 17 |
 | Popup inline styles | All popup styling via inline style objects (styles record); no CSS class selectors | Phase 4 |
+| Selector runtime model | selectors.ts = seed/defaults only; SelectorRegistry = runtime source-of-truth; only SelectorRegistry writes selectors to storage | Phase 22 |
+| LLM call location (v7.0) | Anthropic fetch lives in service worker (background/index.ts); content script sends chrome.runtime.sendMessage — CORS blocks direct fetch from linkedin.com. LLMRederiver must follow the same SCORE_POST message pattern. | Phase 23 |
 
 ### Todos
 
@@ -68,5 +71,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-06-06
-**Last action:** v6.1 roadmap created — 1 phase (21), 2 requirements mapped (POPUP-04, POPUP-05)
-**Next action:** `/gsd-plan-phase 21`
+**Last action:** v7.0 roadmap created — 2 phases (22–23), 20 requirements mapped (SELECTOR-01..10, ADAPT-01..10)
+**Next action:** `/gsd-plan-phase 22`

@@ -15,7 +15,8 @@
 - ✅ **v4.0 Prompt Caching** — Phase 16 (shipped 2026-05-31)
 - ✅ **v5.0 Voice Pattern Detection** — Phase 17 (shipped 2026-05-31)
 - ✅ **v6.0 UX Polish + Block Management** — Phases 18–20 (shipped 2026-06-06)
-- 🚧 **v6.1 Popup UX Tidy-up** — Phase 21 (in progress)
+- ✅ **v6.1 Popup UX Tidy-up** — Phase 21 (shipped 2026-06-06)
+- 🚧 **v7.0 Adaptive DOM Scraper** — Phases 22–23 (in progress)
 
 ---
 
@@ -85,13 +86,21 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 </details>
 
----
-
-### 🚧 v6.1 Popup UX Tidy-up (In Progress)
-
-**Milestone Goal:** Surface the "View Dashboard" action at the top of the popup so it is immediately discoverable, rather than buried inside the Settings disclosure.
+<details>
+<summary>✅ v6.1 Popup UX Tidy-up (Phase 21) — SHIPPED 2026-06-06</summary>
 
 - [x] **Phase 21: Dashboard Button Reposition** - Move "View Dashboard" button from inside Settings to the popup header region; remove the in-settings copy (completed 2026-06-06)
+
+</details>
+
+---
+
+### 🚧 v7.0 Adaptive DOM Scraper (In Progress)
+
+**Milestone Goal:** Make LinkedIn scraping resilient to DOM/class churn — store selectors as a dynamic ranked candidate registry and add a self-healing adapter that detects breakage and re-derives working selectors automatically.
+
+- [ ] **Phase 22: Externalize Selectors to Storage** - Storage-backed ranked candidate registry seeded from selectors.ts; runtime resolution via SelectorRegistry; zero behavior change (Wave 1)
+- [ ] **Phase 23: Self-Healing Selector Adapter** - Breakage detection with 6 false-positive guards; heuristic re-derivation; LLM fallback on sanitized structural DOM; confidence-ranked candidates (Wave 2)
 
 ## Phase Details
 
@@ -165,6 +174,37 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 22: Externalize Selectors to Storage
+
+**Goal**: All selector lookups at runtime route through a new SelectorRegistry module backed by chrome.storage.local, seeded once from selectors.ts defaults, with versioned migration, 30-day TTL on adapted candidates, a reset-to-defaults escape hatch, a read-only health view, and cross-tab cache refresh — while the extension behaves identically to v6.1 from a user perspective
+**Depends on**: Phase 21
+**Requirements**: SELECTOR-01, SELECTOR-02, SELECTOR-03, SELECTOR-04, SELECTOR-05, SELECTOR-06, SELECTOR-07, SELECTOR-08, SELECTOR-09, SELECTOR-10
+**Success Criteria** (what must be TRUE):
+  1. Selectors are resolved from storage at runtime, not imported directly from selectors.ts — observer.ts and exclusions.ts contain no direct selector string imports
+  2. The extension behaves identically to v6.1 on a live LinkedIn feed: the same posts are hidden, the same accounts are flagged, and no new console errors appear (regression-safe)
+  3. A winning selector match rotates its candidate to position 0 in its list and the change persists across page reloads
+  4. Opening the popup or dashboard shows a read-only selector health view listing each target's active selector, source badge (seed/heuristic/llm), and a warning when a critical selector has not matched recently
+  5. Triggering "Reset to defaults" from the popup/dashboard restores all registry entries to the selectors.ts seed values and the health view reflects the change immediately
+**Plans**: TBD
+
+**UI hint**: yes
+
+### Phase 23: Self-Healing Selector Adapter
+
+**Goal**: The extension detects when selector scraping has broken on an active LinkedIn feed and automatically re-derives working candidates — first via structural heuristics, then via an LLM fallback — with strict validation before any candidate is written, rate-bounding on LLM calls, and full privacy protection
+**Depends on**: Phase 22
+**Requirements**: ADAPT-01, ADAPT-02, ADAPT-03, ADAPT-04, ADAPT-05, ADAPT-06, ADAPT-07, ADAPT-08, ADAPT-09, ADAPT-10
+**Success Criteria** (what must be TRUE):
+  1. Breakage detection does not trigger on a logged-out LinkedIn page, a skeleton-loader state, a non-feed URL, or a genuinely empty feed — all 6 false-positive guards (URL gate, container present, minimum session activity, no-posts placeholder, auth check, 30s rolling debounce) are verified by fixture tests
+  2. When total breakage is detected on an active feed, the heuristic re-deriver proposes candidates locally without any API call; no candidate is written to storage until it passes the full validation gate (minimum match count, author-link ratio, post-text presence, sponsored-contamination rejection, feed-context containment)
+  3. No post content, user names, headlines, photo URLs, or any PII leaves the browser during the LLM fallback — only a structural DOM skeleton with all text/href/src/aria-label stripped is sent to the Anthropic API
+  4. LLM fallback is only reached when heuristics produce no valid candidate and an API key is configured; it is rate-bounded by a single-flight latch, a minimum 5-minute cool-off persisted across service-worker restarts, and a per-day hard cap
+  5. The LLM response is strictly validated before use: selectors matching body/html/* are rejected, overly-broad selectors (outside a 2–50 match range) are rejected, and the selector string is never passed to eval
+**Plans**: TBD
+**Note — open decision (resolve at plan time):** LLM call location is now confirmed: the Anthropic fetch must live in the **service worker** (background/index.ts) because CORS blocks content-script direct fetches from linkedin.com. The existing LLMDetector pattern (content script sends SCORE_POST message → service worker fetches and responds) must be replicated for LLMRederiver. This is a code-verified fact from src/content/detector/llm.ts and src/background/index.ts.
+
+**UI hint**: yes
+
 ---
 
 ## Progress
@@ -188,7 +228,9 @@ Plans:
 | 15. URL Reference Updates | v3.0 | 1/1 | Complete | 2026-05-31 |
 | 16. Prompt Caching | v4.0 | 1/1 | Complete | 2026-05-31 |
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
-| 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
+| 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
-| 20. Batch Block | v6.0 | 1/1 | Complete    | 2026-06-06 |
-| 21. Dashboard Button Reposition | v6.1 | 1/1 | Complete    | 2026-06-06 |
+| 20. Batch Block | v6.0 | 1/1 | Complete | 2026-06-06 |
+| 21. Dashboard Button Reposition | v6.1 | 1/1 | Complete | 2026-06-06 |
+| 22. Externalize Selectors to Storage | v7.0 | 0/TBD | Not started | - |
+| 23. Self-Healing Selector Adapter | v7.0 | 0/TBD | Not started | - |
