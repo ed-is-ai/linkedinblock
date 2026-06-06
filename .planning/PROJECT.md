@@ -99,13 +99,25 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 
 (Blocked-accounts manager page deferred — see Future Requirements.)
 
-### Current Milestone: v6.1 Popup UX Tidy-up
+### Validated (v6.1 complete)
 
-**Goal:** Surface the "View Dashboard" action at the top of the popup so it's discoverable, instead of being hidden inside the Settings disclosure.
+- "📊 View Dashboard" button surfaced at the top of the popup, visible without opening Settings ✓
+- Settings disclosure retains only threshold + API key/mode + export/cleanse controls (dashboard link moved, not duplicated) ✓
+
+### Current Milestone: v7.0 Adaptive DOM Scraper
+
+**Goal:** Make LinkedIn scraping resilient to LinkedIn's frequent DOM/class churn — store selectors as a dynamic, ranked candidate registry, and add a module that detects when scraping breaks and re-derives working selectors automatically.
 
 **Target features:**
-- Move the "📊 View Dashboard" button out of the ⚙ Settings `<details>` to the top of the popup (near the title / pending header)
-- Settings disclosure retains only threshold + export/cleanse controls (no dashboard link)
+- Externalize all selector-registry entries into `chrome.storage.local` as ranked candidate lists with metadata (source, last-verified, last-matched), seeded from the current `selectors.ts` defaults
+- Scraper reads candidates from storage at runtime (priority order); read-only view of active selectors + source
+- Self-healing adapter: detect total breakage (zero post-card matches over an active-feed window), re-derive selectors via structural heuristics, fall back to LLM (Claude) only when heuristics fail; prepend winning candidate
+- Fixture-DOM automated tests proving read-from-storage, breakage detection, and heuristic recovery
+
+**Key context:**
+- `selectors.ts` is reframed from runtime source-of-truth to the **seed/defaults** source; storage becomes the runtime source-of-truth (reconciles CLAUDE.md constraint #1).
+- Manual selector editing is deferred to a Future Requirement (read-only this milestone).
+- LLM fallback reuses the existing Anthropic API-key/mode + prompt-caching infra (v4.0); DOM samples sanitized before any API call.
 
 ---
 
@@ -130,7 +142,8 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v4.0 | Prompt caching — reduce LLM API cost ~90% on cache hits | Complete 2026-05-31 |
 | v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Complete 2026-05-31 |
 | v6.0 | UX Polish + Block Management — popup interaction fixes, batch block, threshold-hiding bug | Complete 2026-06-06 |
-| v6.1 | Popup UX Tidy-up — surface the View Dashboard button at the top of the popup | In progress |
+| v6.1 | Popup UX Tidy-up — surface the View Dashboard button at the top of the popup | Complete 2026-06-06 |
+| v7.0 | Adaptive DOM Scraper — storage-backed candidate registry + self-healing selector adapter | In progress |
 
 ---
-*Last updated: 2026-06-06 — v6.1 started*
+*Last updated: 2026-06-06 — v7.0 started*

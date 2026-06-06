@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v6.1
-milestone_name: Popup UX Tidy-up
-status: milestone_complete
-last_updated: 2026-06-06T19:32:41.687Z
-last_activity: 2026-06-06 -- Phase 21 execution started
+milestone: v7.0
+milestone_name: Adaptive DOM Scraper
+status: planning
+last_updated: "2026-06-06T22:10:35.426Z"
+last_activity: 2026-06-06
 progress:
-  total_phases: 4
-  completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
-  percent: 75
-stopped_at: Milestone complete (Phase 21 was final phase)
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State — LinkedIn Blocker
@@ -27,12 +26,10 @@ See: .planning/PROJECT.md (updated 2026-06-06)
 
 ## Current Position
 
-Phase: 21
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-06-06
-
-Progress: 0/1 phases complete [░░░░░░░░░░] 0%
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-06-06 — Milestone v7.0 started
 
 ## Accumulated Context
 
