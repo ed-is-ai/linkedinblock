@@ -112,6 +112,16 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 **UI hint**: yes
 
+### Phase 18.1: Dashboard Data Display (INSERTED)
+
+**Goal:** The dashboard presents feed-health data visually — flagged-post rate and bot-profile rate render as horizontal bar rows, a "Net AI voice posts in feed" line chart shows the daily clean-feed percentage, and the redundant signal-categories card is removed — with a build-clean codebase and no throwaway artifacts.
+**Requirements**: DASH-DISPLAY-01
+**Depends on:** Phase 18
+**Plans:** 1 plan
+
+Plans:
+- [ ] 18.1-01-PLAN.md — Fix dashboard TS error, delete mockup file, human-verify visual display changes
+
 ### Phase 19: Blocked Accounts Page
 
 **Goal**: A dedicated extension page (blocked.html) lets the user view all locally-blocked accounts and unblock individual entries; the popup provides a direct entry point to that page
@@ -165,5 +175,6 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 | 16. Prompt Caching | v4.0 | 1/1 | Complete | 2026-05-31 |
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
+| 18.1. Dashboard Data Display | v6.0 | 0/1 | Planned | - |
 | 19. Blocked Accounts Page | v6.0 | 0/? | Not started | - |
 | 20. Batch Block | v6.0 | 0/? | Not started | - |
