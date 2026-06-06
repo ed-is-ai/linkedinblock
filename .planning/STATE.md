@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v7.0
 milestone_name: Adaptive DOM Scraper
-status: planning
-last_updated: "2026-06-06T22:10:35.426Z"
-last_activity: 2026-06-06
+status: Roadmap created, awaiting plan
+last_updated: "2026-06-06T22:50:22.845Z"
+last_activity: 2026-06-06 — v7.0 roadmap created (Phases 22–23, 20 requirements mapped)
 progress:
-  total_phases: 2
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 6
+  completed_phases: 4
+  total_plans: 6
+  completed_plans: 6
+  percent: 67
 ---
 
 # State — LinkedIn Blocker
