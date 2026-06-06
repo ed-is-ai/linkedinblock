@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v6.0
 milestone_name: ux-polish
 status: executing
-last_updated: "2026-06-06T17:48:41.776Z"
-last_activity: 2026-06-06 -- Phase 20 planning complete
+last_updated: "2026-06-06T17:53:05.702Z"
+last_activity: 2026-06-06 -- Phase 20 execution started
 progress:
   total_phases: 3
   completed_phases: 2
@@ -20,15 +20,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-05)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Phase 18 — popup-interaction-fixes
+**Current focus:** Phase 20 — batch-block
 
 ---
 
 ## Current Position
 
-Phase: 20 (batch-block) — NEXT
-Status: Ready to execute
-Last activity: 2026-06-06 -- Phase 20 planning complete
+Phase: 20 (batch-block) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 20
+Last activity: 2026-06-06 -- Phase 20 execution started
 
 Progress: [███░░░░░░░] 67%
 

@@ -83,7 +83,7 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 **Milestone Goal:** Fix the popup interaction model and fix the threshold-blocking bug so the extension correctly hides posts from accounts the user has already flagged above the detection threshold.
 
 - [x] **Phase 18: Popup Interaction Fixes** - Bug fix (threshold hiding) + popup click wiring (account name, block button state) (completed 2026-06-05)
-- [ ] **Phase 20: Batch Block** - "Block all above threshold" popup action with confirmation step
+- [x] **Phase 20: Batch Block** - "Block all above threshold" popup action with confirmation step (completed 2026-06-06)
 
 ## Phase Details
 
@@ -135,7 +135,7 @@ Plans:
 
 **Plans**: 1 planPlans:
 
-- [ ] 20-01-PLAN.md — Batch-block popup action: BatchBlockBar + handleBatchBlock single-set write + inline confirmation (BATCH-01/02/03)
+- [x] 20-01-PLAN.md — Batch-block popup action: BatchBlockBar + handleBatchBlock single-set write + inline confirmation (BATCH-01/02/03)
 
 **UI hint**: yes
 
@@ -164,4 +164,4 @@ Plans:
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
-| 20. Batch Block | v6.0 | 0/? | Not started | - |
+| 20. Batch Block | v6.0 | 1/1 | Complete   | 2026-06-06 |
