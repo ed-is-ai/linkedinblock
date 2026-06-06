@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v6.1
 milestone_name: Popup UX Tidy-up
-status: planning
-last_updated: "2026-06-06T18:48:20.614Z"
-last_activity: 2026-06-06 — Roadmap for v6.1 created (Phase 21)
+status: executing
+last_updated: "2026-06-06T19:12:30.927Z"
+last_activity: 2026-06-06 -- Phase 21 planning complete
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 5
+  total_plans: 6
   completed_plans: 5
   percent: 75
 ---
@@ -28,8 +28,8 @@ See: .planning/PROJECT.md (updated 2026-06-06)
 
 Phase: 21 — Dashboard Button Reposition
 Plan: —
-Status: Ready to plan
-Last activity: 2026-06-06 — Roadmap for v6.1 created (Phase 21)
+Status: Ready to execute
+Last activity: 2026-06-06 -- Phase 21 planning complete
 
 Progress: 0/1 phases complete [░░░░░░░░░░] 0%
 

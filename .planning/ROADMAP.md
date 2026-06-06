@@ -153,13 +153,16 @@ Plans:
 **Depends on**: Phase 20
 **Requirements**: POPUP-04, POPUP-05
 **Success Criteria** (what must be TRUE):
+
   1. Opening the popup shows a "View Dashboard" control in the header region, above the pending account list, without the user needing to open Settings
   2. Clicking that top-of-popup button opens dashboard/index.html in a new tab (same behavior as before, new position)
   3. Opening the Settings disclosure no longer contains a "View Dashboard" button — only the threshold slider, export controls, and API key section remain
   4. The change is confined to src/popup/index.tsx; no other files are modified
-**Plans**: 1 plan
-Plans:
+
+**Plans**: 1 planPlans:
+
 - [ ] 21-01-PLAN.md — Relocate View Dashboard button to popup header region; remove in-settings copy (POPUP-04, POPUP-05)
+
 **UI hint**: yes
 
 ---
