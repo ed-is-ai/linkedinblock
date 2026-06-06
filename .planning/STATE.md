@@ -70,6 +70,6 @@ None.
 
 ## Session Continuity
 
-**Last updated:** 2026-06-06
-**Last action:** Phase 22 context gathered — health view → dashboard (always visible); reset → inline confirm (Phase 20 pattern); full 4-file migration (observer, exclusions, comment-expand, profile signals) + SELECTOR-10 doc update; stale warning = feed-essential targets red on session miss, contextual targets neutral. CONTEXT.md committed.
+**Last updated:** 2026-06-07
+**Last action:** Phase 22 UI-SPEC approved (6/6 dimensions, 2 non-blocking flags). Locks dashboard SelectorView health panel + reset-to-defaults inline-confirm control: inline style objects only, 60/30/10 color (#fff/#f3f4f6/#0a66c2), #dc2626 for feed-essential stale rows, #9ca3af neutral for contextual misses, reuses BatchBlockBar confirm-strip pattern. CONTEXT.md + UI-SPEC.md committed.
 **Next action:** `/gsd-plan-phase 22`
