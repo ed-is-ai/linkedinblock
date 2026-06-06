@@ -32,5 +32,5 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| POPUP-04 | - | Pending |
-| POPUP-05 | - | Pending |
+| POPUP-04 | Phase 21 | Pending |
+| POPUP-05 | Phase 21 | Pending |

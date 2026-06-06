@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v6.1
 milestone_name: Popup UX Tidy-up
 status: planning
-last_updated: "2026-06-06T18:33:36.342Z"
+last_updated: "2026-06-06T00:00:00.000Z"
 last_activity: 2026-06-06
 progress:
-  total_phases: 0
+  total_phases: 1
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -17,19 +17,21 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-06-05)
+See: .planning/PROJECT.md (updated 2026-06-06)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** Milestone complete
+**Current focus:** v6.1 — move "View Dashboard" button to popup header region
 
 ---
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 21 — Dashboard Button Reposition
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-06 — Milestone v6.1 started
+Status: Ready to plan
+Last activity: 2026-06-06 — Roadmap for v6.1 created (Phase 21)
+
+Progress: 0/1 phases complete [░░░░░░░░░░] 0%
 
 ## Accumulated Context
 
@@ -53,6 +55,7 @@ Last activity: 2026-06-06 — Milestone v6.1 started
 | Prompt caching | System prompt only; anthropic-beta header; SYSTEM_PROMPT ≥ 1024 tokens | Phase 16 |
 | Voice signal placement | Inserted after ai-vocab block (Step 3b), before engagement gate (Step 4) | Phase 17 |
 | Hook-story regex | `I was \w+ing` form required (not "I was in a meeting") to avoid false positives | Phase 17 |
+| Popup inline styles | All popup styling via inline style objects (styles record); no CSS class selectors | Phase 4 |
 
 ### Todos
 
@@ -66,6 +69,6 @@ None.
 
 ## Session Continuity
 
-**Last updated:** 2026-06-05
-**Last action:** v6.0 roadmap created — 3 phases (18–20), 10 requirements mapped
-**Next action:** `/gsd-plan-phase 18`
+**Last updated:** 2026-06-06
+**Last action:** v6.1 roadmap created — 1 phase (21), 2 requirements mapped (POPUP-04, POPUP-05)
+**Next action:** `/gsd-plan-phase 21`

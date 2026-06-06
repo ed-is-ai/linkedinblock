@@ -14,7 +14,8 @@
 - ✅ **v3.0 Repo Rename Cleanup** — Phase 15 (shipped 2026-05-31)
 - ✅ **v4.0 Prompt Caching** — Phase 16 (shipped 2026-05-31)
 - ✅ **v5.0 Voice Pattern Detection** — Phase 17 (shipped 2026-05-31)
-- 🚧 **v6.0 UX Polish + Block Management** — Phases 18–20 (in progress)
+- ✅ **v6.0 UX Polish + Block Management** — Phases 18–20 (shipped 2026-06-06)
+- 🚧 **v6.1 Popup UX Tidy-up** — Phase 21 (in progress)
 
 ---
 
@@ -76,14 +77,21 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 </details>
 
----
-
-### 🚧 v6.0 UX Polish + Block Management (In Progress)
-
-**Milestone Goal:** Fix the popup interaction model and fix the threshold-blocking bug so the extension correctly hides posts from accounts the user has already flagged above the detection threshold.
+<details>
+<summary>✅ v6.0 UX Polish + Block Management (Phases 18–20) — SHIPPED 2026-06-06</summary>
 
 - [x] **Phase 18: Popup Interaction Fixes** - Bug fix (threshold hiding) + popup click wiring (account name, block button state) (completed 2026-06-05)
 - [x] **Phase 20: Batch Block** - "Block all above threshold" popup action with confirmation step (completed 2026-06-06)
+
+</details>
+
+---
+
+### 🚧 v6.1 Popup UX Tidy-up (In Progress)
+
+**Milestone Goal:** Surface the "View Dashboard" action at the top of the popup so it is immediately discoverable, rather than buried inside the Settings disclosure.
+
+- [ ] **Phase 21: Dashboard Button Reposition** - Move "View Dashboard" button from inside Settings to the popup header region; remove the in-settings copy
 
 ## Phase Details
 
@@ -139,6 +147,19 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 21: Dashboard Button Reposition
+
+**Goal**: The "View Dashboard" button is visible at the top of the popup without any interaction, making the dashboard immediately discoverable
+**Depends on**: Phase 20
+**Requirements**: POPUP-04, POPUP-05
+**Success Criteria** (what must be TRUE):
+  1. Opening the popup shows a "View Dashboard" control in the header region, above the pending account list, without the user needing to open Settings
+  2. Clicking that top-of-popup button opens dashboard/index.html in a new tab (same behavior as before, new position)
+  3. Opening the Settings disclosure no longer contains a "View Dashboard" button — only the threshold slider, export controls, and API key section remain
+  4. The change is confined to src/popup/index.tsx; no other files are modified
+**Plans**: TBD
+**UI hint**: yes
+
 ---
 
 ## Progress
@@ -165,3 +186,4 @@ Plans:
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
 | 20. Batch Block | v6.0 | 1/1 | Complete    | 2026-06-06 |
+| 21. Dashboard Button Reposition | v6.1 | 0/1 | Not started | - |
