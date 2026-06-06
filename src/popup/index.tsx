@@ -3,6 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import type { JSX } from 'preact';
 import type { FlaggedAccount, DailyStats, StoredPost } from '../shared/types';
 import AccountRow from './AccountRow';
+import BatchBlockBar from './BatchBlockBar';
 
 function App() {
   const [apiKey, setApiKey] = useState('');
@@ -65,6 +66,18 @@ function App() {
     }
   }
 
+  async function handleBatchBlock() {
+    const result = await chrome.storage.local.get(['flaggedAccounts']);
+    const flaggedAccounts = (result.flaggedAccounts ?? {}) as Record<string, FlaggedAccount>;
+    for (const account of batchQualifying) {
+      const existing = flaggedAccounts[account.authorId];
+      if (existing) {
+        flaggedAccounts[account.authorId] = { ...existing, status: 'blocked' as const };
+      }
+    }
+    await chrome.storage.local.set({ flaggedAccounts });
+  }
+
   async function handleDismiss(account: FlaggedAccount) {
     const result = await chrome.storage.local.get(['flaggedAccounts', 'dismissedAccounts']);
     const flaggedAccounts = (result.flaggedAccounts ?? {}) as Record<string, FlaggedAccount>;
@@ -113,6 +126,8 @@ function App() {
     .filter(a => a.status === 'pending')
     .sort((a, b) => b.peakScore - a.peakScore);
 
+  const batchQualifying = pending.filter(a => a.peakScore >= threshold);
+
   const blocked = accounts
     .filter(a => a.status === 'blocked')
     .sort((a, b) => b.peakScore - a.peakScore);
@@ -153,6 +168,13 @@ function App() {
           ))
         )}
       </div>
+
+      {batchQualifying.length > 0 && (
+        <BatchBlockBar
+          count={batchQualifying.length}
+          onBatchBlock={handleBatchBlock}
+        />
+      )}
 
       {blocked.length > 0 && (
         <div>
