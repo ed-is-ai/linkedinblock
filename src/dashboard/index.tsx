@@ -176,6 +176,14 @@ function App() {
       </div>
 
       <div style={s.card}>
+        <div style={s.statLabel}>Net AI voice posts in feed — last {timeWindow} days</div>
+        <div style={s.categoryNote}>Posts seen minus posts hidden by detector</div>
+        <div style={{ marginTop: 12 }}>
+          <NetPostsChart stats={stats} timeWindow={timeWindow} />
+        </div>
+      </div>
+
+      <div style={s.card}>
         <div style={s.statLabel}>Posts hidden — all time</div>
         <div style={s.statValue}>{totalHiddenAllTime}</div>
         <div style={s.statSub}>across {accounts.length} flagged accounts</div>
@@ -206,14 +214,6 @@ function App() {
           ) : (
             <div style={s.statSub}>Browse LinkedIn to collect profile data.</div>
           )}
-        </div>
-      </div>
-
-      <div style={s.card}>
-        <div style={s.statLabel}>Net AI voice posts in feed — last {timeWindow} days</div>
-        <div style={s.categoryNote}>Posts seen minus posts hidden by detector</div>
-        <div style={{ marginTop: 12 }}>
-          <NetPostsChart stats={stats} timeWindow={timeWindow} />
         </div>
       </div>
 
