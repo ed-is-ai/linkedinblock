@@ -91,7 +91,7 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 **Milestone Goal:** Surface the "View Dashboard" action at the top of the popup so it is immediately discoverable, rather than buried inside the Settings disclosure.
 
-- [ ] **Phase 21: Dashboard Button Reposition** - Move "View Dashboard" button from inside Settings to the popup header region; remove the in-settings copy
+- [x] **Phase 21: Dashboard Button Reposition** - Move "View Dashboard" button from inside Settings to the popup header region; remove the in-settings copy (completed 2026-06-06)
 
 ## Phase Details
 
@@ -161,7 +161,7 @@ Plans:
 
 **Plans**: 1 planPlans:
 
-- [ ] 21-01-PLAN.md — Relocate View Dashboard button to popup header region; remove in-settings copy (POPUP-04, POPUP-05)
+- [x] 21-01-PLAN.md — Relocate View Dashboard button to popup header region; remove in-settings copy (POPUP-04, POPUP-05)
 
 **UI hint**: yes
 
@@ -191,4 +191,4 @@ Plans:
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
 | 20. Batch Block | v6.0 | 1/1 | Complete    | 2026-06-06 |
-| 21. Dashboard Button Reposition | v6.1 | 0/1 | Not started | - |
+| 21. Dashboard Button Reposition | v6.1 | 1/1 | Complete   | 2026-06-06 |

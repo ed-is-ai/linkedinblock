@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v6.1
 milestone_name: Popup UX Tidy-up
 status: executing
-last_updated: "2026-06-06T19:12:30.927Z"
-last_activity: 2026-06-06 -- Phase 21 planning complete
+last_updated: "2026-06-06T19:14:06.397Z"
+last_activity: 2026-06-06 -- Phase 21 execution started
 progress:
   total_phases: 4
   completed_phases: 3
@@ -20,16 +20,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-06)
 
 **Core value:** AI-bot posts are hidden automatically before the user sees them, with a reviewable list of flagged accounts in the extension popup.
-**Current focus:** v6.1 — move "View Dashboard" button to popup header region
+**Current focus:** Phase 21 — dashboard-button-reposition
 
 ---
 
 ## Current Position
 
-Phase: 21 — Dashboard Button Reposition
-Plan: —
-Status: Ready to execute
-Last activity: 2026-06-06 -- Phase 21 planning complete
+Phase: 21 (dashboard-button-reposition) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 21
+Last activity: 2026-06-06 -- Phase 21 execution started
 
 Progress: 0/1 phases complete [░░░░░░░░░░] 0%
 
