@@ -120,7 +120,7 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 **Plans:** 1 plan
 Plans:
 
-- [ ] 18.1-01-PLAN.md — Fix dashboard TS error, delete mockup file, human-verify visual display changes
+- [x] 18.1-01-PLAN.md — Fix dashboard TS error, delete mockup file, human-verify visual display changes
 
 ### Phase 19: Blocked Accounts Page
 
@@ -175,6 +175,6 @@ Plans:
 | 16. Prompt Caching | v4.0 | 1/1 | Complete | 2026-05-31 |
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
-| 18.1. Dashboard Data Display | v6.0 | 0/1 | Planned | - |
+| 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
 | 19. Blocked Accounts Page | v6.0 | 0/? | Not started | - |
 | 20. Batch Block | v6.0 | 0/? | Not started | - |
