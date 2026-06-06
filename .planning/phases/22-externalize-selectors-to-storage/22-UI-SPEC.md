@@ -62,9 +62,11 @@ These are the only values in use; new components MUST NOT introduce off-scale va
 | xl | 32px | — (not needed this phase) |
 | 2xl | 48px | — (not needed this phase) |
 | 3xl | 64px | — (not needed this phase) |
+| exception | 6px | Inherited verbatim from existing actionBtn / AccountRow button + row padding patterns (src/popup/BatchBlockBar.tsx, AccountRow.tsx); used in all button padding (`padding: '6px 16px'`, `padding: '6px 12px'`) and table-row vertical padding (`padding: '6px 0'`). Not introduced by this phase — project-accepted deviation from the 4-grid. |
 
-Exceptions: none. All touch targets are non-interactive in the health table. The reset button
-uses existing `padding: '6px 16px'` from the actionBtn pattern — no deviation.
+The 6px exception is a pre-existing codebase convention. This phase replicates those values
+verbatim to stay visually consistent with Phase 20 controls. No new off-scale values are
+introduced beyond this inherited deviation.
 
 ---
 
@@ -267,10 +269,10 @@ the "Data management" card. Insertion point in `dashboard/index.tsx`:
 
 ```
 [heading + toggle]
-[Net AI voice posts card]       ← existing
-[Posts hidden / bar metrics card] ← existing
-[Selector Health card]          ← NEW (this phase)
-[Data management card]          ← existing (unchanged)
+[Net AI voice posts card]       <- existing
+[Posts hidden / bar metrics card] <- existing
+[Selector Health card]          <- NEW (this phase)
+[Data management card]          <- existing (unchanged)
 ```
 
 This placement keeps diagnostic/system panels grouped before the destructive data-management
