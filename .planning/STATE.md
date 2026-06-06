@@ -28,8 +28,8 @@ See: .planning/PROJECT.md (updated 2026-06-06)
 
 Phase: 22 — Externalize Selectors to Storage
 Plan: —
-Status: Roadmap created, awaiting plan
-Last activity: 2026-06-06 — v7.0 roadmap created (Phases 22–23, 20 requirements mapped)
+Status: Context gathered, awaiting plan
+Last activity: 2026-06-06 — Phase 22 context gathered (4 gray areas resolved)
 
 ## Accumulated Context
 
@@ -71,5 +71,5 @@ None.
 ## Session Continuity
 
 **Last updated:** 2026-06-06
-**Last action:** v7.0 roadmap created — 2 phases (22–23), 20 requirements mapped (SELECTOR-01..10, ADAPT-01..10)
+**Last action:** Phase 22 context gathered — health view → dashboard (always visible); reset → inline confirm (Phase 20 pattern); full 4-file migration (observer, exclusions, comment-expand, profile signals) + SELECTOR-10 doc update; stale warning = feed-essential targets red on session miss, contextual targets neutral. CONTEXT.md committed.
 **Next action:** `/gsd-plan-phase 22`
