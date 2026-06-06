@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v6.1
 milestone_name: Popup UX Tidy-up
 status: planning
-last_updated: "2026-06-06T00:00:00.000Z"
-last_activity: 2026-06-06
+last_updated: "2026-06-06T18:48:20.614Z"
+last_activity: 2026-06-06 — Roadmap for v6.1 created (Phase 21)
 progress:
-  total_phases: 1
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_phases: 4
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 5
+  percent: 75
 ---
 
 # State — LinkedIn Blocker
