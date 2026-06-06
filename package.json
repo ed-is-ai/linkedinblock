@@ -2,6 +2,7 @@
   "name": "linkedin-blocker",
   "version": "1.2.0",
   "description": "Chrome MV3 extension that hides AI-generated posts on LinkedIn.",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "scripts": {

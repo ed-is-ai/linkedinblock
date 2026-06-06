@@ -12,12 +12,6 @@
 - [x] **POPUP-02**: Block button marks the account as blocked in local storage (does not navigate to LinkedIn)
 - [x] **POPUP-03**: Block button is visually distinct (e.g. greyed out / labelled "Blocked") for accounts already in blocked storage
 
-## Blocked Accounts Page
-
-- [ ] **BLOCK-01**: A dedicated `blocked.html` extension page lists all locally-blocked accounts with name and block date
-- [ ] **BLOCK-02**: Each blocked account row has an Unblock action that removes the account from blocked storage and updates the list
-- [ ] **BLOCK-03**: The popup has a link or button that opens `blocked.html`
-
 ## Batch Block
 
 - [ ] **BATCH-01**: The popup has a "Block all above threshold" action
@@ -32,6 +26,7 @@
 
 ## Future Requirements (deferred)
 
+- Blocked accounts page (`blocked.html`) listing locally-blocked accounts with unblock action (BLOCK-01, BLOCK-02, BLOCK-03)
 - Opening LinkedIn deep-link from blocked accounts page to report accounts on LinkedIn
 - Syncing blocked list with LinkedIn's native block list
 
@@ -50,9 +45,9 @@
 | POPUP-01 | 18 | Satisfied |
 | POPUP-02 | 18 | Satisfied |
 | POPUP-03 | 18 | Satisfied |
-| BLOCK-01 | 19 | Pending |
-| BLOCK-02 | 19 | Pending |
-| BLOCK-03 | 19 | Pending |
+| BLOCK-01 | - | Deferred |
+| BLOCK-02 | - | Deferred |
+| BLOCK-03 | - | Deferred |
 | BATCH-01 | 20 | Pending |
 | BATCH-02 | 20 | Pending |
 | BATCH-03 | 20 | Pending |

@@ -26,17 +26,16 @@ See: .planning/PROJECT.md (updated 2026-06-05)
 
 ## Current Position
 
-Phase: 19 (blocked-accounts-page) — NEXT
-Status: Phase 18.1 complete — ready to plan Phase 19
+Phase: 20 (batch-block) — NEXT
+Status: Phase 18.1 complete — ready to plan Phase 20
 Last activity: 2026-06-06 -- Phase 18.1 complete
 
-Progress: [██░░░░░░░░] 40%
+Progress: [███░░░░░░░] 67%
 
 **v6.0 Phases:**
 
 - [x] Phase 18: Popup Interaction Fixes (BUG-01, POPUP-01, POPUP-02, POPUP-03) — completed 2026-06-05
 - [x] Phase 18.1: Dashboard Data Display (DASH-DISPLAY-01) — completed 2026-06-06
-- [ ] Phase 19: Blocked Accounts Page (BLOCK-01, BLOCK-02, BLOCK-03)
 - [ ] Phase 20: Batch Block (BATCH-01, BATCH-02, BATCH-03)
 
 ## Accumulated Context

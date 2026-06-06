@@ -80,10 +80,9 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 
 ### 🚧 v6.0 UX Polish + Block Management (In Progress)
 
-**Milestone Goal:** Fix the popup interaction model, add a blocked accounts manager page, and fix the threshold-blocking bug so the extension correctly hides posts from accounts the user has already flagged above the detection threshold.
+**Milestone Goal:** Fix the popup interaction model and fix the threshold-blocking bug so the extension correctly hides posts from accounts the user has already flagged above the detection threshold.
 
 - [x] **Phase 18: Popup Interaction Fixes** - Bug fix (threshold hiding) + popup click wiring (account name, block button state) (completed 2026-06-05)
-- [ ] **Phase 19: Blocked Accounts Page** - New blocked.html extension page listing and managing locally-blocked accounts
 - [ ] **Phase 20: Batch Block** - "Block all above threshold" popup action with confirmation step
 
 ## Phase Details
@@ -122,24 +121,10 @@ Plans:
 
 - [x] 18.1-01-PLAN.md — Fix dashboard TS error, delete mockup file, human-verify visual display changes
 
-### Phase 19: Blocked Accounts Page
-
-**Goal**: A dedicated extension page (blocked.html) lets the user view all locally-blocked accounts and unblock individual entries; the popup provides a direct entry point to that page
-**Depends on**: Phase 18
-**Requirements**: BLOCK-01, BLOCK-02, BLOCK-03
-**Success Criteria** (what must be TRUE):
-
-  1. Opening blocked.html (via chrome-extension:// URL or the popup link) displays a list of all accounts stored as blocked, showing each account's name and the date it was blocked
-  2. Clicking Unblock on a row removes that account from blocked storage and the row disappears from the list without a page reload
-  3. The popup contains a visible link or button that opens blocked.html
-
-**Plans**: TBD
-**UI hint**: yes
-
 ### Phase 20: Batch Block
 
 **Goal**: The user can mark all flagged accounts at or above the detection threshold as blocked in a single popup action, with a confirmation step showing the affected count before any change is committed
-**Depends on**: Phase 19
+**Depends on**: Phase 18.1
 **Requirements**: BATCH-01, BATCH-02, BATCH-03
 **Success Criteria** (what must be TRUE):
 
@@ -176,5 +161,4 @@ Plans:
 | 17. Voice Signal Functions | v5.0 | 4/4 | Complete | 2026-05-31 |
 | 18. Popup Interaction Fixes | v6.0 | 3/3 | Complete   | 2026-06-05 |
 | 18.1. Dashboard Data Display | v6.0 | 1/1 | Complete | 2026-06-06 |
-| 19. Blocked Accounts Page | v6.0 | 0/? | Not started | - |
 | 20. Batch Block | v6.0 | 0/? | Not started | - |
