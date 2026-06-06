@@ -133,9 +133,10 @@ Plans:
   3. Confirming the action writes all qualifying accounts to blocked storage; cancelling leaves storage unchanged
   4. After confirmation, previously-qualifying popup rows show the already-blocked visual state from Phase 18
 
-**Plans**: 1 plan
-Plans:
+**Plans**: 1 planPlans:
+
 - [ ] 20-01-PLAN.md — Batch-block popup action: BatchBlockBar + handleBatchBlock single-set write + inline confirmation (BATCH-01/02/03)
+
 **UI hint**: yes
 
 ---
