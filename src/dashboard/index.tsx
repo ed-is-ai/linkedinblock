@@ -47,7 +47,7 @@ function NetPostsChart({ stats, timeWindow }: { stats: DailyStats[], timeWindow:
       {yTicks.map(v => (
         <g key={v}>
           <line x1={pL} y1={yOf(v)} x2={pL + cW} y2={yOf(v)} stroke="#f3f4f6" strokeWidth={1} />
-          <text x={pL - 4} y={yOf(v) + 4} fontSize={9} fill="#9ca3af" textAnchor="end">{v}%</text>
+          <text x={pL - 8} y={v === 0 ? yOf(v) - 4 : yOf(v)} fontSize={9} fill="#9ca3af" textAnchor="end" dominantBaseline="middle">{v}%</text>
         </g>
       ))}
       <line x1={pL} y1={pT} x2={pL} y2={pT + cH} stroke="#e5e7eb" strokeWidth={1} />
