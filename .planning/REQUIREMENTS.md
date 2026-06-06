@@ -1,26 +1,15 @@
-# Requirements — Milestone v6.0: UX Polish + Block Management
+# Requirements — Milestone v6.1: Popup UX Tidy-up
 
 **Status:** Active
-**Milestone:** v6.0
-**Last updated:** 2026-06-05
+**Milestone:** v6.1
+**Last updated:** 2026-06-06
 
 ---
 
-## Popup Interaction
+## Popup Layout
 
-- [x] **POPUP-01**: Clicking an account name opens their LinkedIn profile URL in a new tab
-- [x] **POPUP-02**: Block button marks the account as blocked in local storage (does not navigate to LinkedIn)
-- [x] **POPUP-03**: Block button is visually distinct (e.g. greyed out / labelled "Blocked") for accounts already in blocked storage
-
-## Batch Block
-
-- [x] **BATCH-01**: The popup has a "Block all above threshold" action
-- [x] **BATCH-02**: The action marks all currently-flagged accounts whose peak score ≥ configured threshold as blocked in local storage
-- [x] **BATCH-03**: A confirmation step displays the affected account count before executing
-
-## Bug Fix
-
-- [x] **BUG-01**: Posts from accounts whose stored score meets or exceeds the block threshold are hidden in the LinkedIn feed (content script applies hiding on page load and on new posts detected via MutationObserver)
+- [ ] **POPUP-04**: The "View Dashboard" action appears at the top of the popup (in/near the title header, above the pending account list), so it is visible without opening Settings
+- [ ] **POPUP-05**: The "View Dashboard" button is removed from the ⚙ Settings disclosure (moved, not duplicated); Settings retains only the threshold slider and export/cleanse controls
 
 ---
 
@@ -32,6 +21,8 @@
 
 ## Out of Scope
 
+- Any change to dashboard behavior or content (this milestone only moves the launch button)
+- New storage, settings, or content-script changes
 - Programmatic block clicks on LinkedIn (ToS risk — existing constraint from Phase 5)
 - Backend or cloud sync of blocked accounts
 
@@ -41,13 +32,5 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| BUG-01 | 18 | Satisfied |
-| POPUP-01 | 18 | Satisfied |
-| POPUP-02 | 18 | Satisfied |
-| POPUP-03 | 18 | Satisfied |
-| BLOCK-01 | - | Deferred |
-| BLOCK-02 | - | Deferred |
-| BLOCK-03 | - | Deferred |
-| BATCH-01 | 20 | Complete |
-| BATCH-02 | 20 | Complete |
-| BATCH-03 | 20 | Complete |
+| POPUP-04 | - | Pending |
+| POPUP-05 | - | Pending |
