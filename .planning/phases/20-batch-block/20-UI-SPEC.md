@@ -30,7 +30,7 @@ created: 2026-06-06
 
 ## Spacing Scale
 
-Declared values extracted from existing popup styles (all multiples of 4):
+Declared values extracted from existing popup styles. All tokens are multiples of 4:
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -38,8 +38,8 @@ Declared values extracted from existing popup styles (all multiples of 4):
 | sm | 8px | Element spacing, button padding, gap in buttonRow |
 | md | 16px | Container padding (outer container uses 16px) |
 | lg | 24px | Not explicitly used in popup — section breaks via border |
-| compact-v | 6px | Vertical button padding (existing blockBtn, dismissBtn) |
-| compact-h | 10px | Horizontal button padding (existing blockBtn, dismissBtn) |
+
+> **Non-token implementation detail:** Existing button styles (`blockBtn`, `dismissBtn`, `saveBtn`, `clearBtn`, `dashboardLink`) use `padding: '6px 0'` or `padding: '6px 12px'`. The values 6px and 10px are inherited from the existing codebase and are not declared as design tokens. The BatchBlockBar buttons reuse these exact existing padding values to stay visually consistent — they are not part of the token scale.
 
 Exceptions:
 - Batch confirmation banner uses `8px` vertical padding and `0px` horizontal (full-width strip)
@@ -61,7 +61,9 @@ All values extracted from `src/popup/index.tsx` styles object and `src/popup/Acc
 **Batch-block specific:**
 - Confirmation message text: 12px, weight 400, color `#374151`
 - Confirmation account count: 12px, weight 600 (semibold), color `#0a66c2`
-- "Block all" button label: 13px, weight 500
+- "Block all now" button label: 13px, weight 600 (semibold)
+
+> **Weight rule:** This phase uses exactly 2 font weights — 400 (normal) and 600 (semibold). Weight 500 (medium) is not used. Any element that would previously have been assigned 500 uses 600 instead.
 
 ---
 
@@ -94,6 +96,8 @@ Accent (`#0a66c2`) reserved for:
 
 New elements introduced in Phase 20 only. All use inline style objects matching existing conventions.
 
+The BatchBlockBar button is the primary visual anchor of the popup when qualifying accounts are present — full-width treatment and accent border draw the eye before individual AccountRows.
+
 ### 1. BatchBlockBar
 
 A full-width strip rendered between the `listContainer` and the blocked section (or settings `<details>`). Visible only when `pending.filter(a => a.peakScore >= threshold).length > 0`.
@@ -104,7 +108,7 @@ A full-width strip rendered between the `listContainer` and the blocked section 
 ```
 - Full width button: `width: '100%'`, `padding: '6px 0'`
 - Background: `#ffffff`, border: `1px solid #0a66c2`
-- Text color: `#0a66c2`, fontSize: 13, fontWeight: 500
+- Text color: `#0a66c2`, fontSize: 13, fontWeight: 600 (semibold)
 - Border radius: 4px
 - Margin: `8px 0`
 - Label: `Block all above threshold (N)` where N is the qualifying account count
@@ -115,17 +119,17 @@ The button is replaced inline by a confirmation strip. No modal, no new page, no
 ```
 ┌─────────────────────────────────────────┐
 │  Block N accounts above threshold?       │
-│  [ Cancel ]              [ Confirm ]     │
+│  [ Keep pending ]        [ Block all now ]│
 └─────────────────────────────────────────┘
 ```
 - Strip container: `background: #f3f4f6`, `borderRadius: 4`, `padding: '8px'`, `marginBottom: 8`
 - Message line: fontSize 12, color `#374151`
   - "Block " — weight 400
-  - "{N} accounts" — weight 600, color `#0a66c2`
+  - "{N} accounts" — weight 600 (semibold), color `#0a66c2`
   - " above threshold?" — weight 400
 - Button row: `display: flex`, `justifyContent: 'space-between'`, `marginTop: 8`, `gap: 8`
-- Cancel button: matches existing `clearBtn` style — `padding: '6px 12px'`, `background: '#f3f4f6'`, `color: '#374151'`, `border: '1px solid #d1d5db'`, `borderRadius: 4`, `fontSize: 12`
-- Confirm button: matches existing `saveBtn` style — `flex: 1`, `padding: '6px 0'`, `background: '#0a66c2'`, `color: '#fff'`, `border: 'none'`, `borderRadius: 4`, `fontSize: 13`, `fontWeight: 500`
+- Keep pending button: matches existing `clearBtn` style — `padding: '6px 12px'`, `background: '#f3f4f6'`, `color: '#374151'`, `border: '1px solid #d1d5db'`, `borderRadius: 4`, `fontSize: 12`
+- Block all now button: matches existing `saveBtn` style — `flex: 1`, `padding: '6px 0'`, `background: '#0a66c2'`, `color: '#fff'`, `border: 'none'`, `borderRadius: 4`, `fontSize: 13`, `fontWeight: 600` (semibold)
 
 **Post-confirm state:**
 - BatchBlockBar is hidden (qualifying count drops to 0 as rows transition to blocked state)
@@ -134,12 +138,12 @@ The button is replaced inline by a confirmation strip. No modal, no new page, no
 ### 2. State transitions
 
 ```
-idle  ──click──▶  confirming  ──Cancel──▶  idle
-                              ──Confirm──▶  (batch write) ──▶ idle (bar hidden)
+idle  ──click──▶  confirming  ──Keep pending──▶  idle
+                              ──Block all now──▶  (batch write) ──▶ idle (bar hidden)
 ```
 
 - No animation required — instant state swap
-- Confirm is disabled while the async storage write is in flight (set `disabled={true}` and `cursor: 'not-allowed'` during write)
+- Block all now is disabled while the async storage write is in flight (set `disabled={true}` and `cursor: 'not-allowed'` during write)
 
 ---
 
@@ -149,8 +153,8 @@ idle  ──click──▶  confirming  ──Cancel──▶  idle
 |---------|--------|
 | BatchBlockBar visible condition | `pending.filter(a => a.peakScore >= threshold).length > 0` — evaluated on every render |
 | Click "Block all above threshold (N)" | Switch to confirming state; no storage write yet |
-| Click "Cancel" in confirming state | Return to idle state; storage unchanged |
-| Click "Confirm" | Write all qualifying accounts to blocked status in `flaggedAccounts`; single `chrome.storage.local.set` call; bar returns to idle and hides (count = 0) |
+| Click "Keep pending" in confirming state | Return to idle state; storage unchanged |
+| Click "Block all now" | Write all qualifying accounts to blocked status in `flaggedAccounts`; single `chrome.storage.local.set` call; bar returns to idle and hides (count = 0) |
 | Storage write failure | Log error to console; return to idle; bar re-renders with original count |
 | Individual row Block button | Unchanged from Phase 18 — operates independently of BatchBlockBar |
 
@@ -162,10 +166,10 @@ idle  ──click──▶  confirming  ──Cancel──▶  idle
 |---------|------|
 | Primary CTA (idle state) | `Block all above threshold (N)` — N is the integer count of qualifying pending accounts |
 | Confirmation heading | `Block {N} accounts above threshold?` — N rendered as `<strong>` in accent color |
-| Confirm button | `Confirm` |
-| Cancel button | `Cancel` |
+| Confirm button | `Block all now` |
+| Cancel button | `Keep pending` |
 | Zero-state (no qualifying accounts) | BatchBlockBar is hidden — no copy needed; existing empty state applies |
-| In-flight disabled state | `Confirm` (button remains labelled "Confirm", disabled attribute set, cursor not-allowed) |
+| In-flight disabled state | `Block all now` (button remains labelled "Block all now", disabled attribute set, cursor not-allowed) |
 
 **Copywriting rules:**
 - Never write "Block all" without the qualifying phrase "above threshold" — users must understand this is scoped to the threshold
@@ -198,8 +202,8 @@ BatchBlockBar is a sibling of `listContainer`, placed between the pending list a
 | Button role | Native `<button>` elements — no `<div onClick>` for interactive controls |
 | Focus order | BatchBlockBar appears after last pending row in DOM order — natural tab order is correct |
 | aria-label on CTA | `aria-label="Block all accounts above threshold"` (count is conveyed in visible text) |
-| aria-label on Confirm | `aria-label="Confirm batch block"` |
-| Disabled state | `disabled` attribute on Confirm button during write — browser handles focus and aria automatically |
+| aria-label on Block all now | `aria-label="Confirm batch block"` |
+| Disabled state | `disabled` attribute on Block all now button during write — browser handles focus and aria automatically |
 | Contrast | `#0a66c2` on `#ffffff` = 4.7:1 (passes WCAG AA for 13px text) |
 | Contrast (confirm strip) | `#0a66c2` on `#f3f4f6` = 4.5:1 (passes WCAG AA) |
 
@@ -226,7 +230,7 @@ No external component registries. All components are hand-authored inline style 
 | Button styles (saveBtn, clearBtn, blockBtn, dismissBtn) | `src/popup/index.tsx` + `src/popup/AccountRow.tsx` |
 | Color palette (#0a66c2, #f3f4f6, #e5e7eb, #6b7280, #374151, #9ca3af) | Both files |
 | Blocked state chip style | `src/popup/AccountRow.tsx` rowStyles.blockedChip |
-| Spacing values (4/6/8/10/16px) | Measured from existing padding/margin/gap values |
+| Spacing values (4/8/16px tokens; 6px/10px non-token inherited from existing buttons) | Measured from existing padding/margin/gap values |
 | Inline-expand pattern (no modals) | Phase context constraint + existing `<details>` and `blockedExpanded` toggle pattern |
 | isBlocked visual state | Phase 18 — `src/popup/AccountRow.tsx` isBlocked prop |
 
