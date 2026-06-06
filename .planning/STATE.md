@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v6.0
-milestone_name: ux-polish
-status: milestone_complete
-last_updated: 2026-06-06T18:20:21.079Z
-last_activity: 2026-06-06 -- Phase 20 execution started
+milestone: v6.1
+milestone_name: Popup UX Tidy-up
+status: planning
+last_updated: "2026-06-06T18:33:36.342Z"
+last_activity: 2026-06-06
 progress:
-  total_phases: 3
-  completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
-  percent: 67
-stopped_at: Milestone complete (Phase 20 was final phase)
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State — LinkedIn Blocker
@@ -27,18 +26,10 @@ See: .planning/PROJECT.md (updated 2026-06-05)
 
 ## Current Position
 
-Phase: 20
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-06-06
-
-Progress: [███░░░░░░░] 67%
-
-**v6.0 Phases:**
-
-- [x] Phase 18: Popup Interaction Fixes (BUG-01, POPUP-01, POPUP-02, POPUP-03) — completed 2026-06-05
-- [x] Phase 18.1: Dashboard Data Display (DASH-DISPLAY-01) — completed 2026-06-06
-- [ ] Phase 20: Batch Block (BATCH-01, BATCH-02, BATCH-03)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-06-06 — Milestone v6.1 started
 
 ## Accumulated Context
 

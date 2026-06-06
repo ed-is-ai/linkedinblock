@@ -89,16 +89,23 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 - `checkImpersonalVoice` signal (0–12 pts) — generic third-person authority framing detection ✓
 - All three wired into `HeuristicDetector`; AI voice post scores 61 (≥ 60 threshold) ✓
 
-### Current Milestone: v6.0 UX Polish + Block Management
+### Validated (v6.0 complete)
 
-**Goal:** Fix the popup interaction model, add a blocked accounts manager page, and fix the threshold-blocking bug.
+- Clicking an account name opens their LinkedIn profile in a new tab ✓
+- Block button marks the account blocked locally (no deep-link navigation) ✓
+- Blocked accounts are visually distinct (greyed name + "Blocked" chip) ✓
+- Batch block: one confirmed action marks all above-threshold flagged accounts as blocked ✓
+- Bug fix: posts from accounts at/above the block threshold are hidden in the feed ✓
+
+(Blocked-accounts manager page deferred — see Future Requirements.)
+
+### Current Milestone: v6.1 Popup UX Tidy-up
+
+**Goal:** Surface the "View Dashboard" action at the top of the popup so it's discoverable, instead of being hidden inside the Settings disclosure.
 
 **Target features:**
-- Block button marks account blocked locally (no deep-link navigation)
-- Clicking an account name opens their LinkedIn profile
-- Blocked accounts page (`blocked.html`) — list, review, and unblock
-- Batch block: one action to mark all above-threshold flagged accounts as blocked
-- Bug fix: posts from accounts above the block threshold are not being hidden
+- Move the "📊 View Dashboard" button out of the ⚙ Settings `<details>` to the top of the popup (near the title / pending header)
+- Settings disclosure retains only threshold + export/cleanse controls (no dashboard link)
 
 ---
 
@@ -122,7 +129,8 @@ Detection starts as rule-based heuristics. The architecture allows plugging in a
 | v3.0 | Repo rename cleanup — update all `linkedinblock` → `linkedinaivoiceblock` references | Complete 2026-05-31 |
 | v4.0 | Prompt caching — reduce LLM API cost ~90% on cache hits | Complete 2026-05-31 |
 | v5.0 | Voice pattern detection — hook-story, motivational, impersonal framing signals | Complete 2026-05-31 |
-| v6.0 | UX Polish + Block Management — popup interaction fixes, blocked accounts page, batch block, threshold-hiding bug | In progress |
+| v6.0 | UX Polish + Block Management — popup interaction fixes, batch block, threshold-hiding bug | Complete 2026-06-06 |
+| v6.1 | Popup UX Tidy-up — surface the View Dashboard button at the top of the popup | In progress |
 
 ---
-*Last updated: 2026-06-05 — v6.0 started*
+*Last updated: 2026-06-06 — v6.1 started*
