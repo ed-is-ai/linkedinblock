@@ -118,8 +118,8 @@ Three new signal functions: hook-story, motivational, impersonal framing. AI voi
 **Requirements**: DASH-DISPLAY-01
 **Depends on:** Phase 18
 **Plans:** 1 plan
-
 Plans:
+
 - [ ] 18.1-01-PLAN.md — Fix dashboard TS error, delete mockup file, human-verify visual display changes
 
 ### Phase 19: Blocked Accounts Page
