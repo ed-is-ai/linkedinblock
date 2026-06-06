@@ -30,7 +30,7 @@ Source: `src/popup/index.tsx` styles record (lines 265–387); Phase 4 decision 
 
 ## Spacing Scale
 
-Declared values (must be multiples of 4):
+### Conformant token scale (multiples of 4 only)
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -42,10 +42,16 @@ Declared values (must be multiples of 4):
 | 2xl | 48px | Not used in popup at this scale |
 | 3xl | 64px | Not used in popup at this scale |
 
-Exceptions:
-- `marginBottom: 10` on `dashboardLink` — non-multiple-of-4 from existing code; do NOT change during this phase (relocation only; no restyling)
-- `marginBottom: 8` on `header` — existing
-- `padding: '6px 0'` on `dashboardLink` — existing; do NOT change
+### Inherited debt — out of scope
+
+The following values exist in `styles.dashboardLink` in the current codebase and are **not multiples of 4**. They are carried forward unchanged because this phase is a relocation only — no restyling. Correcting these to the nearest conformant value (e.g. `8px` or `12px`) is deferred to a future style-pass phase.
+
+| Property | Current value | Status |
+|----------|---------------|--------|
+| `marginBottom` on `styles.dashboardLink` | 10px | Inherited — do NOT change this phase |
+| `padding` on `styles.dashboardLink` | `6px 0` | Inherited — do NOT change this phase |
+
+These values are excluded from the conformant token scale above. They do not represent approved spacing tokens; they represent pre-existing technical debt that is out of scope for Phase 21.
 
 Source: `src/popup/index.tsx` styles record (lines 265–387).
 
@@ -101,9 +107,9 @@ This phase moves — does not create — one existing button element.
 | Border | `1px solid #d1d5db` |
 | Border-radius | 4px |
 | Font size | 12px |
-| Padding | `6px 0` |
+| Padding | `6px 0` (inherited — see Inherited debt note above) |
 | Text alignment | center |
-| marginBottom | 10px |
+| marginBottom | 10px (inherited — see Inherited debt note above) |
 | Cursor | pointer |
 
 ### Deleted Element: In-Settings Dashboard Button
